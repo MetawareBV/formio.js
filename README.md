@@ -5,46 +5,11 @@
 
 This library is a plain JavaScript form renderer and SDK for Form.io. This allows you to render the JSON schema forms produced by Form.io and render those within your application using plain JavaScript, as well as provides an interface SDK to communicate to the Form.io API's. The benefits of this library include.
 
-<<<<<<< HEAD
- - Plain JavaScript implementation using ES6 and Modern practices (no jQuery, Angular, React, or any other framework dependency)
- - Renders a JSON schema as a webform and hooks up that form to the Form.io API's
- - Complete Form Builder which creates the JSON schema used to render the forms.
- - Nested components, layouts, Date/Time, Select, Input Masks, and many more included features
- - Full JavaScript API SDK library on top of Form.io
-
-## Important Updates
-
-### Namespace Change
-
-Starting with version 5.x, this library has moved to a new namespace. Please update your npm install command as follows:
-
-`npm install --save @formio/js`
-
-If you are upgrading from version 4.x, please ensure you update your imports and dependencies to use the new namespace @formio/js.
-
-### CDN update
-
-Our cdn endpoints also reflect the changes to the new namespace when retrieving versions >4.x:
-
-Example: 
-- https://cdn.form.io/js/formio.full.min.js
-- https://cdn.form.io/js/5.0.0/formio.full.min.js
-
-### Maintenance Mode for Version 4.x
-
-Version 4.x of this library is now in maintenance mode. This means:
-
- - No new features will be added to version 4.x.
- - Only bug fixes and security updates will be provided.
-
-For the latest features and improvements, we strongly recommend upgrading to version 5.x.
-=======
 - Plain JavaScript implementation using ES6 and Modern practices (no jQuery, Angular, React, or any other framework dependency)
 - Renders a JSON schema as a webform and hooks up that form to the Form.io API's
 - Complete Form Builder which creates the JSON schema used to render the forms.
 - Nested components, layouts, Date/Time, Select, Input Masks, and many more included features
 - Full JavaScript API SDK library on top of Form.io
->>>>>>> upstream/main
 
 ## Examples and Demonstration
 
