@@ -448,8 +448,29 @@ dialog.fixed {
     transform: rotate(360deg);
   }
 }
+select.form-control {
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+}
+
 .formio-form {
   position: relative;
+}
+
+.col-form-label.field-required:after {
+  content: none !important;
+}
+
+.col-md-0 {
+  flex: 0 0 0 !important;
+  max-width: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
+}
+
+.required-star {
+  color: #eb0000;
 }
 
 .formio-error-wrapper,
@@ -463,10 +484,10 @@ dialog.fixed {
   border-color: #f5c6cb;
 }
 .formio-error-wrapper .formio-errors .error {
-  color: #C20000;
+  color: #c20000;
 }
 .formio-error-wrapper .field-required:after {
-  color: #C20000;
+  color: #c20000;
 }
 
 .formio-warning-wrapper {
@@ -517,6 +538,10 @@ dialog.fixed {
   padding-right: 10px;
 }
 
+textarea.form-control {
+  height: auto;
+}
+
 .has-feedback .form-control[type=hidden] {
   padding-right: 0px;
 }
@@ -552,9 +577,10 @@ dialog.fixed {
   background-color: #fff;
 }
 
-.field-required:after, .tab-error::after {
+.field-required:after,
+.tab-error::after {
   content: " *";
-  color: #EB0000;
+  color: #eb0000;
 }
 
 .field-required:after {
@@ -716,7 +742,7 @@ td > .formio-form-group {
 }
 
 .formio-component-multiple .is-invalid {
-  border-color: #F04124;
+  border-color: #f04124;
 }
 
 .formio-component-multiple :not(.is-invalid) {
@@ -733,7 +759,7 @@ td > .formio-form-group {
 
 .signature-pad-footer {
   text-align: center;
-  color: #C3C3C3;
+  color: #c3c3c3;
 }
 
 .is-active.choices__list--dropdown {
@@ -756,6 +782,12 @@ td > .formio-form-group {
   overflow: hidden;
   padding-right: 25px;
   text-overflow: ellipsis;
+}
+
+/* Force remove (X) button visibility for single-select items with object values (custom dataSrc, no valueProperty). */
+.choices[data-type*=select-one] .choices__list--single .choices__item[data-deletable]:not([data-placeholder]) .choices__button {
+  display: block;
+  visibility: visible;
 }
 
 .choices__input {
@@ -825,12 +857,14 @@ td > .formio-form-group {
   border-color: #127abe;
 }
 
-.formio-component-file .fileSelector .glyphicon, .formio-component-file .fileSelector .fa {
+.formio-component-file .fileSelector .glyphicon,
+.formio-component-file .fileSelector .fa {
   font-size: 20px;
   margin-right: 5px;
 }
 
-[dir=rtl] .formio-component-file .fileSelector .fa, [dir=rtl] .formio-component-file .fileSelector .glyphicon {
+[dir=rtl] .formio-component-file .fileSelector .fa,
+[dir=rtl] .formio-component-file .fileSelector .glyphicon {
   margin-right: unset;
   margin-left: 5px;
 }
@@ -1250,7 +1284,7 @@ body.formio-dialog-open {
 .formio-component-selectboxes.formio-component-label-hidden.required .form-check-label:before {
   position: relative;
   content: "* ";
-  color: #EB0000;
+  color: #eb0000;
 }
 
 .formio-component-radio.formio-component-label-hidden.required .form-check .label-position-right.form-check-label:before,
@@ -1309,7 +1343,8 @@ body.formio-dialog-open {
 .formio-component-htmlelement {
   word-wrap: break-word;
 }
-.formio-component-htmlelement ol, .formio-component-htmlelement ul {
+.formio-component-htmlelement ol,
+.formio-component-htmlelement ul {
   margin-left: 10px;
 }
 
@@ -1374,12 +1409,19 @@ body.formio-dialog-open {
   transition: opacity 200ms linear, visibility 0ms 200ms;
 }
 
+.extra-remove-col {
+  width: 65px;
+  white-space: nowrap;
+}
+
 .formio-component-datagrid {
   overflow-x: auto;
   overflow-y: visible;
   height: auto;
 }
-.formio-component-datagrid .datagrid-table, .formio-component-datagrid .datagrid-table td, .formio-component-datagrid .datagrid-table th {
+.formio-component-datagrid .datagrid-table,
+.formio-component-datagrid .datagrid-table td,
+.formio-component-datagrid .datagrid-table th {
   border: 3px solid #ddd !important;
   padding: 10px;
 }
@@ -1428,19 +1470,87 @@ td .formio-component-modaledit .formio-modaledit-view-container {
   border-radius: 0;
 }
 
-.reset-margins html, .reset-margins body, .reset-margins div, .reset-margins span, .reset-margins applet, .reset-margins object, .reset-margins iframe,
-.reset-margins h1, .reset-margins h2, .reset-margins h3, .reset-margins h4, .reset-margins h5, .reset-margins h6, .reset-margins p, .reset-margins blockquote, .reset-margins pre,
-.reset-margins a, .reset-margins abbr, .reset-margins acronym, .reset-margins address, .reset-margins big, .reset-margins cite, .reset-margins code,
-.reset-margins del, .reset-margins dfn, .reset-margins em, .reset-margins img, .reset-margins ins, .reset-margins kbd, .reset-margins q, .reset-margins s, .reset-margins samp,
-.reset-margins small, .reset-margins strike, .reset-margins strong, .reset-margins sub, .reset-margins sup, .reset-margins tt, .reset-margins var,
-.reset-margins b, .reset-margins u, .reset-margins i, .reset-margins center,
-.reset-margins dl, .reset-margins dt, .reset-margins dd, .reset-margins ol, .reset-margins ul, .reset-margins li,
-.reset-margins fieldset, .reset-margins form, .reset-margins label, .reset-margins legend,
-.reset-margins table, .reset-margins caption, .reset-margins tbody, .reset-margins tfoot, .reset-margins thead, .reset-margins tr, .reset-margins th, .reset-margins td,
-.reset-margins article, .reset-margins aside, .reset-margins canvas, .reset-margins details, .reset-margins embed,
-.reset-margins figure, .reset-margins figcaption, .reset-margins footer, .reset-margins header, .reset-margins hgroup,
-.reset-margins menu, .reset-margins nav, .reset-margins output, .reset-margins ruby, .reset-margins section, .reset-margins summary,
-.reset-margins time, .reset-margins mark, .reset-margins audio, .reset-margins video {
+.reset-margins html,
+.reset-margins body,
+.reset-margins div,
+.reset-margins span,
+.reset-margins applet,
+.reset-margins object,
+.reset-margins iframe,
+.reset-margins h1,
+.reset-margins h2,
+.reset-margins h3,
+.reset-margins h4,
+.reset-margins h5,
+.reset-margins h6,
+.reset-margins p,
+.reset-margins blockquote,
+.reset-margins pre,
+.reset-margins a,
+.reset-margins abbr,
+.reset-margins acronym,
+.reset-margins address,
+.reset-margins big,
+.reset-margins cite,
+.reset-margins code,
+.reset-margins del,
+.reset-margins dfn,
+.reset-margins em,
+.reset-margins img,
+.reset-margins ins,
+.reset-margins kbd,
+.reset-margins q,
+.reset-margins s,
+.reset-margins samp,
+.reset-margins small,
+.reset-margins strike,
+.reset-margins strong,
+.reset-margins sub,
+.reset-margins sup,
+.reset-margins tt,
+.reset-margins var,
+.reset-margins b,
+.reset-margins u,
+.reset-margins i,
+.reset-margins center,
+.reset-margins dl,
+.reset-margins dt,
+.reset-margins dd,
+.reset-margins ol,
+.reset-margins ul,
+.reset-margins li,
+.reset-margins fieldset,
+.reset-margins form,
+.reset-margins label,
+.reset-margins legend,
+.reset-margins table,
+.reset-margins caption,
+.reset-margins tbody,
+.reset-margins tfoot,
+.reset-margins thead,
+.reset-margins tr,
+.reset-margins th,
+.reset-margins td,
+.reset-margins article,
+.reset-margins aside,
+.reset-margins canvas,
+.reset-margins details,
+.reset-margins embed,
+.reset-margins figure,
+.reset-margins figcaption,
+.reset-margins footer,
+.reset-margins header,
+.reset-margins hgroup,
+.reset-margins menu,
+.reset-margins nav,
+.reset-margins output,
+.reset-margins ruby,
+.reset-margins section,
+.reset-margins summary,
+.reset-margins time,
+.reset-margins mark,
+.reset-margins audio,
+.reset-margins video {
   margin: 0;
 }
 
@@ -1504,18 +1614,18 @@ td .formio-component-modaledit .formio-modaledit-view-container {
 .table > tbody > tr > td.cell-align-left {
   text-align: left;
 }
-.table > tbody > tr > td.cell-align-center {
-  text-align: center;
-}
 .table > tbody > tr > td.cell-align-center > div {
   margin-left: auto;
   margin-right: auto;
 }
-.table > tbody > tr > td.cell-align-right {
-  text-align: right;
+.table > tbody > tr > td.cell-align-center {
+  text-align: center;
 }
 .table > tbody > tr > td.cell-align-right > div {
   margin-left: auto;
+}
+.table > tbody > tr > td.cell-align-right {
+  text-align: right;
 }
 
 .table-responsive[ref=component] {
@@ -1528,7 +1638,8 @@ td .formio-component-modaledit .formio-modaledit-view-container {
 .formio-component-textarea .ck.ck-editor__editable .image .ck-progress-bar {
   height: 4px;
 }
-.formio-component-textarea .ck.ck-editor ul, .formio-component-textarea .ck.ck-editor ol {
+.formio-component-textarea .ck.ck-editor ul,
+.formio-component-textarea .ck.ck-editor ol {
   margin-left: 10px;
 }
 
@@ -1536,28 +1647,37 @@ div[data-oembed-url] {
   width: 100%;
 }
 
-.radio label.label-position-left, .checkbox label.label-position-left,
-.radio label.label-position-top, .checkbox label.label-position-top,
-.radio label.label-position-bottom, .checkbox label.label-position-bottom {
+.radio label.label-position-left,
+.checkbox label.label-position-left,
+.radio label.label-position-top,
+.checkbox label.label-position-top,
+.radio label.label-position-bottom,
+.checkbox label.label-position-bottom {
   padding-left: 0;
 }
 
-.radio label.label-position-top span, .checkbox label.label-position-top span,
-.radio label.label-position-bottom span, .checkbox label.label-position-bottom span {
+.radio label.label-position-top span,
+.checkbox label.label-position-top span,
+.radio label.label-position-bottom span,
+.checkbox label.label-position-bottom span {
   display: block;
 }
 
-.radio label.label-position-top input[type=radio], .checkbox label.label-position-top input[type=checkbox],
-.radio label.label-position-bottom input[type=radio], .checkbox label.label-position-bottom input[type=checkbox] {
+.radio label.label-position-top input[type=radio],
+.checkbox label.label-position-top input[type=checkbox],
+.radio label.label-position-bottom input[type=radio],
+.checkbox label.label-position-bottom input[type=checkbox] {
   position: relative;
   margin-left: 0;
 }
 
-.radio label.label-position-top input[type=radio], .checkbox label.label-position-top input[type=checkbox] {
+.radio label.label-position-top input[type=radio],
+.checkbox label.label-position-top input[type=checkbox] {
   margin-top: 4px;
 }
 
-.radio label.label-position-bottom input[type=radio], .checkbox label.label-position-bottom input[type=checkbox] {
+.radio label.label-position-bottom input[type=radio],
+.checkbox label.label-position-bottom input[type=checkbox] {
   margin-bottom: 8px;
 }
 
@@ -1639,22 +1759,34 @@ div[data-oembed-url] {
 }
 
 /* ckeditor5-image/theme/imagestyle.css */
-.formio-component-content .image-style-side:not(.image_resized), .formio-component-content .image-style-align-left:not(.image_resized), .formio-component-content .image-style-align-center:not(.image_resized), .formio-component-content .image-style-align-right:not(.image_resized) {
+.formio-component-content .image-style-side:not(.image_resized),
+.formio-component-content .image-style-align-left:not(.image_resized),
+.formio-component-content .image-style-align-center:not(.image_resized),
+.formio-component-content .image-style-align-right:not(.image_resized) {
   max-width: 50%;
 }
 
 /* ckeditor5-image/theme/imagestyle.css */
-.formio-component-content .image-style-side:not(.image_resized), .formio-component-content .image-style-align-left:not(.image_resized), .formio-component-content .image-style-align-center:not(.image_resized), .formio-component-content .image-style-align-right:not(.image_resized) {
+.formio-component-content .image-style-side:not(.image_resized),
+.formio-component-content .image-style-align-left:not(.image_resized),
+.formio-component-content .image-style-align-center:not(.image_resized),
+.formio-component-content .image-style-align-right:not(.image_resized) {
   max-width: 50%;
 }
 
 /* ckeditor5-image/theme/imagestyle.css */
-.formio-component-content .image-style-side:not(.image_resized), .formio-component-content .image-style-align-left:not(.image_resized), .formio-component-content .image-style-align-center:not(.image_resized), .formio-component-content .image-style-align-right:not(.image_resized) {
+.formio-component-content .image-style-side:not(.image_resized),
+.formio-component-content .image-style-align-left:not(.image_resized),
+.formio-component-content .image-style-align-center:not(.image_resized),
+.formio-component-content .image-style-align-right:not(.image_resized) {
   max-width: 50%;
 }
 
 /* ckeditor5-image/theme/imagestyle.css */
-.formio-component-content .image-style-side:not(.image_resized), .formio-component-content .image-style-align-left:not(.image_resized), .formio-component-content .image-style-align-center:not(.image_resized), .formio-component-content .image-style-align-right:not(.image_resized) {
+.formio-component-content .image-style-side:not(.image_resized),
+.formio-component-content .image-style-align-left:not(.image_resized),
+.formio-component-content .image-style-align-center:not(.image_resized),
+.formio-component-content .image-style-align-right:not(.image_resized) {
   max-width: 50%;
 }
 
@@ -1811,7 +1943,8 @@ div[data-oembed-url] {
   border: 1px double #b3b3b3;
   table-layout: fixed;
 }
-.formio-editor-read-only-content figure.table table th, .formio-editor-read-only-content figure.table table td {
+.formio-editor-read-only-content figure.table table th,
+.formio-editor-read-only-content figure.table table td {
   min-width: 2em;
   padding: 0.4em;
   border: 1px solid #bfbfbf;
@@ -1829,12 +1962,12 @@ div[data-oembed-url] {
 }
 .formio-form > div > nav > ul.pagination .page-link {
   cursor: pointer;
-  color: #1C74D9;
+  color: #1c74d9;
 }
 .formio-form > div > nav > ul.pagination .page-item.active .page-link {
   color: #fff;
-  background-color: #1C74D9;
-  border-color: #1C74D9;
+  background-color: #1c74d9;
+  border-color: #1c74d9;
 }
 
 .classic-pagination {
@@ -1890,10 +2023,12 @@ div[data-oembed-url] {
   background: #fbe8aa;
 }
 
-.classic-pagination-page.complete .progress-bar, .classic-pagination-page.complete .classic-pagination-progress-bar {
+.classic-pagination-page.complete .progress-bar,
+.classic-pagination-page.complete .classic-pagination-progress-bar {
   width: 100%;
 }
-.classic-pagination-page.active .progress-bar, .classic-pagination-page.active .classic-pagination-progress-bar {
+.classic-pagination-page.active .progress-bar,
+.classic-pagination-page.active .classic-pagination-progress-bar {
   width: 50%;
 }
 .classic-pagination-page.disabled .classic-pagination-dot {
@@ -1903,17 +2038,21 @@ div[data-oembed-url] {
   opacity: 0;
 }
 
-.classic-pagination-page:first-child .progress, .classic-pagination-page:first-child .classic-pagination-progress {
+.classic-pagination-page:first-child .progress,
+.classic-pagination-page:first-child .classic-pagination-progress {
   left: 50%;
   width: 50%;
 }
-.classic-pagination-page:first-child.active .progress-bar, .classic-pagination-page:first-child.active .classic-pagination-progress-bar {
+.classic-pagination-page:first-child.active .progress-bar,
+.classic-pagination-page:first-child.active .classic-pagination-progress-bar {
   width: 0%;
 }
-.classic-pagination-page:last-child .progress, .classic-pagination-page:last-child .classic-pagination-progress {
+.classic-pagination-page:last-child .progress,
+.classic-pagination-page:last-child .classic-pagination-progress {
   width: 50%;
 }
-.classic-pagination-page:last-child.active .progress-bar, .classic-pagination-page:last-child.active .classic-pagination-progress-bar {
+.classic-pagination-page:last-child.active .progress-bar,
+.classic-pagination-page:last-child.active .classic-pagination-progress-bar {
   width: 100%;
 }
 
@@ -2034,7 +2173,9 @@ div[data-oembed-url] {
   font-weight: normal;
 }
 
-.ace_editor, .ace_editor div, .ace_editor span {
+.ace_editor,
+.ace_editor div,
+.ace_editor span {
   font-family: "Monaco", "Menlo", "Ubuntu Mono", "Droid Sans Mono", "Consolas", monospace !important;
 }
 
@@ -2055,6 +2196,10 @@ span[role=link] {
 .justify-center {
   display: flex;
   justify-content: center;
+}
+
+.formio-form-pdf {
+  position: relative;
 }
 .formbuilder {
   position: relative;
