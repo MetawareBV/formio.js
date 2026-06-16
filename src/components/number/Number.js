@@ -1,22 +1,30 @@
 import { createNumberMask } from '@formio/text-mask-addons';
-import { conformToMask,maskInput } from '@formio/vanilla-text-mask';
+import { conformToMask, maskInput } from '@formio/vanilla-text-mask';
 import _ from 'lodash';
 import Input from '../_classes/input/Input';
-import { getNumberSeparators, getNumberDecimalLimit, componentValueTypes, getComponentSavedTypes } from '../../utils/utils';
+import {
+  getNumberSeparators,
+  getNumberDecimalLimit,
+  componentValueTypes,
+  getComponentSavedTypes,
+} from '../../utils';
 
 export default class NumberComponent extends Input {
   static schema(...extend) {
-    return Input.schema({
-      type: 'number',
-      label: 'Number',
-      key: 'number',
-      validate: {
-        min: '',
-        max: '',
-        step: 'any',
-        integer: ''
-      }
-    }, ...extend);
+    return Input.schema(
+      {
+        type: 'number',
+        label: 'Number',
+        key: 'number',
+        validate: {
+          min: '',
+          max: '',
+          step: 'any',
+          integer: '',
+        },
+      },
+      ...extend,
+    );
   }
 
   static get builderInfo() {
@@ -26,7 +34,7 @@ export default class NumberComponent extends Input {
       group: 'basic',
       documentation: '/userguide/form-building/form-components#number',
       weight: 30,
-      schema: NumberComponent.schema()
+      schema: NumberComponent.schema(),
     };
   }
 
@@ -37,23 +45,34 @@ export default class NumberComponent extends Input {
   static get conditionOperatorsSettings() {
     return {
       ...super.conditionOperatorsSettings,
-      operators: [...super.conditionOperatorsSettings.operators, 'lessThan', 'greaterThan', 'lessThanOrEqual','greaterThanOrEqual'],
+      operators: [
+        ...super.conditionOperatorsSettings.operators,
+        'lessThan',
+        'greaterThan',
+        'lessThanOrEqual',
+        'greaterThanOrEqual',
+      ],
       valueComponent(classComp) {
-        return { ... classComp, type: 'number' };
-      }
+        return { ...classComp, type: 'number' };
+      },
     };
   }
 
   static savedValueTypes(schema) {
     schema = schema || {};
-    return getComponentSavedTypes(schema) || [componentValueTypes.number];
+    return (
+      getComponentSavedTypes(schema) || [
+        componentValueTypes.number,
+      ]
+    );
   }
 
- constructor(...args) {
+  constructor(...args) {
     super(...args);
 
     const separators = getNumberSeparators(this.options.language || navigator.language);
 
+<<<<<<< HEAD
     this.decimalSeparator = this.options.decimalSeparator = this.component.decimalSymbol || this.options.decimalSeparator
       || this.options.properties?.decimalSeparator
       || separators.decimalSeparator;
@@ -64,6 +83,29 @@ export default class NumberComponent extends Input {
     else {
       if (this.component.thousandsSeparator || this.options.properties?.thousandsSeparator || this.options.thousandsSeparator){
         console.warn(this.t('noDelimiterSet'));
+=======
+    this.decimalSeparator = this.options.decimalSeparator =
+      this.component.decimalSymbol ||
+      this.options.decimalSeparator ||
+      this.options.properties?.decimalSeparator ||
+      separators.decimalSeparator;
+
+    if (this.component.delimiter) {
+      this.delimiter =
+        this.component.thousandsSeparator ||
+        this.options.properties?.thousandsSeparator ||
+        this.options.thousandsSeparator ||
+        separators.delimiter;
+    } else {
+      if (
+        this.component.thousandsSeparator ||
+        this.options.properties?.thousandsSeparator ||
+        this.options.thousandsSeparator
+      ) {
+        console.warn(
+          'In order for thousands separator to work properly, you must set the delimiter to true in the component json',
+        );
+>>>>>>> upstream/main
       }
       this.delimiter = '';
     }
@@ -103,23 +145,41 @@ export default class NumberComponent extends Input {
 
   get defaultValue() {
     let defaultValue = super.defaultValue;
+<<<<<<< HEAD
     if (typeof defaultValue === 'string'){
       // Default value may be a string or have custom thousands separators or decimal symbols, so we need to call
       // parseNumber on it
       defaultValue = this.parseNumber(defaultValue);
     }
+=======
+    if (typeof defaultValue === 'string' && defaultValue) {
+      // Default value may be a string or have custom thousands separators or decimal symbols, so we need to call
+      // parseNumber on it
+      defaultValue = this.parseNumber(defaultValue);
+
+      // If default value does not contain valid value that could be parsed to number, set it to null to prevent errors
+      if (_.isNaN(defaultValue)) {
+        defaultValue = null;
+      }
+    }
+
+>>>>>>> upstream/main
     if (!defaultValue && this.component.defaultValue === 0) {
       defaultValue = this.component.defaultValue;
     }
 
     if (!this.component.multiple && _.isArray(defaultValue)) {
-      defaultValue = !defaultValue[0] &&  defaultValue[0] !== 0 ? null :  defaultValue[0];
+      defaultValue = !defaultValue[0] && defaultValue[0] !== 0 ? null : defaultValue[0];
     }
     return defaultValue;
   }
 
   isDecimalAllowed() {
-    return _.get(this.component, 'allowDecimal', !(this.component.validate && this.component.validate.integer));
+    return _.get(
+      this.component,
+      'allowDecimal',
+      !(this.component.validate && this.component.validate.integer),
+    );
   }
 
   /**
@@ -134,10 +194,28 @@ export default class NumberComponent extends Input {
 
     if (this.component.validate && this.component.validate.integer) {
       return parseInt(value, 10);
-    }
-    else {
+    } else {
       return parseFloat(value);
     }
+  }
+
+  normalizeValue(value, flags = {}, emptyValue = this.emptyValue) {
+    if (typeof value === 'string') {
+      const result = this.parseNumber(value);
+      value = _.isNaN(result) ? this.emptyValue : result;
+    }
+    if (this.component?.multiple && Array.isArray(value)) {
+      const normilizedValues = value.map((val) => {
+        if (typeof val === 'string') {
+          const result = this.parseNumber(val);
+          return _.isNaN(result) ? this.emptyValue : result;
+        }
+        return val
+      });
+
+      value = normilizedValues;
+    }
+    return super.normalizeValue(value, flags, emptyValue);
   }
 
   setInputMask(input) {
@@ -157,8 +235,7 @@ export default class NumberComponent extends Input {
     const info = super.inputInfo;
     if (this.component.mask) {
       info.attr.type = 'password';
-    }
-    else {
+    } else {
       info.attr.type = 'text';
     }
     info.attr.inputmode = this.isDecimalAllowed() ? 'decimal' : 'numeric';
@@ -203,13 +280,21 @@ export default class NumberComponent extends Input {
         // if decimal limit is 3, 1.23e5 will be converted to 1.230e+5
         // if decimal limit is not set, 1.23e5 will be converted to 1.23000000000000000000e+5
         value = parseFloat(input);
+<<<<<<< HEAD
         value = value.toExponential(this.decimalLimit); 
+=======
+        value = value.toExponential(this.decimalLimit);
+>>>>>>> upstream/main
       } else {
         value = parseFloat(input);
         value = !_.isNaN(value) ? String(value).replace('.', this.decimalSeparator) : null;
       }
+<<<<<<< HEAD
     }
     else {
+=======
+    } else {
+>>>>>>> upstream/main
       value = null;
     }
 
@@ -219,8 +304,7 @@ export default class NumberComponent extends Input {
   formatValue(value) {
     if (this.component.requireDecimal && value && !value.includes(this.decimalSeparator)) {
       return `${value}${this.decimalSeparator}${_.repeat('0', this.decimalLimit)}`;
-    }
-    else if (this.component.requireDecimal && value && value.includes(this.decimalSeparator)) {
+    } else if (this.component.requireDecimal && value && value.includes(this.decimalSeparator)) {
       return `${value}${_.repeat('0', this.decimalLimit - value.split(this.decimalSeparator)[1].length)}`;
     }
 
@@ -238,7 +322,7 @@ export default class NumberComponent extends Input {
   getMaskedValue(value) {
     value = value === null ? '0' : value.toString();
 
-    if (value.includes('.') && '.'!== this.decimalSeparator) {
+    if (value.includes('.') && '.' !== this.decimalSeparator) {
       value = value.replace('.', this.decimalSeparator);
     }
 

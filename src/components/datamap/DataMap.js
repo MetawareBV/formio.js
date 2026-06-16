@@ -3,29 +3,35 @@ import DataGridComponent from '../datagrid/DataGrid';
 import _ from 'lodash';
 import EventEmitter from 'eventemitter3';
 import { componentValueTypes, getComponentSavedTypes, uniqueKey } from '../../utils/utils';
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/main
 export default class DataMapComponent extends DataGridComponent {
   static schema(...extend) {
-    return Component.schema({
-      label: 'Data Map',
-      key: 'dataMap',
-      type: 'datamap',
-      clearOnHide: true,
-      addAnother: 'Add Another',
-      disableAddingRemovingRows: false,
-      keyBeforeValue: true,
-      valueComponent: {
-        type: 'textfield',
-        key: 'value',
-        label: 'Value',
-        input: true
+    return Component.schema(
+      {
+        label: 'Data Map',
+        key: 'dataMap',
+        type: 'datamap',
+        clearOnHide: true,
+        addAnother: 'Add Another',
+        disableAddingRemovingRows: false,
+        keyBeforeValue: true,
+        valueComponent: {
+          type: 'textfield',
+          key: 'value',
+          label: 'Value',
+          input: true,
+        },
+        input: true,
+        validate: {
+          maxLength: 0,
+          minLength: 0,
+        },
       },
-      input: true,
-      validate: {
-        maxLength: 0,
-        minLength: 0
-      }
-    }, ...extend);
+      ...extend,
+    );
   }
 
   static get builderInfo() {
@@ -36,20 +42,24 @@ export default class DataMapComponent extends DataGridComponent {
       documentation: '/userguide/form-building/data-components#data-map',
       showPreview: false,
       weight: 20,
-      schema: DataMapComponent.schema()
+      schema: DataMapComponent.schema(),
     };
   }
 
   get schema() {
     const schema = super.schema;
-    if (this.components && (this.components.length > 0)) {
+    if (this.components && this.components.length > 0) {
       schema.valueComponent = this.components[this.components.length - 1].schema;
     }
     return _.omit(schema, 'components');
   }
 
   static savedValueTypes(schema) {
-    return getComponentSavedTypes(schema) || [componentValueTypes.object];
+    return (
+      getComponentSavedTypes(schema) || [
+        componentValueTypes.object,
+      ]
+    );
   }
 
   constructor(component, options, data) {
@@ -63,7 +73,7 @@ export default class DataMapComponent extends DataGridComponent {
     this.createRows();
     this.visibleColumns = {
       key: true,
-      [this.valueKey]: true
+      [this.valueKey]: true,
     };
     this.component.valueComponent.hideLabel = true;
   }
@@ -113,7 +123,9 @@ export default class DataMapComponent extends DataGridComponent {
   getRowValues() {
     const dataValue = this.dataValue;
     if (this.builderMode) {
-      return [dataValue];
+      return [
+        dataValue,
+      ];
     }
     if (_.isEmpty(dataValue)) {
       return [];
@@ -124,7 +136,7 @@ export default class DataMapComponent extends DataGridComponent {
 
   getComponentsContainer() {
     if (this.builderMode) {
-      return this.getComponents().map(comp => comp.component);
+      return this.getComponents().map((comp) => comp.component);
     }
 
     return super.getComponentsContainer();
@@ -132,15 +144,15 @@ export default class DataMapComponent extends DataGridComponent {
 
   get iteratableRows() {
     return this.rows.map((row) => {
-      return Object.keys(row).map(key => ({
-        components: row[key],
-        data: row[key].dataValue,
-    }));
+      return {
+        components: row,
+        data: _.mapValues(row, (comp) => comp.dataValue)
+      }
     });
   }
 
   componentContext(component) {
-    return this.iteratableRows[component.row].find(comp => comp.components.key === component.key).data;
+    return this.iteratableRows[component.row].data[component.key];
   }
 
   hasHeader() {
@@ -148,10 +160,12 @@ export default class DataMapComponent extends DataGridComponent {
   }
 
   hasRemoveButtons() {
-    return !this.component.disableAddingRemovingRows &&
+    return (
+      !this.component.disableAddingRemovingRows &&
       !this.options.readOnly &&
       !this.disabled &&
-      this.fullMode;
+      this.fullMode
+    );
   }
 
   getColumns() {
@@ -159,9 +173,15 @@ export default class DataMapComponent extends DataGridComponent {
     const valueSchema = Object.assign({}, this.component.valueComponent);
     keySchema.hideLabel = false;
     valueSchema.hideLabel = false;
-    return this.component.keyBeforeValue ?
-      [keySchema, valueSchema] :
-      [valueSchema, keySchema];
+    return this.component.keyBeforeValue
+      ? [
+          keySchema,
+          valueSchema,
+        ]
+      : [
+          valueSchema,
+          keySchema,
+        ];
   }
 
   getRowKey(rowIndex) {
@@ -180,10 +200,9 @@ export default class DataMapComponent extends DataGridComponent {
     _.each(this.rows[rowIndex], (component) => {
       if (component.key === '__key') {
         component.data = {
-          '__key': Object.keys(rowData)[rowIndex],
+          __key: Object.keys(rowData)[rowIndex],
         };
-      }
-      else {
+      } else {
         component.data = rowData;
       }
     });
@@ -191,25 +210,29 @@ export default class DataMapComponent extends DataGridComponent {
 
   getValueAsString(value, options) {
     if (options?.email && this.visible && !this.skipInEmail && _.isObject(value)) {
-      let result = (`
+      let result = `
         <table border="1" style="width:100%">
           <tbody>
-      `);
+      `;
 
       result = Object.keys(value).reduce((result, key) => {
-        result += (`
+        const componentInstance = this.findComponentInstance(key);
+        const viewValue = componentInstance 
+          ? componentInstance.getView(value[key], options)
+          : this.getView(value[key], options);
+        result += `
           <tr>
             <th style="padding: 5px 10px;">${key}</th>
-            <td style="width:100%;padding:5px 10px;">${this.getView(value[key], options)}</td>
+            <td style="width:100%;padding:5px 10px;">${viewValue}</td>
           </tr>
-        `);
+        `;
         return result;
       }, result);
 
-      result += (`
+      result += `
           </tbody>
         </table>
-      `);
+      `;
 
       return result;
     }
@@ -224,27 +247,44 @@ export default class DataMapComponent extends DataGridComponent {
     return typeof value === 'object' ? '[Complex Data]' : value;
   }
 
+  findComponentInstance(key) {
+    if (!this.rows || !this.rows.length) {
+      return null;
+    }
+    // Find component instance with matching key
+    const foundRow = _.find(this.rows, (row) => row?.[this.valueKey]?.key === key);
+    if (foundRow?.[this.valueKey]) {
+      return foundRow[this.valueKey];
+    }
+    // If not found by key, return the first row's value component as fallback
+    return this.rows[0]?.[this.valueKey] || null;
+  }
+
   getDataValueAsTable(value, options) {
-    let result = (`
+    let result = `
       <table border="1" style="width:100%">
         <tbody>
-    `);
+    `;
 
     if (this.visible && _.isObject(value)) {
       Object.keys(value).forEach((key) => {
-        result += (`
+        const componentInstance = this.findComponentInstance(key);
+        const viewValue = componentInstance 
+          ? componentInstance.getView(value[key], options)
+          : this.getView(value[key], options);
+        result += `
           <tr>
             <th style="padding: 5px 10px;">${key}</th>
-            <td style="width:100%;padding:5px 10px;">${this.getView(value[key], options)}</td>
+            <td style="width:100%;padding:5px 10px;">${viewValue}</td>
           </tr>
-        `);
+        `;
       });
     }
 
-    result += (`
+    result += `
         </tbody>
       </table>
-    `);
+    `;
 
     return result;
   }
@@ -261,7 +301,9 @@ export default class DataMapComponent extends DataGridComponent {
     options.rowIndex = rowIndex;
 
     const components = {};
-    components['__key'] = this.createComponent(this.keySchema, options, { __key: this.builderMode ? this.defaultRowKey : key });
+    components['__key'] = this.createComponent(this.keySchema, options, {
+      __key: this.builderMode ? this.defaultRowKey : key,
+    });
     components['__key'].on('componentChange', (event) => {
       const dataValue = this.dataValue;
       const newKey = uniqueKey(dataValue, event.value);
@@ -275,9 +317,24 @@ export default class DataMapComponent extends DataGridComponent {
     const valueComponent = _.clone(this.component.valueComponent);
     valueComponent.key = key;
 
-    const componentOptions = this.options;
+    const componentOptions = _.clone(this.options);
     componentOptions.row = options.row;
-    components[this.valueKey] = this.createComponent(valueComponent, componentOptions, this.dataValue);
+    if (this.submissionTimezone) {
+      componentOptions.submissionTimezone = this.submissionTimezone;
+      if (valueComponent.type === 'datetime') {
+        valueComponent.widget = { ...valueComponent.widget, submissionTimezone: this.submissionTimezone };
+      }
+    }
+    
+    const createdComponent = this.createComponent(valueComponent, componentOptions, this.dataValue);
+    
+    // Ensure submissionTimezone is set on datetime component instance's widget and options
+    if (createdComponent?.type === 'datetime' && this.submissionTimezone) {
+      createdComponent.component.widget = { ...createdComponent.component.widget, submissionTimezone: this.submissionTimezone };
+      createdComponent.options.submissionTimezone = this.submissionTimezone;
+    }
+    
+    components[this.valueKey] = createdComponent;
     return components;
   }
 
@@ -305,7 +362,7 @@ export default class DataMapComponent extends DataGridComponent {
     const index = this.rows.length;
     this.rows[index] = this.createRowComponents(this.dataValue, index);
     this.redraw();
-    this.triggerChange();
+    this.triggerChange?.();
   }
 
   removeRow(index) {
@@ -315,7 +372,7 @@ export default class DataMapComponent extends DataGridComponent {
     }
     this.rows.splice(index, 1);
     this.redraw();
-    this.triggerChange();
+    this.triggerChange?.();
   }
 
   setValue(value, flags = {}) {
@@ -327,7 +384,7 @@ export default class DataMapComponent extends DataGridComponent {
   }
 
   checkColumns() {
-    if (this.builderMode || (!this.dataValue || !Object.keys(this.dataValue).length)) {
+    if (this.builderMode || !this.dataValue || !Object.keys(this.dataValue).length) {
       return { rebuild: false, show: true };
     }
 

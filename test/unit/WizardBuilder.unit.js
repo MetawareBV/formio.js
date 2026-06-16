@@ -3,7 +3,11 @@ import assert from 'power-assert';
 import Harness from '../harness';
 import simpleWizard from '../forms/simpleWizard';
 import formWithFormController from '../forms/formWithFormController';
+<<<<<<< HEAD
 import { fastCloneDeep } from '../../src/utils/utils';
+=======
+import { fastCloneDeep } from '../../src/utils';
+>>>>>>> upstream/main
 
 describe('WizardBuilder tests', function() {
   let formBuilderElement, formBuilder;

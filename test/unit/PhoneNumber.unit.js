@@ -5,7 +5,10 @@ import { Formio } from '../../src/Formio';
 
 import {
   comp1,
+<<<<<<< HEAD
   comp2
+=======
+>>>>>>> upstream/main
 } from './fixtures/phonenumber';
 
 describe('PhoneNumber Component', () => {

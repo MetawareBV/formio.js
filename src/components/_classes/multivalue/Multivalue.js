@@ -64,7 +64,11 @@ export default class Multivalue extends Field {
   }
 
   get addAnother() {
+<<<<<<< HEAD
     return this.t(this.component.addAnother || 'addAnother');
+=======
+    return this.t(this.component.addAnother || 'Add Another');
+>>>>>>> upstream/main
   }
 
   /**

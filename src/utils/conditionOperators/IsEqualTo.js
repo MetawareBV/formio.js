@@ -1,16 +1,39 @@
 import ConditionOperator from './ConditionOperator';
 import _ from 'lodash';
+<<<<<<< HEAD
 import { compareSelectResourceWithObjectTypeValues, isSelectResourceWithObjectValue } from '../utils';
+=======
+>>>>>>> upstream/main
 
 export default class IsEqualTo extends ConditionOperator {
-    static get operatorKey() {
-        return 'isEqual';
+  static get operatorKey() {
+    return 'isEqual';
+  }
+
+  static get displayedName() {
+    return 'Is Equal To';
+  }
+
+  execute({ value, comparedValue}) {
+    if (
+      (value || value === false) &&
+      comparedValue &&
+      typeof value !== typeof comparedValue &&
+      _.isString(comparedValue)
+    ) {
+      try {
+        comparedValue = JSON.parse(comparedValue);
+      } catch (ignoreErr) {
+        // ignore
+      }
     }
 
-    static get displayedName() {
-        return 'Is Equal To';
+    //special check for select boxes
+    if (_.isObject(value) && comparedValue && _.isBoolean(value[comparedValue])) {
+      return value[comparedValue];
     }
 
+<<<<<<< HEAD
     execute({ value, comparedValue, instance, path }) {
         if ((value || value === false) && comparedValue && typeof value !== typeof comparedValue && _.isString(comparedValue)) {
             try {
@@ -39,4 +62,14 @@ export default class IsEqualTo extends ConditionOperator {
 
         return  _.isEqual(value, comparedValue);
     }
+=======
+    const valuesAreObjects =
+      typeof comparedValue === 'object' &&
+      comparedValue !== null &&
+      typeof value === 'object' &&
+      value !== null;
+
+    return valuesAreObjects ? _.isMatch(value, comparedValue) : _.isEqual(comparedValue, value);
+  }
+>>>>>>> upstream/main
 }

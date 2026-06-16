@@ -1,8 +1,13 @@
 'use strict';
 import _ from 'lodash';
 import Field from '../field/Field';
+<<<<<<< HEAD
 import Components from '../../Components';''
 import { getComponentPaths, getRandomComponentId, componentMatches, getBestMatch, getStringFromComponentPath } from '../../../utils/utils';
+=======
+import Components from '../../Components';
+import FormioUtils from '../../../utils/index';
+>>>>>>> upstream/main
 import { process as processAsync, processSync } from '@formio/core/process';
 
 /**
@@ -11,10 +16,13 @@ import { process as processAsync, processSync } from '@formio/core/process';
  */
 export default class NestedComponent extends Field {
   static schema(...extend) {
-    return Field.schema({
-      tree: false,
-      lazyLoad: false,
-    }, ...extend);
+    return Field.schema(
+      {
+        tree: false,
+        lazyLoad: false,
+      },
+      ...extend,
+    );
   }
 
   constructor(component, options, data) {
@@ -95,6 +103,7 @@ export default class NestedComponent extends Field {
       let visible;
       if (component.hasCondition()) {
         visible = !component.conditionallyHidden();
+<<<<<<< HEAD
       }
       else {
         visible = !component.component.hidden;
@@ -104,6 +113,15 @@ export default class NestedComponent extends Field {
         component.visible = true;
       }
       else if (forceHide || !isVisible || !visible ) {
+=======
+      } else {
+        visible = !component.component.hidden;
+      }
+
+      if (forceShow || visible) {
+        component.visible = true;
+      } else if (forceHide || !isVisible || !visible) {
+>>>>>>> upstream/main
         component.visible = false;
       }
       // If hiding a nested component, clear all errors below.
@@ -132,7 +150,7 @@ export default class NestedComponent extends Field {
    */
   set parentVisible(value) {
     super.parentVisible = value;
-    this.components.forEach(component => component.parentVisible = this.visible);
+    this.components.forEach((component) => (component.parentVisible = this.visible));
   }
 
   /**
@@ -157,7 +175,7 @@ export default class NestedComponent extends Field {
    */
   set disabled(disabled) {
     super.disabled = disabled;
-    this.components.forEach((component) => component.parentDisabled = disabled);
+    this.components.forEach((component) => (component.parentDisabled = disabled));
   }
 
   /**
@@ -167,7 +185,7 @@ export default class NestedComponent extends Field {
    */
   set parentDisabled(value) {
     super.parentDisabled = value;
-    this.components.forEach(component => {
+    this.components.forEach((component) => {
       component.parentDisabled = this.disabled;
     });
   }
@@ -185,7 +203,7 @@ export default class NestedComponent extends Field {
    * @returns {Promise<Array>} - The promise that resolves when all components are ready.
    */
   get ready() {
-    return Promise.all(this.getComponents().map(component => component.ready));
+    return Promise.all(this.getComponents().map((component) => component.ready));
   }
 
   /**
@@ -203,7 +221,7 @@ export default class NestedComponent extends Field {
    */
   set currentForm(instance) {
     super.currentForm = instance;
-    this.getComponents().forEach(component => {
+    this.getComponents().forEach((component) => {
       component.currentForm = instance;
     });
   }
@@ -223,9 +241,15 @@ export default class NestedComponent extends Field {
    */
   set rowIndex(value) {
     this._rowIndex = value;
+<<<<<<< HEAD
     this.paths = getComponentPaths(this.component, this.parent?.component, {
       ...(this.parent?.paths || {}),
       ...{ dataIndex: value }
+=======
+    this.paths = FormioUtils.getComponentPaths(this.component, this.parent?.component, {
+      ...(this.parent?.paths || {}),
+      ...{ dataIndex: value },
+>>>>>>> upstream/main
     });
     this.eachComponent((component) => {
       component.rowIndex = value;
@@ -341,7 +365,18 @@ export default class NestedComponent extends Field {
    * @returns {any} - The component that is located.
    */
   getComponent(path) {
+<<<<<<< HEAD
     path = getStringFromComponentPath(path);
+=======
+    // If the component is found
+    if (!this.componentMatches) {
+      this.componentMatches = {};
+    }
+    if (this.componentMatches && this.componentMatches[path]) {
+      return this.componentMatches[path];
+    }
+    path = FormioUtils.getStringFromComponentPath(path);
+>>>>>>> upstream/main
     const matches = {
       path: undefined,
       fullPath: undefined,
@@ -353,6 +388,7 @@ export default class NestedComponent extends Field {
     };
     this.everyComponent((component) => {
       // All searches are relative to this component so replace this path from the child paths.
+<<<<<<< HEAD
       componentMatches(component.component, {
         path: component.paths?.path?.replace(new RegExp(`^${this.paths?.path}\\.?`), ''),
         fullPath: component.paths?.fullPath?.replace(new RegExp(`^${this.paths?.fullPath}\\.?`), ''),
@@ -366,6 +402,44 @@ export default class NestedComponent extends Field {
       });
     });
     return getBestMatch(matches)?.instance;
+=======
+      FormioUtils.componentMatches(
+        component.component,
+        {
+          path: component.paths?.path?.replace(new RegExp(`^${this.paths?.path}\\.?`), ''),
+          fullPath: component.paths?.fullPath?.replace(
+            new RegExp(`^${this.paths?.fullPath}\\.?`),
+            '',
+          ),
+          localPath: component.paths?.localPath?.replace(
+            new RegExp(`^${this.paths?.localPath}\\.?`),
+            '',
+          ),
+          fullLocalPath: component.paths?.fullLocalPath?.replace(
+            new RegExp(`^${this.paths?.fullLocalPath}\\.?`),
+            '',
+          ),
+          dataPath: component.paths?.dataPath?.replace(
+            new RegExp(`^${this.paths?.dataPath}\\.?`),
+            '',
+          ),
+          localDataPath: component.paths?.localDataPath?.replace(
+            new RegExp(`^${this.paths?.localDataPath}\\.?`),
+            '',
+          ),
+        },
+        path,
+        this.rowIndex,
+        matches,
+        (type, match) => {
+          match.instance = component;
+          return match;
+        },
+      );
+    });
+    this.componentMatches[path] = FormioUtils.getBestMatch(matches)?.instance;
+    return this.componentMatches[path];
+>>>>>>> upstream/main
   }
 
   /**
@@ -397,7 +471,7 @@ export default class NestedComponent extends Field {
    * @param {import('@formio/core').Component} [replacedComp] - The component to replace with this component.
    * @returns {any} - The created component instance.
    */
-   createComponent(component, options, data, before, replacedComp) {
+  createComponent(component, options, data, before, replacedComp) {
     if (!component) {
       return;
     }
@@ -409,7 +483,7 @@ export default class NestedComponent extends Field {
     options.localRoot = this.localRoot;
     options.skipInit = true;
     if (!(options.display === 'pdf' && this.builderMode)) {
-      component.id = getRandomComponentId();
+      component.id = FormioUtils.getRandomComponentId();
     }
     const comp = Components.create(component, options, data, true);
     comp.init();
@@ -421,21 +495,17 @@ export default class NestedComponent extends Field {
       const index = _.findIndex(this.components, { id: before.id });
       if (index !== -1) {
         this.components.splice(index, 0, comp);
-      }
-      else {
+      } else {
         this.components.push(comp);
       }
-    }
-    else if (replacedComp) {
+    } else if (replacedComp) {
       const index = _.findIndex(this.components, { id: replacedComp.id });
       if (index !== -1) {
         this.components[index] = comp;
-      }
-      else {
+      } else {
         this.components.push(comp);
       }
-    }
-    else {
+    } else {
       this.components.push(comp);
     }
     return comp;
@@ -474,8 +544,7 @@ export default class NestedComponent extends Field {
     options = options || this.options;
     if (options.components) {
       this.components = options.components;
-    }
-    else {
+    } else {
       const components = this.hook('addComponents', this.componentComponents, this) || [];
       components.forEach((component) => this.addComponent(component, data));
     }
@@ -508,16 +577,19 @@ export default class NestedComponent extends Field {
 
   render(children) {
     // If already rendering, don't re-render.
-    return super.render(children || this.renderTemplate(this.templateName, {
-      children: !this.visible ? '' : this.renderComponents(),
-      nestedKey: this.nestedKey,
-      collapsed: this.options.pdf ? false : this.collapsed,
-    }));
+    return super.render(
+      children ||
+        this.renderTemplate(this.templateName, {
+          children: !this.visible ? '' : this.renderComponents(),
+          nestedKey: this.nestedKey,
+          collapsed: this.options.pdf ? false : this.collapsed,
+        }),
+    );
   }
 
   renderComponents(components) {
     components = components || this.getComponents();
-    const children = components.map(component => component.render());
+    const children = components.map((component) => component.render());
     return this.renderTemplate('components', {
       children,
       components,
@@ -571,7 +643,7 @@ export default class NestedComponent extends Field {
     _.each(components, (comp) => {
       comp.attachLogic();
 
-      if  (_.isFunction(comp.attachComponentsLogic)) {
+      if (_.isFunction(comp.attachComponentsLogic)) {
         comp.attachComponentsLogic();
       }
     });
@@ -583,13 +655,12 @@ export default class NestedComponent extends Field {
 
     element = this.hook('attachComponents', element, components, container, this);
     if (!element) {
-      // Return a non-resolving promise.
-      return (new Promise(() => {}));
+      return Promise.resolve();
     }
 
     let index = 0;
     const promises = [];
-    Array.prototype.slice.call(element.children).forEach(child => {
+    Array.prototype.slice.call(element.children).forEach((child) => {
       if (!child.getAttribute('data-noattach') && components[index]) {
         promises.push(components[index].attach(child));
         index++;
@@ -608,9 +679,11 @@ export default class NestedComponent extends Field {
     components = components || this.components;
     component.destroy(all);
     _.remove(components, { id: component.id });
-    if (this.componentsMap[component.path]) {
-      delete this.componentsMap[component.path];
-    }
+    component.eachRootChildComponentsMap((map) => {
+      if (map[component.path]) {
+        delete map[component.path];
+      }
+    });
   }
 
   /**
@@ -656,17 +729,19 @@ export default class NestedComponent extends Field {
   }
 
   updateValue(value, flags = {}) {
-    return this.components.reduce((changed, comp) => {
-      return comp.updateValue(null, flags) || changed;
-    }, super.updateValue(value, flags));
+    return this.components.reduce(
+      (changed, comp) => {
+        return comp.updateValue(null, flags) || changed;
+      },
+      super.updateValue(value, flags),
+    );
   }
 
   shouldSkipValidation(data, row, flags) {
     // Nested components with no input should not be validated.
     if (!this.component.input) {
       return true;
-    }
-    else {
+    } else {
       return super.shouldSkipValidation(data, row, flags);
     }
   }
@@ -687,13 +762,17 @@ export default class NestedComponent extends Field {
     // check conditions of parent component first, because it may influence on visibility of it's children
     const check = super.checkConditions(data, flags, row);
     //row data of parent component not always corresponds to row of nested components, use comp.data as row data for children instead
-    this.getComponents().forEach(comp => comp.checkConditions(data, flags, comp.data));
+    this.getComponents().forEach((comp) => comp.checkConditions(data, flags, comp.data));
     return check;
   }
 
   clearOnHide(show) {
     super.clearOnHide(show);
+<<<<<<< HEAD
     this.getComponents().forEach(component => component.clearOnHide(show));
+=======
+    this.getComponents().forEach((component) => component.clearOnHide(show));
+>>>>>>> upstream/main
   }
 
   /**
@@ -720,7 +799,7 @@ export default class NestedComponent extends Field {
     }
     return this.getComponents().reduce(
       (changed, comp) => comp.calculateValue(data, flags, row) || changed,
-      super.calculateValue(data, flags, row)
+      super.calculateValue(data, flags, row),
     );
   }
 
@@ -731,13 +810,17 @@ export default class NestedComponent extends Field {
   isValid(data, dirty) {
     return this.getComponents().reduce(
       (valid, comp) => comp.isValid(data, dirty) && valid,
-      super.isValid(data, dirty)
+      super.isValid(data, dirty),
     );
   }
 
   validationProcessor({ scope, data, row, instance, paths }, flags) {
     const { dirty } = flags;
+<<<<<<< HEAD
     if (this.root.hasExtraPages && this.page !== this.root.page) {
+=======
+    if (this.root && this.root.hasSubWizards && this.page !== this.root.page) {
+>>>>>>> upstream/main
       instance = this.componentsMap?.hasOwnProperty(paths.dataPath)
         ? this.componentsMap[paths.dataPath]
         : this.getComponent(paths.dataPath);
@@ -769,7 +852,7 @@ export default class NestedComponent extends Field {
       if (
         instance &&
         instance.parent &&
-        (component === components[components.length - 1]) &&
+        component === components[components.length - 1] &&
         instance.parent.componentModal
       ) {
         instance.parent.checkModal(instance.parent.childErrors, dirty);
@@ -787,15 +870,17 @@ export default class NestedComponent extends Field {
       processors: [
         {
           process: validationProcessorProcess,
-          processSync: validationProcessorProcess
+          processSync: validationProcessorProcess,
         },
         {
           process: checkModalProcessorProcess,
-          processSync: checkModalProcessorProcess
-        }
-      ]
+          processSync: checkModalProcessorProcess,
+        },
+      ],
     };
-    return async ? processAsync(processorContext).then((scope) => scope.errors) : processSync(processorContext).errors;
+    return async
+      ? processAsync(processorContext).then((scope) => scope.errors)
+      : processSync(processorContext).errors;
   }
 
   /**
@@ -806,7 +891,11 @@ export default class NestedComponent extends Field {
    */
   validate(data = null, flags = {}) {
     data = data || this.rootValue;
-    return this.validateComponents(this.getComponents().map((component) => component.component), data, flags);
+    return this.validateComponents(
+      this.getComponents().map((component) => component.component),
+      data,
+      flags,
+    );
   }
 
   checkComponentValidity(data = null, dirty = false, row = null, flags = {}, allErrors = []) {
@@ -825,13 +914,22 @@ export default class NestedComponent extends Field {
    */
   checkValidity(data = null, dirty = false, row = null, silentCheck = false, childErrors = []) {
     childErrors.push(...this.validate(data, { dirty, silentCheck }));
-    return this.checkComponentValidity(data, dirty, row, { dirty, silentCheck }, childErrors) && childErrors.length === 0;
+    return (
+      this.checkComponentValidity(data, dirty, row, { dirty, silentCheck }, childErrors) &&
+      childErrors.length === 0
+    );
   }
 
   checkAsyncValidity(data = null, dirty = false, row = null, silentCheck = false) {
     return this.ready.then(() => {
       return this.validate(data, { dirty, silentCheck, async: true }).then((childErrors) => {
-        return this.checkComponentValidity(data, dirty, row, { dirty, silentCheck, async: true }, childErrors).then((valid) => {
+        return this.checkComponentValidity(
+          data,
+          dirty,
+          row,
+          { dirty, silentCheck, async: true },
+          childErrors,
+        ).then((valid) => {
           return valid && childErrors.length === 0;
         });
       });
@@ -852,14 +950,14 @@ export default class NestedComponent extends Field {
   }
 
   detach() {
-    this.components.forEach(component => {
+    this.components.forEach((component) => {
       component.detach();
     });
     super.detach();
   }
 
   clear() {
-    this.components.forEach(component => {
+    this.components.forEach((component) => {
       component.clear();
     });
     super.clear();
@@ -877,14 +975,17 @@ export default class NestedComponent extends Field {
   }
 
   get visibleErrors() {
-    return this.getComponents().reduce((errors, comp) => errors.concat(comp.visibleErrors || []), super.visibleErrors);
+    return this.getComponents().reduce(
+      (errors, comp) => errors.concat(comp.visibleErrors || []),
+      super.visibleErrors,
+    );
   }
 
   get errors() {
     const thisErrors = super.errors;
     return this.getComponents()
       .reduce((errors, comp) => errors.concat(comp.errors || []), thisErrors)
-      .filter(err => err.level !== 'hidden');
+      .filter((err) => err.level !== 'hidden');
   }
 
   getValue() {
@@ -907,15 +1008,22 @@ export default class NestedComponent extends Field {
       return false;
     }
     if (component.type === 'components') {
-      if (component.tree && component.hasValue(value)) {
+      if ((component.tree || component.hasInput) && component.hasValue(value)) {
         return component.setValue(_.get(value, component.key), flags);
       }
       return component.setValue(value, flags);
-    }
-    else if (value && component.hasValue(value)) {
+    } else if (value && component.hasValue(value)) {
       return component.setValue(_.get(value, component.key), flags);
+    } 
+    // if no value is provided and noDefault flag, set empty value
+    else if (flags.noDefault && component.allowData) {
+      flags.resetValue = true;
+      return component.setValue(component.emptyValue, flags);
     }
-    else if ((!this.rootPristine || component.visible) && component.shouldAddDefaultValue) {
+    else if (
+      (!this.rootPristine || component.visible) &&
+      (flags.resetValue || component.shouldAddDefaultValue) 
+    ) {
       flags.noValidate = !flags.dirty;
       flags.resetValue = true;
       return component.setValue(component.defaultValue, flags);
@@ -925,6 +1033,13 @@ export default class NestedComponent extends Field {
   setValue(value, flags = {}) {
     if (!value) {
       return false;
+    }
+    // If the value is equal to the empty value, then this means we need to reset the values.
+    if (_.isEqual(value, this.emptyValue)) {
+      // TO-DO: For a future major release, we need to investigate removing the need for the
+      // "resetValue" flag. This seems like a hack that is no longer necessary and the renderer
+      // may behave more deterministically without it.
+      flags.resetValue = true;
     }
     return this.getComponents().reduce((changed, component) => {
       return this.setNestedValue(component, value, flags, changed) || changed;

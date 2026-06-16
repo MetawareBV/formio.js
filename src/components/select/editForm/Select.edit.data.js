@@ -1,13 +1,19 @@
 import _ from 'lodash';
-import { eachComponent } from '../../../utils/utils';
+import { eachComponent } from '../../../utils';
 
 const calculateSingleSelectData = (context, defaultValue) => {
   const { instance, data } = context;
-  const rawDefaultValue = instance.downloadedResources.find(resource => _.get(resource, data.valueProperty) === defaultValue);
+  const rawDefaultValue = instance.downloadedResources.find(
+    (resource) => _.get(resource, data.valueProperty) === defaultValue,
+  );
   const options = { data: {}, noeval: true };
-  instance.interpolate(data.template, {
-    item: rawDefaultValue,
-  }, options);
+  instance.interpolate(
+    data.template,
+    {
+      item: rawDefaultValue,
+    },
+    options,
+  );
   return options.data.item;
 };
 
@@ -20,8 +26,7 @@ const calculateSelectData = (context) => {
       multiSelectData[defaultValueItem] = calculateSingleSelectData(context, defaultValueItem);
     });
     return multiSelectData;
-  }
-  else {
+  } else {
     return calculateSingleSelectData(context, defaultValue);
   }
 };
@@ -33,7 +38,11 @@ const setSelectData = (context) => {
     const selectDataComponent = instance?.root?.getComponent('selectData');
     // clear selectData if conditions are not met or clearing default value
     if (selectDataComponent && (!selectDataComponent.visible || !data.defaultValue)) {
+<<<<<<< HEAD
       selectDataComponent.setValue(null, { resetValue: true});
+=======
+      selectDataComponent.setValue(null, { resetValue: true });
+>>>>>>> upstream/main
       return;
     }
     // nothing can set if don't have downloaded resources
@@ -41,9 +50,17 @@ const setSelectData = (context) => {
       return;
     }
     const shouldCalculateUrlData = data.dataSrc === 'url' && data.data.url && data.valueProperty;
+<<<<<<< HEAD
     const shouldCalculateResourceData = data.dataSrc === 'resource' && data.data.resource && data.valueProperty;
     const newValue = shouldCalculateUrlData || shouldCalculateResourceData ? calculateSelectData(context) : null;
     selectDataComponent.setValue(newValue, { resetValue: newValue === null});
+=======
+    const shouldCalculateResourceData =
+      data.dataSrc === 'resource' && data.data.resource && data.valueProperty;
+    const newValue =
+      shouldCalculateUrlData || shouldCalculateResourceData ? calculateSelectData(context) : null;
+    selectDataComponent.setValue(newValue, { resetValue: newValue === null });
+>>>>>>> upstream/main
   }, 0);
 };
 
@@ -68,7 +85,12 @@ export default [
     label: 'Database name',
     tooltip: 'The name of the indexeddb database.',
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'indexeddb'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'indexeddb',
+        ],
+      },
     },
   },
   {
@@ -79,8 +101,13 @@ export default [
     weight: 16,
     tooltip: 'The name of table in the indexeddb database.',
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'indexeddb'] },
-    }
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'indexeddb',
+        ],
+      },
+    },
   },
   {
     type: 'textarea',
@@ -93,7 +120,12 @@ export default [
     tooltip: 'Filter table items that match the object.',
     defaultValue: {},
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'indexeddb'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'indexeddb',
+        ],
+      },
     },
   },
   {
@@ -105,9 +137,15 @@ export default [
     key: 'data.json',
     label: 'Data Source Raw JSON',
     tooltip: 'A valid JSON array to use as a data source.',
-    description: '<div>Example: <pre>["apple", "banana", "orange"].</pre></div> <div>Example 2: <pre>[{"name": "John", "email": "john.doe@test.com"}, {"name": "Jane", "email": "jane.doe@test.com"}].</pre></div>',
+    description:
+      '<div>Example: <pre>["apple", "banana", "orange"].</pre></div> <div>Example 2: <pre>[{"name": "John", "email": "john.doe@test.com"}, {"name": "Jane", "email": "jane.doe@test.com"}].</pre></div>',
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'json'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'json',
+        ],
+      },
     },
   },
   {
@@ -115,8 +153,10 @@ export default [
     input: true,
     label: 'Lazy Load Data',
     key: 'lazyLoad',
-    tooltip: 'When set, this will not fire off the request to the URL until this control is within focus. This can improve performance if you have many Select dropdowns on your form where the API\'s will only fire when the control is activated.',
+    tooltip:
+      "When set, this will not fire off the request to the URL until this control is within focus. This can improve performance if you have many Select dropdowns on your form where the API's will only fire when the control is activated.",
     weight: 11,
+    defaultValue: true,
     conditional: {
       json: {
         and: [
@@ -132,10 +172,10 @@ export default [
           {
             '!==': [
               { var: 'data.widget' },
-              'html5'
-            ]
-          }
-        ]
+              'html5',
+            ],
+          },
+        ],
       },
     },
   },
@@ -144,10 +184,13 @@ export default [
     input: true,
     label: 'Data Source Values',
     key: 'data.values',
-    tooltip: 'Values to use as the data source. Labels are shown in the select field. Values are the corresponding values saved with the submission.',
+    tooltip:
+      'Values to use as the data source. Labels are shown in the select field. Values are the corresponding values saved with the submission.',
     weight: 10,
     reorder: true,
-    defaultValue: [{ label: '', value: '' }],
+    defaultValue: [
+      { label: '', value: '' },
+    ],
     components: [
       {
         label: 'Label',
@@ -165,7 +208,12 @@ export default [
       },
     ],
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'values'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'values',
+        ],
+      },
     },
   },
   {
@@ -185,7 +233,12 @@ export default [
     weight: 10,
     tooltip: 'The resource to be used with this field.',
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'resource'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'resource',
+        ],
+      },
     },
   },
   {
@@ -195,9 +248,15 @@ export default [
     key: 'selectValues',
     weight: 12,
     description: 'The object path to the iterable items.',
-    tooltip: 'The property within the source data, where iterable items reside. For example: results.items or results[0].items',
+    tooltip:
+      'The property within the source data, where iterable items reside. For example: results.items or results[0].items',
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'url'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'url',
+        ],
+      },
     },
   },
   {
@@ -214,19 +273,23 @@ export default [
     valueProperty: 'key',
     dataSrc: 'url',
     lazyLoad: false,
+    authenticate: true,
     onSetItems(component, form) {
-      const newItems = form.type === 'resource'
-        ? [{
-            label: '{Entire Object}',
-            key: 'data',
-          }]
-        : [];
+      const newItems =
+        form.type === 'resource'
+          ? [
+              {
+                label: '{Entire Object}',
+                key: 'data',
+              },
+            ]
+          : [];
 
       eachComponent(form.components, (component, path) => {
         if (component.input) {
           newItems.push({
             label: component.label || component.key,
-            key: `data.${path}`
+            key: `data.${path}`,
           });
         }
       });
@@ -248,8 +311,18 @@ export default [
     conditional: {
       json: {
         and: [
-          { '===': [{ var: 'data.dataSrc' }, 'resource'] },
-          { '!==': [{ var: 'data.reference' }, true] },
+          {
+            '===': [
+              { var: 'data.dataSrc' },
+              'resource',
+            ],
+          },
+          {
+            '!==': [
+              { var: 'data.reference' },
+              true,
+            ],
+          },
           { var: 'data.data.resource' },
         ],
       },
@@ -261,7 +334,8 @@ export default [
     label: 'Storage Type',
     key: 'dataType',
     clearOnHide: true,
-    tooltip: 'The type to store the data. If you select something other than autotype, it will force it to that type.',
+    tooltip:
+      'The type to store the data. If you select something other than autotype, it will force it to that type.',
     weight: 12,
     template: '<span>{{ item.label }}</span>',
     dataSrc: 'values',
@@ -282,21 +356,32 @@ export default [
     weight: 12,
     label: 'ID Path',
     placeholder: 'id',
-    tooltip: 'Path to the select option id.'
+    tooltip: 'Path to the select option id.',
   },
   {
     type: 'textfield',
     input: true,
     label: 'Select Fields',
     key: 'selectFields',
-    tooltip: 'The properties on the resource to return as part of the options. Separate property names by commas. If left blank, all properties will be returned.',
+    tooltip:
+      'The properties on the resource to return as part of the options. Separate property names by commas. If left blank, all properties will be returned.',
     placeholder: 'Comma separated list of fields to select.',
     weight: 14,
     conditional: {
       json: {
         and: [
-          { '===': [{ var: 'data.dataSrc' }, 'resource'] },
-          { '===': [{ var: 'data.valueProperty' }, ''] },
+          {
+            '===': [
+              { var: 'data.dataSrc' },
+              'resource',
+            ],
+          },
+          {
+            '===': [
+              { var: 'data.valueProperty' },
+              '',
+            ],
+          },
         ],
       },
     },
@@ -306,10 +391,16 @@ export default [
     input: true,
     key: 'disableLimit',
     label: 'Disable limiting response',
-    tooltip: 'When enabled the request will not include the limit and skip options in the query string',
+    tooltip:
+      'When enabled the request will not include the limit and skip options in the query string',
     weight: 15,
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'url'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'url',
+        ],
+      },
     },
   },
   {
@@ -319,7 +410,8 @@ export default [
     label: 'Search Query Name',
     weight: 16,
     description: 'Name of URL query parameter',
-    tooltip: 'The name of the search querystring parameter used when sending a request to filter results with. The server at the URL must handle this query parameter.',
+    tooltip:
+      'The name of the search querystring parameter used when sending a request to filter results with. The server at the URL must handle this query parameter.',
     conditional: {
       json: {
         in: [
@@ -339,7 +431,8 @@ export default [
     label: 'Search request delay',
     weight: 16,
     description: 'The delay (in seconds) before the search request is sent.',
-    tooltip: 'The delay in seconds before the search request is sent, measured from the last character input in the search field.',
+    tooltip:
+      'The delay in seconds before the search request is sent, measured from the last character input in the search field.',
     validate: {
       min: 0,
       customMessage: '',
@@ -373,8 +466,18 @@ export default [
     conditional: {
       json: {
         and: [
-          { '===': [{ var: 'data.dataSrc' }, 'url'] },
-          { '!=': [{ var: 'data.searchField' }, ''] },
+          {
+            '===': [
+              { var: 'data.dataSrc' },
+              'url',
+            ],
+          },
+          {
+            '!=': [
+              { var: 'data.searchField' },
+              '',
+            ],
+          },
         ],
       },
     },
@@ -431,15 +534,22 @@ export default [
     conditional: {
       json: {
         and: [
-          { in: [
-            { var: 'data.dataSrc' },
-            [
-              'url',
-              'resource'
+          {
+            in: [
+              { var: 'data.dataSrc' },
+              [
+                'url',
+                'resource',
+              ],
             ],
-          ] },
-          { '!==': [{ var: 'data.disableLimit' }, true] }
-        ]
+          },
+          {
+            '!==': [
+              { var: 'data.disableLimit' },
+              true,
+            ],
+          },
+        ],
       },
     },
   },
@@ -452,9 +562,15 @@ export default [
     rows: 10,
     weight: 14,
     placeholder: "values = data['mykey'] or values = Promise.resolve(['myValue'])",
-    tooltip: 'Write custom code to return the value options or a promise with value options. The form data object is available.',
+    tooltip:
+      'Write custom code to return the value options or a promise with value options. The form data object is available.',
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'custom'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'custom',
+        ],
+      },
     },
   },
   {
@@ -470,16 +586,19 @@ export default [
       custom(context) {
         var values = [];
         values.push({ label: 'Any Change', value: 'data' });
-        context.utils.eachComponent(context.instance.options.editForm.components, function(component, path) {
-          if (component.key !== context.data.key) {
-            values.push({
-              label: component.label || component.key,
-              value: path
-            });
-          }
-        });
+        context.utils.eachComponent(
+          context.instance.options.editForm.components,
+          function (component, path) {
+            if (component.key !== context.data.key) {
+              values.push({
+                label: component.label || component.key,
+                value: path,
+              });
+            }
+          },
+        );
         return values;
-      }
+      },
     },
     conditional: {
       json: {
@@ -489,7 +608,7 @@ export default [
             'url',
             'resource',
             'values',
-            'custom'
+            'custom',
           ],
         ],
       },
@@ -508,16 +627,19 @@ export default [
       custom(context) {
         var values = [];
         values.push({ label: 'Any Change', value: 'data' });
-        context.utils.eachComponent(context.instance.options.editForm.components, function(component, path) {
-          if (component.key !== context.data.key) {
-            values.push({
-              label: component.label || component.key,
-              value: path
-            });
-          }
-        });
+        context.utils.eachComponent(
+          context.instance.options.editForm.components,
+          function (component, path) {
+            if (component.key !== context.data.key) {
+              values.push({
+                label: component.label || component.key,
+                value: path,
+              });
+            }
+          },
+        );
         return values;
-      }
+      },
     },
     conditional: {
       json: {
@@ -526,7 +648,7 @@ export default [
           [
             'url',
             'resource',
-            'values'
+            'values',
           ],
         ],
       },
@@ -548,7 +670,7 @@ export default [
             'url',
             'resource',
             'values',
-            'custom'
+            'custom',
           ],
         ],
       },
@@ -561,7 +683,8 @@ export default [
     key: 'searchEnabled',
     label: 'Enable Static Search',
     defaultValue: true,
-    tooltip: 'When checked, the select dropdown will allow for searching within the static list of items provided.',
+    tooltip:
+      'When checked, the select dropdown will allow for searching within the static list of items provided.',
   },
   {
     type: 'checkbox',
@@ -570,19 +693,27 @@ export default [
     key: 'noRefreshOnScroll',
     label: 'Disable Options Refresh When Scrolling',
     defaultValue: false,
-    tooltip: 'When checked, the select with search input won\'t perform new api requests when scrolling through the list of options.',
+    tooltip:
+      "When checked, the select with search input won't perform new api requests when scrolling through the list of options.",
     conditional: {
       json: {
         and: [
-          {  in: [
+          {
+            in: [
               { var: 'data.dataSrc' },
               [
                 'url',
-                'resource'
+                'resource',
               ],
-            ] },
-          { '===': [{ var: 'data.searchEnabled' }, true] }
-        ]
+            ],
+          },
+          {
+            '===': [
+              { var: 'data.searchEnabled' },
+              true,
+            ],
+          },
+        ],
       },
     },
   },
@@ -605,7 +736,8 @@ export default [
     encrypted: false,
     defaultValue: 0.3,
     weight: 22,
-    tooltip: 'At what point does the match algorithm give up. A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anything.',
+    tooltip:
+      'At what point does the match algorithm give up. A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anything.',
   },
   {
     type: 'checkbox',
@@ -615,7 +747,12 @@ export default [
     label: 'Add Resource',
     tooltip: 'Allows to create a new resource while entering a submission.',
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'resource'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'resource',
+        ],
+      },
     },
   },
   {
@@ -629,7 +766,12 @@ export default [
     conditional: {
       json: {
         and: [
-          { '===': [{ var: 'data.dataSrc' }, 'resource'] },
+          {
+            '===': [
+              { var: 'data.dataSrc' },
+              'resource',
+            ],
+          },
           { '!!': { var: 'data.addResource' } },
         ],
       },
@@ -640,10 +782,21 @@ export default [
     input: true,
     weight: 25,
     key: 'reference',
+<<<<<<< HEAD
     label: 'Submit as reference',
     tooltip: 'Using this option will submit this field as a reference id and link its value to the value of the origin record.',
+=======
+    label: 'Save as reference',
+    tooltip:
+      'Using this option will save this field as a reference and link its value to the value of the origin record.',
+>>>>>>> upstream/main
     conditional: {
-      json: { '===': [{ var: 'data.dataSrc' }, 'resource'] },
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'resource',
+        ],
+      },
     },
   },
   {
@@ -691,6 +844,7 @@ export default [
       json: {
         and: [
           { var: 'data.valueProperty' },
+<<<<<<< HEAD
           { '===': [{ var: 'data.lazyLoad' }, true]},
           { '!==': [{ var: 'data.widget' }, 'html5'] },
           {
@@ -706,6 +860,48 @@ export default [
             ]
           }
         ]
+=======
+          {
+            '===': [
+              { var: 'data.lazyLoad' },
+              true,
+            ],
+          },
+          {
+            '!==': [
+              { var: 'data.widget' },
+              'html5',
+            ],
+          },
+          {
+            or: [
+              {
+                '===': [
+                  { var: 'data.dataSrc' },
+                  'url',
+                ],
+              },
+              {
+                and: [
+                  {
+                    '===': [
+                      { var: 'data.dataSrc' },
+                      'resource',
+                    ],
+                  },
+                  // 'data' means entire object from resource will be used
+                  {
+                    '!==': [
+                      { var: 'data.valueProperty' },
+                      'data',
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+>>>>>>> upstream/main
       },
     },
   },

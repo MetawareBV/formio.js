@@ -28,7 +28,11 @@ export default [
   {
     type: 'textfield',
     input: true,
+<<<<<<< HEAD
     key: "providerOptions.params.subscriptionKey",
+=======
+    key: "subscriptionKey",
+>>>>>>> upstream/main
     label: 'Subscription Key',
     placeholder: 'Enter Subscription Key',
     weight: 10,
@@ -43,7 +47,7 @@ export default [
   {
     type: 'textfield',
     input: true,
-    key: 'providerOptions.url',
+    key: 'url',
     label: 'Url',
     placeholder: 'Enter Url',
     weight: 10,
@@ -58,7 +62,7 @@ export default [
   {
     type: 'textfield',
     input: true,
-    key: 'providerOptions.queryProperty',
+    key: 'queryProperty',
     label: 'Query Property',
     defaultValue: 'query',
     placeholder: 'Enter Query Property',
@@ -71,7 +75,7 @@ export default [
   {
     type: 'textfield',
     input: true,
-    key: 'providerOptions.responseProperty',
+    key: 'responseProperty',
     label: 'Response Property',
     placeholder: 'Enter Response Property',
     weight: 30,
@@ -83,7 +87,7 @@ export default [
   {
     type: 'textfield',
     input: true,
-    key: 'providerOptions.displayValueProperty',
+    key: 'displayValueProperty',
     label: 'Display Value Property',
     placeholder: 'Display Value Property',
     weight: 40,
@@ -95,7 +99,7 @@ export default [
   {
     type: 'textarea',
     input: true,
-    key: 'providerOptions.params',
+    key: 'params',
     label: 'Params',
     placeholder: '{ ... }',
     weight: 50,
@@ -110,7 +114,7 @@ export default [
   {
     type: 'textfield',
     input: true,
-    key: 'providerOptions.params.key',
+    key: 'apiKey',
     label: 'API Key',
     placeholder: 'Enter API Key',
     weight: 10,
@@ -125,7 +129,7 @@ export default [
   {
     type: 'textarea',
     input: true,
-    key: 'providerOptions.params.autocompleteOptions',
+    key: 'autocompleteOptions',
     label: 'Provider options',
     placeholder: 'Enter provider options as JSON object',
     defaultValue:{},

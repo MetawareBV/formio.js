@@ -62,6 +62,7 @@ export default class HTMLComponent extends Component {
 
   checkRefreshOn(changed) {
     super.checkRefreshOn(changed);
+<<<<<<< HEAD
     let visible;
     if (this.hasCondition()) {
       visible = !this.conditionallyHidden();
@@ -69,12 +70,21 @@ export default class HTMLComponent extends Component {
     else {
       visible = !this.component.hidden;
     }
+=======
+    const isVisible = () => {
+      return this.hasCondition() ? !this.conditionallyHidden() : !this.component.hidden;
+    };
+>>>>>>> upstream/main
     const shouldSetContent = !this.builderMode
       && this.component.refreshOnChange
       && this.element
       && !_.isUndefined(changed)
       && ((_.isBoolean(changed) && changed) || !_.isEmpty(changed))
+<<<<<<< HEAD
       && visible;
+=======
+      && isVisible();
+>>>>>>> upstream/main
 
     if (shouldSetContent) {
       this.setContent(this.element, this.renderContent());

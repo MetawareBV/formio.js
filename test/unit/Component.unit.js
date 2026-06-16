@@ -5,7 +5,11 @@ import sinon from 'sinon';
 import Component from '../../src/components/_classes/component/Component';
 import Webform from '../../src/Webform';
 import Harness from '../harness';
+<<<<<<< HEAD
 import { comp1, comp4, comp3, comp5, comp6, comp7 } from './fixtures/component';
+=======
+import { comp1, comp3, comp4, comp5, comp6, comp7 } from './fixtures/component';
+>>>>>>> upstream/main
 import _merge from 'lodash/merge';
 
 describe('Component', () => {

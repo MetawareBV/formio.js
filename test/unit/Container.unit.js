@@ -1,14 +1,24 @@
 import assert from 'power-assert';
 import _ from 'lodash';
 import Harness from '../harness';
+<<<<<<< HEAD
 import { Formio } from '../../src/Formio';
 import ContainerComponent from '../../src/components/container/Container';
+=======
+import ContainerComponent from '../../src/components/container/Container';
+
+>>>>>>> upstream/main
 import {
   comp1,
   comp2,
   comp3,
   comp4,
 } from './fixtures/container';
+<<<<<<< HEAD
+=======
+
+import { Formio } from '../../src/Formio';
+>>>>>>> upstream/main
 
 describe('Container Component', () => {
   it('Should build a container component', () => {

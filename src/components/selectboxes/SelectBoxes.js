@@ -1,15 +1,22 @@
 import _ from 'lodash';
+<<<<<<< HEAD
 import { componentValueTypes, getComponentSavedTypes, boolValue, getComponent } from '../../utils/utils';
+=======
+import { componentValueTypes, getComponentSavedTypes, boolValue, getComponent } from '../../utils';
+>>>>>>> upstream/main
 import RadioComponent from '../radio/Radio';
 
 export default class SelectBoxesComponent extends RadioComponent {
   static schema(...extend) {
-    return RadioComponent.schema({
-      type: 'selectboxes',
-      label: 'Select Boxes',
-      key: 'selectBoxes',
-      inline: false
-    }, ...extend);
+    return RadioComponent.schema(
+      {
+        type: 'selectboxes',
+        label: 'Select Boxes',
+        key: 'selectBoxes',
+        inline: false,
+      },
+      ...extend,
+    );
   }
 
   static get builderInfo() {
@@ -19,7 +26,7 @@ export default class SelectBoxesComponent extends RadioComponent {
       icon: 'plus-square',
       weight: 60,
       documentation: '/userguide/form-building/form-components#select-box',
-      schema: SelectBoxesComponent.schema()
+      schema: SelectBoxesComponent.schema(),
     };
   }
 
@@ -33,6 +40,7 @@ export default class SelectBoxesComponent extends RadioComponent {
       valueComponent(classComp) {
         const isValuesSrc = !classComp.dataSrc || classComp.dataSrc === 'values';
         return isValuesSrc
+<<<<<<< HEAD
         ? {
             type: 'select',
             dataSrc: 'custom',
@@ -48,11 +56,32 @@ export default class SelectBoxesComponent extends RadioComponent {
             type: 'select',
           }
       }
+=======
+          ? {
+              type: 'select',
+              dataSrc: 'custom',
+              valueProperty: 'value',
+              dataType: 'string',
+              data: {
+                custom: `values = ${classComp && classComp.values ? JSON.stringify(classComp.values) : []}`,
+              },
+            }
+          : {
+              ...classComp,
+              dataType: 'string',
+              type: 'select',
+            };
+      },
+>>>>>>> upstream/main
     };
   }
 
   static savedValueTypes(schema) {
-    return getComponentSavedTypes(schema) ||  [componentValueTypes.object];
+    return (
+      getComponentSavedTypes(schema) || [
+        componentValueTypes.object,
+      ]
+    );
   }
 
   constructor(...args) {
@@ -76,6 +105,10 @@ export default class SelectBoxesComponent extends RadioComponent {
     return info;
   }
 
+  get hasDefaultValue() {
+    return true;
+  }
+
   get emptyValue() {
     return this.component.values.reduce((prev, value) => {
       if (value.value) {
@@ -92,11 +125,7 @@ export default class SelectBoxesComponent extends RadioComponent {
       defaultValue = this.component.defaultValue;
     }
     if (this.component.customDefaultValue && !this.options.preview) {
-      defaultValue = this.evaluate(
-        this.component.customDefaultValue,
-        { value: '' },
-        'value'
-      );
+      defaultValue = this.evaluate(this.component.customDefaultValue, { value: '' }, 'value');
     }
 
     return defaultValue;
@@ -140,10 +169,9 @@ export default class SelectBoxesComponent extends RadioComponent {
     if (typeof value !== 'object') {
       if (typeof value === 'string') {
         value = {
-          [value]: true
+          [value]: true,
         };
-      }
-      else {
+      } else {
         value = {};
       }
     }
@@ -154,8 +182,12 @@ export default class SelectBoxesComponent extends RadioComponent {
     }
 
     const checkedValues = _.keys(_.pickBy(value, (val) => val));
-    if (this.isSelectURL && this.templateData && _.every(checkedValues, (val) => this.templateData[val])) {
-      const submission = this.root.submission;
+    if (
+      this.isSelectURL &&
+      this.templateData &&
+      _.every(checkedValues, (val) => this.templateData[val])
+    ) {
+      const submission = this.root?.submission;
       if (!submission.metadata.selectData) {
         submission.metadata.selectData = {};
       }
@@ -189,8 +221,7 @@ export default class SelectBoxesComponent extends RadioComponent {
       if (changed) {
         this.redraw();
       }
-    }
-    else {
+    } else {
       _.each(this.refs.input, (input) => {
         if (_.isUndefined(value[input.value])) {
           value[input.value] = false;
@@ -211,12 +242,24 @@ export default class SelectBoxesComponent extends RadioComponent {
       if (options.modalPreview || this.options.readOnly || this.inDataTable) {
         const checkedItems = _.keys(_.pickBy(value, (val) => val));
         if (this.selectData?.length === checkedItems.length) {
+<<<<<<< HEAD
           return this.selectData.map(item => this.itemTemplate(item)).join(', ');
         } else if (this.loadedOptions?.length) {
           return this.loadedOptions.filter((option) => value[option.value]).map((option) => option.label).join(', ');
+=======
+          return this.selectData.map((item) => this.itemTemplate(item)).join(', ');
+        } else if (this.loadedOptions?.length) {
+          return this.loadedOptions
+            .filter((option) => value[option.value])
+            .map((option) => option.label)
+            .join(', ');
+>>>>>>> upstream/main
         }
       }
-      return _(value).pickBy((val) => val).keys().join(', ');
+      return _(value)
+        .pickBy((val) => val)
+        .keys()
+        .join(', ');
     }
     return _(this.component.values || [])
       .filter((v) => value[v.value])
@@ -237,13 +280,18 @@ export default class SelectBoxesComponent extends RadioComponent {
           key = valuesKeys.find((k) => input?.value.toString() === k);
         }
         const isChecked = value[key];
-        if ((isChecked && key) || (this.isSelectURL && !this.shouldLoad && this.listData && _.findIndex(this.selectData, this.listData[index]) !== -1)) {
+        if (
+          (isChecked && key) ||
+          (this.isSelectURL &&
+            !this.shouldLoad &&
+            this.listData &&
+            _.findIndex(this.selectData, this.listData[index]) !== -1)
+        ) {
           //add class to container when selected
           this.addClass(wrapper, this.optionSelectedClass);
           //change "checked" attribute
           input.setAttribute('checked', 'true');
-        }
-        else if (!isChecked && key) {
+        } else if (!isChecked && key) {
           this.removeClass(wrapper, this.optionSelectedClass);
           input.removeAttribute('checked');
         }
@@ -253,8 +301,8 @@ export default class SelectBoxesComponent extends RadioComponent {
 
   setInputsDisabled(value, onlyUnchecked) {
     if (this.refs.input) {
-      this.refs.input.forEach(item => {
-        if (onlyUnchecked && !item.checked || !onlyUnchecked) {
+      this.refs.input.forEach((item) => {
+        if ((onlyUnchecked && !item.checked) || !onlyUnchecked) {
           item.disabled = value;
         }
       });
@@ -266,7 +314,7 @@ export default class SelectBoxesComponent extends RadioComponent {
     const maxCount = this.component.validate.maxSelectedCount;
     if (!this.shouldSkipValidation(data, rowData, options)) {
       const isValid = this.isValid(data, dirty);
-      if ((maxCount || minCount)) {
+      if (maxCount || minCount) {
         const count = Object.keys(this.validationValue).reduce((total, key) => {
           if (this.validationValue[key]) {
             total++;
@@ -277,25 +325,34 @@ export default class SelectBoxesComponent extends RadioComponent {
         // Disable the rest of inputs if the max amount is already checked
         if (maxCount && count >= maxCount) {
           this.setInputsDisabled(true, true);
-        }
-        else if (maxCount && !this.shouldDisabled) {
+        } else if (maxCount && !this.shouldDisabled) {
           this.setInputsDisabled(false);
         }
 
         if (!isValid && maxCount && count > maxCount) {
           const message = this.t(
+<<<<<<< HEAD
             this.component.maxSelectedCountMessage || 'maxSelectItems',
             { maxCount }
+=======
+            this.component.maxSelectedCountMessage ||
+              'You may only select up to {{maxCount}} items',
+            { maxCount },
+>>>>>>> upstream/main
           );
           this.errors.push({ message });
           this.setCustomValidity(message, dirty);
           return false;
-        }
-        else if (!isValid && minCount && count < minCount) {
+        } else if (!isValid && minCount && count < minCount) {
           this.setInputsDisabled(false);
           const message = this.t(
+<<<<<<< HEAD
             this.component.minSelectedCountMessage || 'minSelectItems',
             { minCount }
+=======
+            this.component.minSelectedCountMessage || 'You must select at least {{minCount}} items',
+            { minCount },
+>>>>>>> upstream/main
           );
           this.errors.push({ message });
           this.setCustomValidity(message, dirty);
@@ -308,11 +365,24 @@ export default class SelectBoxesComponent extends RadioComponent {
   }
 
   setCustomValidity(messages, dirty, external) {
+<<<<<<< HEAD
     if (this.options.building && _.find(messages, {ruleName: 'invalidValueProperty'})) {
       setTimeout(() => {
         this.root && getComponent(this.root.components, 'valueProperty').setCustomValidity(messages, dirty);
       }, 0);
       return super.setCustomValidity(_.filter(messages, (message) => message.ruleName !=='invalidValueProperty'), dirty, external);
+=======
+    if (this.options.building && _.find(messages, { ruleName: 'invalidValueProperty' })) {
+      setTimeout(() => {
+        this.root &&
+          getComponent(this.root.components, 'valueProperty').setCustomValidity(messages, dirty);
+      }, 0);
+      return super.setCustomValidity(
+        _.filter(messages, (message) => message.ruleName !== 'invalidValueProperty'),
+        dirty,
+        external,
+      );
+>>>>>>> upstream/main
     } else {
       return super.setCustomValidity(messages, dirty, external);
     }

@@ -1,16 +1,28 @@
 import assert from 'power-assert';
 import _ from 'lodash';
+<<<<<<< HEAD
 import Harness from '../harness';
 import { Formio } from '../../src/Formio';
 import CheckBoxComponent from '../../src/components/checkbox/Checkbox';
+=======
+
+import Harness from '../harness';
+import { Formio } from '../../src/Formio';
+import CheckBoxComponent from '../../src/components/checkbox/Checkbox';
+
+>>>>>>> upstream/main
 import {
   comp1,
   customDefaultComponent,
   comp2,
   comp3,
   comp4,
+<<<<<<< HEAD
   comp5,
   comp6
+=======
+  comp5
+>>>>>>> upstream/main
 } from './fixtures/checkbox';
 
 describe('Checkbox Component', () => {
@@ -140,6 +152,62 @@ describe('Checkbox Component', () => {
         assert.deepEqual(form.data, data);
         done();
       }, 300);
+    }).catch((err) => done(err));
+  });
+  
+  it('Should be able to submit default checkbox data with the radio input type', (done) => {
+    const form = {
+      name: 'ckeckbox',
+      path: 'ckeckbox',
+      type: 'form',
+      display: 'form',
+  
+      components: [
+        {
+          label: 'Checkbox',
+          inputType: 'radio',
+          tableView: false,
+          defaultValue: false,
+          key: 'checkbox',
+          type: 'checkbox',
+          name: 'some name',
+          value: 'ok',
+          input: true,
+          'some name': false
+        },
+        {
+          type: 'button',
+          label: 'Submit',
+          key: 'submit',
+          disableOnInvalid: true,
+          input: true,
+          tableView: false
+        }
+      ],
+    };
+    const element = document.createElement('div');
+    const inputName = form.components[0].name;
+
+    Formio.createForm(element, form).then(form => {
+      const submit = form.getComponent('submit');
+      const clickEvent = new Event('click');
+      const submitBtn = submit.refs.button;
+      submitBtn.dispatchEvent(clickEvent);
+
+      setTimeout(() => {
+        assert.equal(form.submission.data[inputName], '');
+        const radioCheckBox = form.getComponent('checkbox');
+        const radio = Harness.testElements(radioCheckBox, 'input[type="radio"]', 1)[0];
+        Harness.clickElement(radioCheckBox, radio);
+        setTimeout(() => {
+          assert.equal(form.submission.data[inputName], 'ok');
+          Harness.clickElement(radioCheckBox, radio);
+          setTimeout(() => {
+            assert.equal(form.submission.data[inputName], '');
+            done();
+          }, 200);
+        }, 200);
+      }, 200);
     }).catch((err) => done(err));
   });
 });
