@@ -16,13 +16,8 @@ export default class Wizard extends Webform {
   constructor(elementOrOptions = undefined, _options = undefined) {
     let element, options;
     if (elementOrOptions instanceof HTMLElement || _options) {
-<<<<<<< HEAD
-        element = elementOrOptions;
-        options = _options || {};
-=======
       element = elementOrOptions;
       options = _options || {};
->>>>>>> upstream/main
     } else {
       options = elementOrOptions || {};
     }
@@ -438,10 +433,6 @@ export default class Wizard extends Webform {
     });
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/main
   /**
    * Emits an event indicating that a wizard page has been selected.
    * @param {number} index - Index of the selected wizard page in the `pages` array.
@@ -729,15 +720,10 @@ export default class Wizard extends Webform {
       }
       return this.redraw().then(() => {
         this.checkData(this.submission.data);
-<<<<<<< HEAD
-        this.triggerCaptcha(this.currentPage.components);
-        const errors = this.submitted ? this.validate(this.localData, { dirty: true }) : this.validateCurrentPage();
-=======
         this.triggerCaptcha(this.currentPage?.components);
         const errors = this.submitted
           ? this.validate(this.localData, { dirty: true })
           : this.validateCurrentPage();
->>>>>>> upstream/main
         if (this.alert) {
           this.showErrors(errors, true, true);
         }
@@ -746,7 +732,7 @@ export default class Wizard extends Webform {
       this.redraw();
       return Promise.resolve();
     }
-    return Promise.reject(this.t('pageNotFound'));
+    return Promise.reject('Page not found');
   }
 
   pageFieldLogic(page) {
@@ -814,11 +800,7 @@ export default class Wizard extends Webform {
   }
 
   beforeSubmit() {
-<<<<<<< HEAD
-    const pages = this.getPages({all: true});
-=======
     const pages = this.getPages({ all: true });
->>>>>>> upstream/main
 
     return Promise.all(
       pages.map((page) => {
@@ -864,13 +846,9 @@ export default class Wizard extends Webform {
 
     // Validate the form before going to the next page
     const currentPageErrors = this.validateCurrentPage({ dirty: true });
-<<<<<<< HEAD
-    const errors = this.submitted ? this.validate(this.localData, { dirty: true }) : currentPageErrors;
-=======
     const errors = this.submitted
       ? this.validate(this.localData, { dirty: true })
       : currentPageErrors;
->>>>>>> upstream/main
     // allow going to the next page if the current page is valid, even if there are form level errors
     if (currentPageErrors.length === 0) {
       this.checkData(this.submission.data);
@@ -895,11 +873,6 @@ export default class Wizard extends Webform {
     const components = this.currentPage?.components.map((component) => component.component);
     // Accessing the parent ensures the right instance (whether it's the parent Wizard or a nested Wizard) performs its validation
     if (this.currentPage?.parent) {
-<<<<<<< HEAD
-      return this.currentPage?.parent.validateComponents(components, this.root.data, flags);
-    }
-    return this.currentPage?.validateComponents(components, this.root ? this.root.data : this.data, flags);
-=======
       return this.currentPage?.parent.validateComponents(components, this.root?.data, flags);
     }
     return this.currentPage?.validateComponents(
@@ -907,7 +880,6 @@ export default class Wizard extends Webform {
       this.root ? this.root.data : this.data,
       flags,
     );
->>>>>>> upstream/main
   }
 
   emitPrevPage() {
@@ -978,16 +950,9 @@ export default class Wizard extends Webform {
         if (this.wizard.full) {
           this.options.show = this.options.show || {};
           this.options.show[item.key] = true;
-<<<<<<< HEAD
-        }
-        else if (
-          Object.prototype.hasOwnProperty.call(this.wizard, 'full')
-          && !_.isEqual(this.originalOptions.show, this.options.show)
-=======
         } else if (
           Object.prototype.hasOwnProperty.call(this.wizard, 'full') &&
           !_.isEqual(this.originalOptions.show, this.options.show)
->>>>>>> upstream/main
         ) {
           this.options.show = { ...(this.originalOptions.show || {}) };
         }
@@ -1109,15 +1074,11 @@ export default class Wizard extends Webform {
   onChange(flags, changed, modified, changes) {
     super.onChange(flags, changed, modified, changes);
     // The onChange loop doesn't need all components for wizards
-<<<<<<< HEAD
-    const errors = this.submitted ? this.validate(this.localData, { dirty: true }) : this.validateCurrentPage();
-=======
     const errors = flags?.noValidate
       ? []
       : this.submitted
         ? this.validate(this.localData, { dirty: true })
         : this.validateCurrentPage();
->>>>>>> upstream/main
     if (this.alert) {
       this.showErrors(errors, true, true);
     }
@@ -1168,11 +1129,7 @@ export default class Wizard extends Webform {
 
     return components.reduce(
       (check, comp) => comp.checkValidity(data, dirty, row, currentPageOnly, childErrors) && check,
-<<<<<<< HEAD
-      true
-=======
       true,
->>>>>>> upstream/main
     );
   }
 
@@ -1187,11 +1144,7 @@ export default class Wizard extends Webform {
       while (!(topPanel.parent instanceof Wizard)) {
         topPanel = topPanel.parent;
       }
-<<<<<<< HEAD
-      const pageIndex = this.pages.findIndex(page => page.id === topPanel.id);
-=======
       const pageIndex = this.pages.findIndex((page) => page.id === topPanel.id);
->>>>>>> upstream/main
       if (pageIndex >= 0) {
         const page = this.pages[pageIndex];
         if (page && page !== this.currentPage) {

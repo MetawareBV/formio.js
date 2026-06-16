@@ -113,14 +113,10 @@ export default class AddressComponent extends ContainerComponent {
   static get conditionOperatorsSettings() {
     return {
       ...super.conditionOperatorsSettings,
-<<<<<<< HEAD
-      operators: ['isEmpty', 'isNotEmpty'],
-=======
       operators: [
         'isEmpty',
         'isNotEmpty',
       ],
->>>>>>> upstream/main
     };
   }
 
@@ -162,16 +158,6 @@ export default class AddressComponent extends ContainerComponent {
     const map = this.component.map;
 
     if (!this.builderMode) {
-<<<<<<< HEAD
-      if (this.component.provider) {
-        const {
-          provider,
-          providerOptions,
-        } = this.component;
-
-        if (_.get(providerOptions, 'params.subscriptionKey')) {
-          _.set(providerOptions, "params['subscription-key']", _.get(providerOptions, 'params.subscriptionKey'));
-=======
       if (provider) {
         if (_.get(providerOptions, 'params.subscriptionKey')) {
           _.set(
@@ -179,7 +165,6 @@ export default class AddressComponent extends ContainerComponent {
             "params['subscription-key']",
             _.get(providerOptions, 'params.subscriptionKey'),
           );
->>>>>>> upstream/main
           _.unset(providerOptions, 'params.subscriptionKey');
         }
 
@@ -299,23 +284,15 @@ export default class AddressComponent extends ContainerComponent {
   }
 
   set dataValue(value) {
-<<<<<<< HEAD
-    super.dataValue = value
-=======
     super.dataValue = value;
->>>>>>> upstream/main
   }
 
   get dataValue() {
     const resultValue = _.get(this._data, this.path);
     if (!_.isArray(resultValue) && this.component.multiple) {
-<<<<<<< HEAD
-      return [resultValue]
-=======
       return [
         resultValue,
       ];
->>>>>>> upstream/main
     }
     return super.dataValue;
   }
@@ -439,7 +416,7 @@ export default class AddressComponent extends ContainerComponent {
   }
 
   get addAnother() {
-    return this.t(this.component.addAnother || 'addAnother');
+    return this.t(this.component.addAnother || 'Add Another');
   }
 
   renderElement(value) {

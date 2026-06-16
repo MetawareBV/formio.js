@@ -24,18 +24,11 @@ gulp.task('builder-fonts', function builderFonts() {
 });
 
 gulp.task('version', () => {
-<<<<<<< HEAD
-  return gulp.src(['./lib/**/Formio.js', './lib/**/Embed.js'])
-    .pipe(replace('FORMIO_VERSION', packageJson.version))
-    .pipe(gulp.dest('lib'));
-})
-=======
   return gulp
     .src(['./lib/**/Formio.js', './lib/**/Embed.js'])
     .pipe(replace('FORMIO_VERSION', packageJson.version))
     .pipe(gulp.dest('lib'));
 });
->>>>>>> upstream/main
 
 // Generate styles
 const compileStyles = (styles, file) => {
@@ -71,36 +64,6 @@ gulp.task('styles-embed', function embedStyles() {
   return compileStyles(['./src/sass/formio.embed.scss'], 'formio.embed');
 });
 gulp.task('styles-form', function formStyles() {
-<<<<<<< HEAD
-  return compileStyles([
-    './node_modules/choices.js/public/assets/styles/choices.css',
-    './node_modules/tippy.js/dist/tippy.css',
-    './node_modules/dialog-polyfill/dialog-polyfill.css',
-    './src/sass/formio.form.scss'
-  ], 'formio.form');
-});
-gulp.task('styles-builder', function builderStyles() {
-  return compileStyles([
-    './node_modules/choices.js/public/assets/styles/choices.css',
-    './node_modules/tippy.js/dist/tippy.css',
-    './node_modules/dialog-polyfill/dialog-polyfill.css',
-    './node_modules/dragula/dist/dragula.css',
-    './src/sass/formio.form.scss',
-    './src/sass/formio.form.builder.scss'
-  ], 'formio.builder');
-});
-gulp.task('styles-full', gulp.series('builder-fonts', function fullStyles() {
-  return compileStyles([
-    './node_modules/choices.js/public/assets/styles/choices.css',
-    './node_modules/tippy.js/dist/tippy.css',
-    './node_modules/dialog-polyfill/dialog-polyfill.css',
-    './node_modules/dragula/dist/dragula.css',
-    './node_modules/bootstrap-icons/font/bootstrap-icons.css',
-    './src/sass/formio.form.scss',
-    './src/sass/formio.form.builder.scss'
-  ], 'formio.full');
-}));
-=======
   return compileStyles(
     [
       './node_modules/choices.js/public/assets/styles/choices.css',
@@ -141,7 +104,6 @@ gulp.task(
     );
   }),
 );
->>>>>>> upstream/main
 
 gulp.task('clean:embed-css', () =>
   gulp.src('./dist/formio.embed.css', { read: false, allowEmpty: true }).pipe(clean()),

@@ -1,17 +1,10 @@
 /* eslint-disable no-loss-of-precision */
 import assert from 'power-assert';
 import _ from 'lodash';
-<<<<<<< HEAD
-import _merge from 'lodash/merge';
-import Harness from '../harness';
-import { Formio } from '../../src/Formio';
-import NumberComponent from '../../src/components/number/Number';
-=======
 import Harness from '../harness';
 import { Formio } from '../../src/Formio';
 import NumberComponent from '../../src/components/number/Number';
 import { wait } from '../util';
->>>>>>> upstream/main
 
 import {
   comp1,
@@ -25,13 +18,8 @@ import {
   comp9,
   comp10,
   comp11,
-<<<<<<< HEAD
-  scientificNotation
-} from './fixtures/number';
-=======
   scientificNotation,
 } from './fixtures/number/index';
->>>>>>> upstream/main
 
 describe('Number Component', function () {
   it('Should build an number component', function () {
@@ -40,27 +28,6 @@ describe('Number Component', function () {
     });
   });
 
-<<<<<<< HEAD
-  it('Should correctly handle scientific notation', () => {
-    return Harness.testCreate(NumberComponent, scientificNotation).then((component) => {
-      const testCases = [
-        ['6.54e+12', 6.54e+12, '6.54e+12'],
-        ['1.23e-5', 1.23e-5, '1.23e-5'],
-        ['3.14e+2', 3.14e+2, '3.14e+2'],
-        ['2e-3', 2e-3, '2e-3'],
-        ['7.5e+5', 7.5e+5, '7.5e+5'],
-        ['1.23e+10', 1.23e+10, '1.23e+10'],
-      ];
-      testCases.forEach(([input, expectedValue, expectedDisplayValue]) => {
-        component.setValue(input);
-        assert.equal(component.dataValue, expectedValue, `setValue: ${input} should result in ${expectedValue}`);
-        assert.equal(component.getValueAsString(input), expectedDisplayValue, `getValueAsString: ${input} should result in ${expectedDisplayValue}`);
-      });
-    });
-  });
-
-  it('Should format submissions for table view for French locale', () => {
-=======
   it('Invalid string calculateValue sets value to null without error', async function () {
     const compCloned = _.cloneDeep(comp8);
     compCloned.components[0].calculateValue = "value =  'hotdogs'";
@@ -155,7 +122,6 @@ describe('Number Component', function () {
   });
 
   it('Should format submissions for table view for French locale', function () {
->>>>>>> upstream/main
     return Harness.testCreate(NumberComponent, comp4, { language: 'fr' }).then((component) => {
       const value1 = component.getValueAsString(1);
       const value2 = component.getValueAsString(1.1);
@@ -708,70 +674,6 @@ describe('Number Component', function () {
         done();
       })
       .catch(done);
-  });
-
-  it('Should not remove decimal symbol and numbers after decimal symbol when submit is pressed', (done) => {
-    Formio.createForm(document.createElement('div'), comp8, {}).then((form) => {
-      const inputEvent = new Event('input');
-      const numberComponent = form.getComponent('number');
-      const buttonComponent = form.getComponent('submit');
-      numberComponent.refs.input[0].value = "123-456";
-      numberComponent.refs.input[0].dispatchEvent(inputEvent);
-      setTimeout(()=>{
-        buttonComponent.refs.button.click();
-        setTimeout(()=>{
-          assert.equal(numberComponent.refs.input[0].value, "123-456");
-          done();
-        },200);
-      },200);
-    });
-  });
-
-  it('Should remove thousands separator in parseValue function if set on component JSON', () => {
-    const numberComponent = new NumberComponent({thousandsSeparator: '.', decimalSymbol: ',', delimiter: true});
-    assert.equal(numberComponent.parseValue('123.456.789,1'), '123456789,1');
-  });
-
-  it('Should use a . thousands separator when delimiter is true and thousands separator is set to .', (done) => {
-    Formio.createForm(document.createElement('div'), comp9, {}).then((form) => {
-      const numberComponent = form.getComponent('number');
-      const inputEvent = new Event('input');
-      const blurEvent = new Event('blur');
-      numberComponent.refs.input[0].value = '111222333';
-      numberComponent.refs.input[0].dispatchEvent(inputEvent);
-      numberComponent.refs.input[0].dispatchEvent(blurEvent);
-      setTimeout(()=>{
-        assert.equal(numberComponent.refs.input[0].value, '111.222.333');
-        done();
-      },200)
-    })
-  });
-
-  it('Should not display a number validation error if the default value is set to a numeric string', () => {
-    return Formio.createForm(document.createElement('div'), comp10, {}).then((form) => {
-      const numberComponent = form.getComponent("number");
-      assert.equal(numberComponent._errors.length, 0);
-    });
-  });
-
-  it('Should maintain the correct caret (cursor) position when rendering value with thousands separators after restoreCaretPosition is called', (done) => { 
-    Formio.createForm(document.createElement('div'), comp11, {}).then((form) => {
-      const numberComponent = form.getComponent('number');
-      form.root.focusedComponent = numberComponent;
-      const numberElement = numberComponent.refs.input[0];
-      const inputEvent = new Event('input'); 
- 
-      numberElement.value = 1234567;
-      numberElement.dispatchEvent(inputEvent);
-      // see https://formio.atlassian.net/browse/FIO-9144
-      // before the fix, the caret was moving back by one after being restored
-      numberComponent.restoreCaretPosition();
-      assert.equal(numberElement.value, '1,234,567');
-      // selectionStart (a.k.a cursor position) is 9 with the delimiters
-      // it would be 7 without them and 8 with the previous bug
-      assert.equal(numberElement.selectionStart, 9);
-      done();
-    }).catch(done);
   });
 
   // it('Should add trailing zeros on blur, if decimal required', (done) => {

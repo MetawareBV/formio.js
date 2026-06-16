@@ -1,41 +1,11 @@
 import _ from 'lodash';
-<<<<<<< HEAD
-import jsonLogic from 'json-logic-js';
-=======
->>>>>>> upstream/main
 import moment from 'moment-timezone/moment-timezone';
 import jtz from 'jstimezonedetect';
 import dompurify from 'dompurify';
 import { getValue } from './formUtils';
 import { Evaluator } from './Evaluator';
 import ConditionOperators from './conditionOperators';
-<<<<<<< HEAD
-const interpolate = Evaluator.interpolate;
-
-export * from './formUtils';
-
-// Configure JsonLogic
-lodashOperators.forEach((name) => jsonLogic.add_operation(`_${name}`, _[name]));
-
-// Retrieve Any Date
-jsonLogic.add_operation('getDate', (date) => {
-  return moment(date).toISOString();
-});
-
-// Set Relative Minimum Date
-jsonLogic.add_operation('relativeMinDate', (relativeMinDate) => {
-  return moment().subtract(relativeMinDate, 'days').toISOString();
-});
-
-// Set Relative Maximum Date
-jsonLogic.add_operation('relativeMaxDate', (relativeMaxDate) => {
-  return moment().add(relativeMaxDate, 'days').toISOString();
-});
-
-export { jsonLogic, ConditionOperators, moment };
-=======
 import { jsonLogic, convertShowToBoolean } from '@formio/core';
->>>>>>> upstream/main
 
 /**
  * Evaluate a method.
@@ -182,13 +152,6 @@ function getConditionalPathsRecursive(conditionPaths, data) {
     const currentData = _.get(data, currentPath);
 
     if (Array.isArray(currentData) && currentData.filter(Boolean).length > 0) {
-<<<<<<< HEAD
-      if (currentData.some(element => typeof element !== 'object')) {
-        return;
-      }
-
-      const hasInnerDataArray = currentData.find(x => Array.isArray(x[conditionPaths[currentLocalIndex]]));
-=======
       if (currentData.some((element) => typeof element !== 'object')) {
         return;
       }
@@ -196,47 +159,30 @@ function getConditionalPathsRecursive(conditionPaths, data) {
       const hasInnerDataArray = currentData.find((x) =>
         x && conditionPaths && Array.isArray(x[conditionPaths[currentLocalIndex]]),
       );
->>>>>>> upstream/main
 
       if (hasInnerDataArray) {
         currentData.forEach((_, indexOutside) => {
           const innerCompDataPath = `${currentPath}[${indexOutside}].${conditionPaths[currentLocalIndex]}`;
           getConditionalPaths(data, innerCompDataPath, currentLocalIndex + 1);
         });
-<<<<<<< HEAD
-      }
-      else {
-        currentData.forEach((x, index) => {
-          if (!_.isNil(x[conditionPaths[currentLocalIndex]])) {
-=======
       } else {
         currentData.forEach((x, index) => {
           if (x && conditionPaths && !_.isNil(x[conditionPaths[currentLocalIndex]])) {
->>>>>>> upstream/main
             const compDataPath = `${currentPath}[${index}].${conditionPaths[currentLocalIndex]}`;
             conditionalPathsArray.push(compDataPath);
           }
         });
       }
-<<<<<<< HEAD
-    }
-    else {
-=======
     } else {
->>>>>>> upstream/main
       if (!conditionPaths[currentGlobalIndex]) {
         return;
       }
       currentGlobalIndex = currentGlobalIndex + 1;
-<<<<<<< HEAD
-      getConditionalPaths(data, `${currentPath}.${conditionPaths[currentGlobalIndex - 1]}`, currentGlobalIndex);
-=======
       getConditionalPaths(
         data,
         `${currentPath}.${conditionPaths[currentGlobalIndex - 1]}`,
         currentGlobalIndex,
       );
->>>>>>> upstream/main
     }
   };
 
@@ -245,17 +191,6 @@ function getConditionalPathsRecursive(conditionPaths, data) {
   return conditionalPathsArray;
 }
 
-<<<<<<< HEAD
- /**
-  *
-  * @param component
-  * @param condition
-  * @param row
-  * @param data
-  * @param instance
-  */
- export function checkSimpleConditional(component, condition, row, data, instance) {
-=======
 /**
  *
  * @param component
@@ -265,7 +200,6 @@ function getConditionalPathsRecursive(conditionPaths, data) {
  * @param instance
  */
 export function checkSimpleConditional(component, condition, row, data, instance) {
->>>>>>> upstream/main
   if (condition.when) {
     const value = getComponentActualValue(condition.when, data, row);
 
@@ -297,9 +231,6 @@ export function checkSimpleConditional(component, condition, row, data, instance
 
       const splittedConditionPath = conditionComponentPath.split('.');
 
-<<<<<<< HEAD
-      const conditionalPaths = instance?.parent?.type === 'datagrid' || instance?.parent?.type === 'editgrid'  ? [] : getConditionalPathsRecursive(splittedConditionPath, data);
-=======
       const checkParentTypeInTree = (instance, componentType) => {
         if (!instance?.parent) {
           return false;
@@ -315,7 +246,6 @@ export function checkSimpleConditional(component, condition, row, data, instance
         checkParentTypeInTree(instance, 'datagrid') || checkParentTypeInTree(instance, 'editgrid')
           ? []
           : getConditionalPathsRecursive(splittedConditionPath, data);
->>>>>>> upstream/main
 
       if (conditionalPaths.length > 0) {
         return conditionalPaths.map((path) => {
@@ -325,14 +255,6 @@ export function checkSimpleConditional(component, condition, row, data, instance
             ? new ConditionOperator().getResult({ value, comparedValue, instance, component, path })
             : true;
         });
-<<<<<<< HEAD
-      }
-      else {
-        const value = getComponentActualValue(conditionComponentPath, data, row);
-        const СonditionOperator = ConditionOperators[operator];
-        return СonditionOperator
-          ? new СonditionOperator().getResult({ value, comparedValue, instance, component, path: conditionComponentPath })
-=======
       } else {
         const value = getComponentActualValue(conditionComponentPath, data, row);
 
@@ -359,7 +281,6 @@ export function checkSimpleConditional(component, condition, row, data, instance
               component,
               path: operatorPath,
             })
->>>>>>> upstream/main
           : true;
       }
     });
@@ -368,17 +289,10 @@ export function checkSimpleConditional(component, condition, row, data, instance
 
     switch (conjunction) {
       case 'any':
-<<<<<<< HEAD
-        result = _.some(conditionsResult.flat(), res => !!res);
-        break;
-      default:
-        result = _.every(conditionsResult.flat(), res => !!res);
-=======
         result = _.some(conditionsResult.flat(), (res) => !!res);
         break;
       default:
         result = _.every(conditionsResult.flat(), (res) => !!res);
->>>>>>> upstream/main
     }
 
     return convertShowToBoolean(show) ? result : !result;
@@ -489,12 +403,6 @@ function getRow(component, row, instance, conditional) {
   }
   const dataParent = getDataParentComponent(instance);
   if (dataParent) {
-<<<<<<< HEAD
-    const parentPath = dataParent.paths?.localDataPath;
-    const isTriggerCondtionComponentPath = condition.when || !condition.conditions
-      ? condition.when?.startsWith(dataParent.paths?.localPath)
-      : _.some(condition.conditions, cond => cond.component.startsWith(dataParent.paths?.localPath));
-=======
     const parentPath = dataParent.paths?.localPath;
     const isTriggerCondtionComponentPath =
       condition.when || !condition.conditions
@@ -502,7 +410,6 @@ function getRow(component, row, instance, conditional) {
         : _.some(condition.conditions, (cond) =>
             cond.component.startsWith(dataParent.paths?.localPath),
           );
->>>>>>> upstream/main
     if (isTriggerCondtionComponentPath) {
       const newRow = {};
       _.set(newRow, parentPath, row);
@@ -875,14 +782,10 @@ export function momentDate(value, format, timezone, options) {
   if (timezone === 'UTC') {
     timezone = 'Etc/UTC';
   }
-<<<<<<< HEAD
-  if ((timezone !== currentTimezone() || (format && format.match(/\s(z$|z\s)/))) && (moment.zonesLoaded || options?.email)) {
-=======
   if (
     (timezone !== currentTimezone() || (format && format.match(/\s(z$|z\s)/))) &&
     (moment.zonesLoaded || options?.email)
   ) {
->>>>>>> upstream/main
     return momentDate.tz(timezone);
   }
   return momentDate;
@@ -1894,14 +1797,6 @@ export function getDataParentComponent(componentInstance) {
  * @param {any} value - The value to check
  * @returns {boolean} - TRUE if the value is a promise; FALSE otherwise
  */
-<<<<<<< HEAD
- export function isPromise(value) {
-   return value
-     && value.then
-     && typeof value.then === 'function'
-     && Object.prototype.toString.call(value) === '[object Promise]';
- }
-=======
 export function isPromise(value) {
   return (
     value &&
@@ -1910,7 +1805,6 @@ export function isPromise(value) {
     Object.prototype.toString.call(value) === '[object Promise]'
   );
 }
->>>>>>> upstream/main
 
 /**
  * Returns all the focusable elements within the provided dom element.
@@ -1976,8 +1870,6 @@ export const interpolateErrors = (component, errors, interpolateFn) => {
     };
   });
 };
-<<<<<<< HEAD
-=======
 
 /**
  * Checks if a string has timezone information encoded in it
@@ -2146,4 +2038,3 @@ export function screenReaderSpeech(text){
     }, 1000);
   }, 100);
 }
->>>>>>> upstream/main

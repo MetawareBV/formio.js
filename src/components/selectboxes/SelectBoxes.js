@@ -1,9 +1,5 @@
 import _ from 'lodash';
-<<<<<<< HEAD
-import { componentValueTypes, getComponentSavedTypes, boolValue, getComponent } from '../../utils/utils';
-=======
 import { componentValueTypes, getComponentSavedTypes, boolValue, getComponent } from '../../utils';
->>>>>>> upstream/main
 import RadioComponent from '../radio/Radio';
 
 export default class SelectBoxesComponent extends RadioComponent {
@@ -40,23 +36,6 @@ export default class SelectBoxesComponent extends RadioComponent {
       valueComponent(classComp) {
         const isValuesSrc = !classComp.dataSrc || classComp.dataSrc === 'values';
         return isValuesSrc
-<<<<<<< HEAD
-        ? {
-            type: 'select',
-            dataSrc: 'custom',
-            valueProperty: 'value',
-            dataType: 'string',
-            data: {
-              custom: `values = ${classComp && classComp.values ? JSON.stringify(classComp.values) : []}`
-            },
-          }
-        : {
-            ...classComp,
-            dataType: 'string',
-            type: 'select',
-          }
-      }
-=======
           ? {
               type: 'select',
               dataSrc: 'custom',
@@ -72,7 +51,6 @@ export default class SelectBoxesComponent extends RadioComponent {
               type: 'select',
             };
       },
->>>>>>> upstream/main
     };
   }
 
@@ -242,18 +220,12 @@ export default class SelectBoxesComponent extends RadioComponent {
       if (options.modalPreview || this.options.readOnly || this.inDataTable) {
         const checkedItems = _.keys(_.pickBy(value, (val) => val));
         if (this.selectData?.length === checkedItems.length) {
-<<<<<<< HEAD
-          return this.selectData.map(item => this.itemTemplate(item)).join(', ');
-        } else if (this.loadedOptions?.length) {
-          return this.loadedOptions.filter((option) => value[option.value]).map((option) => option.label).join(', ');
-=======
           return this.selectData.map((item) => this.itemTemplate(item)).join(', ');
         } else if (this.loadedOptions?.length) {
           return this.loadedOptions
             .filter((option) => value[option.value])
             .map((option) => option.label)
             .join(', ');
->>>>>>> upstream/main
         }
       }
       return _(value)
@@ -331,14 +303,9 @@ export default class SelectBoxesComponent extends RadioComponent {
 
         if (!isValid && maxCount && count > maxCount) {
           const message = this.t(
-<<<<<<< HEAD
-            this.component.maxSelectedCountMessage || 'maxSelectItems',
-            { maxCount }
-=======
             this.component.maxSelectedCountMessage ||
               'You may only select up to {{maxCount}} items',
             { maxCount },
->>>>>>> upstream/main
           );
           this.errors.push({ message });
           this.setCustomValidity(message, dirty);
@@ -346,13 +313,8 @@ export default class SelectBoxesComponent extends RadioComponent {
         } else if (!isValid && minCount && count < minCount) {
           this.setInputsDisabled(false);
           const message = this.t(
-<<<<<<< HEAD
-            this.component.minSelectedCountMessage || 'minSelectItems',
-            { minCount }
-=======
             this.component.minSelectedCountMessage || 'You must select at least {{minCount}} items',
             { minCount },
->>>>>>> upstream/main
           );
           this.errors.push({ message });
           this.setCustomValidity(message, dirty);
@@ -365,13 +327,6 @@ export default class SelectBoxesComponent extends RadioComponent {
   }
 
   setCustomValidity(messages, dirty, external) {
-<<<<<<< HEAD
-    if (this.options.building && _.find(messages, {ruleName: 'invalidValueProperty'})) {
-      setTimeout(() => {
-        this.root && getComponent(this.root.components, 'valueProperty').setCustomValidity(messages, dirty);
-      }, 0);
-      return super.setCustomValidity(_.filter(messages, (message) => message.ruleName !=='invalidValueProperty'), dirty, external);
-=======
     if (this.options.building && _.find(messages, { ruleName: 'invalidValueProperty' })) {
       setTimeout(() => {
         this.root &&
@@ -382,7 +337,6 @@ export default class SelectBoxesComponent extends RadioComponent {
         dirty,
         external,
       );
->>>>>>> upstream/main
     } else {
       return super.setCustomValidity(messages, dirty, external);
     }

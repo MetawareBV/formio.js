@@ -216,20 +216,6 @@ export default class PDFBuilder extends WebformBuilder {
     if (this.refs.uploadProgressWrapper) {
       this.refs.uploadProgressWrapper.style.display = 'inherit';
     }
-<<<<<<< HEAD
-    formio.uploadFile('url', file, file, '', (event) => {
-      if (this.refs.uploadProgress) {
-        const progress = Math.floor((event.loaded / event.total) * 100);
-        this.refs.uploadProgress.style.width = `${progress}%`;
-        if (progress > 98) {
-          this.refs.uploadProgress.innerHTML = this.t('waitPdfConverting');
-        }
-        else {
-          this.refs.uploadProgress.innerHTML = `${this.t('uploading')} ${progress}%`;
-        }
-      }
-    }, `${this.projectUrl}/upload`, {}, 'file')
-=======
     formio
       .uploadFile(
         'url',
@@ -251,7 +237,6 @@ export default class PDFBuilder extends WebformBuilder {
         {},
         'file',
       )
->>>>>>> upstream/main
       .then((result) => {
         let autoConversionComponentsAssigned = false;
 
@@ -298,7 +283,7 @@ export default class PDFBuilder extends WebformBuilder {
       return;
     }
     this.refs.uploadError.style.display = message ? '' : 'none';
-    this.refs.uploadError.innerHTML = this.t(`${message}`);
+    this.refs.uploadError.innerHTML = message;
   }
 
   createForm(options) {
@@ -370,15 +355,11 @@ export default class PDFBuilder extends WebformBuilder {
           width: schema.width,
         };
 
-<<<<<<< HEAD
-        if (!this.options.noNewEdit && !component.component.noNewEdit && this.hasEditTabs(component.type)) {
-=======
         if (
           !this.options.noNewEdit &&
           !component.component.noNewEdit &&
           this.hasEditTabs(component.type)
         ) {
->>>>>>> upstream/main
           this.editComponent(component.component, this.getParentContainer(component), isNew);
         }
         this.emit('updateComponent', component.component);
@@ -402,14 +383,6 @@ export default class PDFBuilder extends WebformBuilder {
       return component;
     });
 
-<<<<<<< HEAD
-    this.webform.on('iframe-componentClick', schema => {
-      const component = this.webform.getComponentById(schema.id);
-      if (component && this.hasEditTabs(component.type)) {
-        this.editComponent(component.component, this.getParentContainer(component));
-      }
-    }, true);
-=======
     this.webform.on(
       'iframe-componentClick',
       (schema) => {
@@ -420,7 +393,6 @@ export default class PDFBuilder extends WebformBuilder {
       },
       true,
     );
->>>>>>> upstream/main
   }
 
   // 8888888b.                                                                   888                   d8b
@@ -606,13 +578,8 @@ export default class PDFBuilder extends WebformBuilder {
           name: 'showBuilderErrors',
           data: {
             compId: comp.component.id,
-<<<<<<< HEAD
-            errorMessage: `${this.t('notUniqueKey')}: ${comp.key}`,
-          }
-=======
             errorMessage: `API Key is not unique: ${comp.key}`,
           },
->>>>>>> upstream/main
         });
       }
     });

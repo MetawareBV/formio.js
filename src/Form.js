@@ -57,11 +57,7 @@ import FormioUtils from './utils';
  * @property {number} [saveDraftThrottle] - The throttle for the save draft feature.
  * @property {boolean} [readOnly] - Set this form to readOnly.
  * @property {boolean} [noAlerts] - Disable the alerts dialog.
-<<<<<<< HEAD
- * @property {Record<string, Record<string, string>>} [i18n] - The translation file for this rendering.
-=======
  * @property {{[key: string]: string} | { translationsUrl: string }} [i18n] - The translation file for this rendering.
->>>>>>> upstream/main
  * @property {string} [template] - Custom logic for creation of elements.
  * @property {boolean} [noDefaults] - Exclude default values from the settings.
  * @property {any} [fileService] - The file service for this form.
@@ -307,39 +303,6 @@ export default class Form extends Element {
           error = err;
         })
         .then((submission) => {
-<<<<<<< HEAD
-          return formio.loadForm()
-          // If the form returned an error, show it instead of the form.
-            .catch(err => {
-              error = err;
-            })
-            .then((form) => {
-              // If the submission returned an error, show it instead of the form.
-              if (error) {
-                form = this.errorForm(error);
-              }
-              this.loading = false;
-              this.instance = this.instance || this.create(form.display);
-
-              // If we're in builder mode, instance.setUrl is not a function, so just manually set the URL.
-              if (this.instance.setUrl) {
-                const options = this.getFormInitOptions(formParam, form);
-                this.instance.setUrl(formParam, options);
-              } else {
-                this.instance.url = formParam;
-              }
-
-              this.instance.nosubmit = false;
-              this._form = this.instance.form = form;
-              if (submission) {
-                this.instance.submission = submission;
-              }
-              if (error) {
-                throw error;
-              }
-              return this.instance;
-            });
-=======
           return (
             formio
               .loadForm()
@@ -374,7 +337,6 @@ export default class Form extends Element {
                 return this.instance;
               })
           );
->>>>>>> upstream/main
         });
     } else {
       this.instance = this.instance || this.create(formParam.display);
@@ -421,11 +383,7 @@ export default class Form extends Element {
     this.instance.destroy(true);
     this.instance = this.create(display);
     return this.setForm(this.form).then(() => {
-<<<<<<< HEAD
-      this.instance.emit('setDisplay', this.form.display)
-=======
       this.instance.emit('setDisplay', this.form.display);
->>>>>>> upstream/main
     });
   }
 
@@ -487,11 +445,11 @@ export default class Form extends Element {
    */
   build() {
     if (!this.instance) {
-      return Promise.reject(this.t('formNotReady'));
+      return Promise.reject('Form not ready. Use form.ready promise');
     }
 
     if (!this.element) {
-      return Promise.reject(this.t('noFormElement'));
+      return Promise.reject('No DOM element for form.');
     }
 
     // Add temporary loader.
@@ -512,7 +470,7 @@ export default class Form extends Element {
 
   render() {
     if (!this.instance) {
-      return Promise.reject(this.t('formNotReady'));
+      return Promise.reject('Form not ready. Use form.ready promise');
     }
     return Promise.resolve(this.instance.render()).then((param) => {
       this.emit('render', param);
@@ -522,7 +480,7 @@ export default class Form extends Element {
 
   attach(element) {
     if (!this.instance) {
-      return Promise.reject(this.t('formNotReady'));
+      return Promise.reject('Form not ready. Use form.ready promise');
     }
     if (this.element) {
       delete this.element.component;

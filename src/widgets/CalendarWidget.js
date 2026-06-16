@@ -125,10 +125,6 @@ export default class CalendarWidget extends InputWidget {
     this.settings.dateFormat = convertFormatToFlatpickr(this.settings.dateFormat);
     this.settings.position = 'auto center';
     this.settings.onChange = () => {
-<<<<<<< HEAD
-      if (this.settings.allowInput && this.settings.enableTime) {
-        this.calendar._input.value = this.settings.isManuallyOverriddenValue ? this.settings.manualInputValue : this.calendar.altInput.value;
-=======
       if (this.settings.allowInput) {
         if (this.settings.isManuallyOverriddenValue && this.settings.enableTime) {
           this.calendar._input.value = this.settings.manualInputValue;
@@ -137,8 +133,8 @@ export default class CalendarWidget extends InputWidget {
         }
 
         this.settings.isManuallyOverriddenValue = false;
->>>>>>> upstream/main
       }
+
       this.emit('update');
     };
     this.settings.onOpen = () => this.hook('onCalendarOpen');
@@ -147,8 +143,9 @@ export default class CalendarWidget extends InputWidget {
       this.closedOn = Date.now();
 
       if (this.settings.allowInput && this.settings.enableTime) {
-          this.calendar._input.value  = this.settings.isManuallyOverriddenValue ? this.settings.manualInputValue : this.calendar.altInput.value;
-          this.emit('update');
+        this.calendar._input.value = this.settings.manualInputValue || this.calendar._input.value;
+        this.settings.isManuallyOverriddenValue = false;
+        this.emit('update');
       }
 
       if (this.calendar) {
@@ -156,11 +153,6 @@ export default class CalendarWidget extends InputWidget {
       }
     };
 
-<<<<<<< HEAD
-    Formio.requireLibrary('flatpickr-css', 'flatpickr', [
-      { type: 'styles', src: `${Formio.cdn['flatpickr']}/flatpickr.min.css` }
-    ], true);
-=======
     Formio.requireLibrary(
       'flatpickr-css',
       'flatpickr',
@@ -169,7 +161,6 @@ export default class CalendarWidget extends InputWidget {
       ],
       true,
     );
->>>>>>> upstream/main
 
     if (this.component.shortcutButtons) {
       this.component.shortcutButtons = this.component.shortcutButtons.filter(
@@ -203,31 +194,6 @@ export default class CalendarWidget extends InputWidget {
         }
       })
       .then((ShortcutButtonsPlugin) => {
-<<<<<<< HEAD
-        return Formio.requireLibrary('flatpickr', 'flatpickr', `${Formio.cdn['flatpickr']}/flatpickr.min.js`, true)
-          .then((Flatpickr) => {
-            if (this.component.shortcutButtons?.length && ShortcutButtonsPlugin) {
-              this.initShortcutButtonsPlugin(ShortcutButtonsPlugin);
-            }
-
-            this.settings.formatDate = this.getFlatpickrFormatDate(Flatpickr);
-
-            if (this._input) {
-              const { locale } = this.settings;
-
-              if (locale && locale.length >= 2 && locale !== 'en') {
-                return Formio.requireLibrary(
-                  `flatpickr-${locale}`,
-                  `flatpickr.l10ns.${locale}`,
-                  `${Formio.cdn['flatpickr']}/l10n/${locale}.js`,
-                  true).then(() => this.initFlatpickr(Flatpickr));
-              }
-              else {
-                this.initFlatpickr(Flatpickr);
-              }
-            }
-          });
-=======
         return Formio.requireLibrary(
           'flatpickr',
           'flatpickr',
@@ -262,7 +228,6 @@ export default class CalendarWidget extends InputWidget {
             }
           }
         });
->>>>>>> upstream/main
       })
       .catch((err) => {
         console.warn(err);
@@ -511,38 +476,15 @@ export default class CalendarWidget extends InputWidget {
     this.calendar = new Flatpickr(this._input, { ...this.settings, disableMobile: true });
     this.addEventListener(this.calendar.altInput, 'input', (event) => {
       if (this.settings.allowInput && this.settings.currentValue !== event.target.value) {
-        if(event.target.mask) {
-          event.target.mask.textMaskInputElement.update();
-        }
         this.settings.manualInputValue = event.target.value;
-        this._input.value = this.settings.manualInputValue;
         this.settings.isManuallyOverriddenValue = true;
         this.settings.currentValue = event.target.value;
-<<<<<<< HEAD
-        this.emit('update');
-      }
-    });
-    if(this.calendar.daysContainer) {
-      this.calendar.daysContainer.addEventListener('click', () => {
-        this.settings.isManuallyOverriddenValue = false;
-        this.calendar.updateValue(false);
-      });
-    }
-    if(this.calendar.timeContainer){
-      this.calendar.timeContainer.addEventListener('click', () => {
-        this.settings.isManuallyOverriddenValue = false;
-        this.calendar.updateValue(false);
-      });
-    }
-    const excludedFromMaskFormats = ['MMMM'];
-=======
       }
     });
 
     // Move input attributes to altInput.
     const labelledbyIds = this.calendar.input.getAttribute('aria-labelledby');
     const isRequired = this.calendar.input.getAttribute('aria-required');
->>>>>>> upstream/main
 
     this.calendar.altInput.id = this._input.id;
     this.calendar.altInput.setAttribute('aria-labelledby', labelledbyIds);
@@ -593,17 +535,9 @@ export default class CalendarWidget extends InputWidget {
     }
     // Make sure we commit the value after a blur event occurs.
     this.addEventListener(this.calendar._input, 'blur', (event) => {
-<<<<<<< HEAD
-      // If we have manually overridden the value then we shouldn't call setDate because this will fill the input mask
-      if (this.settings.isManuallyOverriddenValue){
-        return;
-      }
-      const activeElement = this.settings.shadowRoot ? this.settings.shadowRoot.activeElement : document.activeElement;
-=======
       const activeElement = this.settings.shadowRoot
         ? this.settings.shadowRoot.activeElement
         : document.activeElement;
->>>>>>> upstream/main
       const relatedTarget = event.relatedTarget ? event.relatedTarget : activeElement;
 
       if (!(isIEBrowser && !relatedTarget) && !this.isCalendarElement(relatedTarget)) {

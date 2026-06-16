@@ -11,17 +11,10 @@ import {
   comp5,
   comp6,
   comp7,
-<<<<<<< HEAD
-  comp8
-} from './fixtures/selectboxes';
-import wizardWithSelectBoxes from '../forms/wizardWithSelectBoxes';
-import {comp12} from './fixtures/radio';
-=======
   comp8,
 } from './fixtures/selectboxes';
 import { comp12 } from './fixtures/radio';
 import wizardWithSelectBoxes from '../forms/wizardWithSelectBoxes';
->>>>>>> upstream/main
 import { fastCloneDeep } from '@formio/core';
 
 describe('SelectBoxes Component', () => {

@@ -1,11 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import FormioUtils from '../../utils';
-<<<<<<< HEAD
-import { componentValueTypes, fastCloneDeep, getComponentSavedTypes } from '../../utils/utils';
-=======
 import { componentValueTypes, fastCloneDeep, getComponentSavedTypes } from '../../utils';
->>>>>>> upstream/main
 import Input from '../_classes/input/Input';
 
 export default class DateTimeComponent extends Input {
@@ -165,10 +161,6 @@ export default class DateTimeComponent extends Input {
     // it is done here since these settings depend on properties present after the component is initialized
     // originalComponent is used to restore the component (and widget) after evaluating field logic
     this.originalComponent = fastCloneDeep(this.component);
-<<<<<<< HEAD
-    /* eslint-enable camelcase */
-=======
->>>>>>> upstream/main
   }
 
   get defaultSchema() {
@@ -245,15 +237,11 @@ export default class DateTimeComponent extends Input {
 
     if (useTimezoneAwareFormat) {
       if (Array.isArray(value) && this.component.multiple) {
-<<<<<<< HEAD
-        return value.map(item => _.trim(FormioUtils.momentDate(item, format, timezone, options).format(format))).join(', ');
-=======
         return value
           .map((item) =>
             _.trim(FormioUtils.momentDate(item, format, timezone, options).format(format)),
           )
           .join(', ');
->>>>>>> upstream/main
       }
       return _.trim(FormioUtils.momentDate(value, format, timezone, options).format(format));
     }

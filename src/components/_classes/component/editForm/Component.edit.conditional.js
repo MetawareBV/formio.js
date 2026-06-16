@@ -49,17 +49,9 @@ export default [
     'conditional.json',
     110,
     '<p>You must assign the <strong>show</strong> variable a boolean result.</p>' +
-<<<<<<< HEAD
-    '<p><strong>Note: Advanced Conditional logic will override the results of the Simple Conditional logic.</strong></p>' +
-    '<h5>Example</h5><pre>show = !!data.showMe;</pre>',
-    '<p><a href="https://help.form.io/userguide/form-building/logic-and-conditions" target="_blank" rel="noopener noreferrer">Click here for an example</a></p>',
-    EditFormUtils.tokenVariableDescription()
-  )
-=======
       '<p><strong>Note: Advanced Conditional logic will override the results of the Simple Conditional logic.</strong></p>' +
       '<h5>Example</h5><pre>show = !!data.showMe;</pre>',
     '<p><a href="https://help.form.io/userguide/form-building/logic-and-conditions" target="_blank" rel="noopener noreferrer">Click here for an example</a></p>',
     EditFormUtils.tokenVariableDescription(),
   ),
->>>>>>> upstream/main
 ];

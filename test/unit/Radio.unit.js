@@ -3,10 +3,7 @@ import { Formio } from '../../src/Formio';
 import _ from 'lodash';
 import Harness from '../harness';
 import RadioComponent from '../../src/components/radio/Radio';
-<<<<<<< HEAD
-=======
 import { wait } from '../util';
->>>>>>> upstream/main
 
 import {
   comp1,
@@ -20,14 +17,6 @@ import {
   comp9,
   comp10,
   comp11,
-<<<<<<< HEAD
-  comp13
-} from './fixtures/radio';
-import { fastCloneDeep } from '@formio/core';
-
-describe('Radio Component', () => {
-  it('Should build a radio component', () => {
-=======
   comp13,
   comp15,
 } from './fixtures/radio/index';
@@ -35,26 +24,12 @@ import { fastCloneDeep } from '@formio/core';
 
 describe('Radio Component', function () {
   it('Should build a radio component', function () {
->>>>>>> upstream/main
     return Harness.testCreate(RadioComponent, comp1).then((component) => {
       Harness.testElements(component, 'input[type="radio"]', 4);
       Harness.testElements(component, 'span', 4);
     });
   });
 
-<<<<<<< HEAD
-  it("Should allow to uncheck default radio value and set correct submission data", function (done) {
-    const formElement = document.createElement("div");
-    const comp5Cloned = _.cloneDeep(comp5);
-    comp5Cloned.components[0].defaultValue = "one";
-
-    Formio.createForm(formElement, comp5Cloned)
-      .then((form) => {
-        const submit = form.getComponent("submit");
-        const submitBtn = submit.refs.button;
-        const clickEvent = new Event("click");
-        const component = form.getComponent("radio");
-=======
   it('Should allow to uncheck default radio value and set correct submission data', function (done) {
     const formElement = document.createElement('div');
     const comp5Cloned = _.cloneDeep(comp5);
@@ -66,7 +41,6 @@ describe('Radio Component', function () {
         const submitBtn = submit.refs.button;
         const clickEvent = new Event('click');
         const component = form.getComponent('radio');
->>>>>>> upstream/main
         const radioFirstInput = component.refs.input[0];
         setTimeout(() => {
           submitBtn.dispatchEvent(clickEvent);
@@ -88,100 +62,29 @@ describe('Radio Component', function () {
       .catch(done);
   });
 
-<<<<<<< HEAD
-  it('Should return correct string values if storage type is Number', () => {
-=======
   it('Should return correct string values if storage type is Number', function () {
->>>>>>> upstream/main
     return Harness.testCreate(RadioComponent, comp2).then((component) => {
       assert.equal(component.getValueAsString(1), 'one');
       assert.equal(component.getValueAsString(2), 'two');
     });
   });
 
-<<<<<<< HEAD
-  it('Should build a radio component with URL DataSrc', (done) => {
-=======
   it('Should build a radio component with URL DataSrc', function (done) {
->>>>>>> upstream/main
     const form = _.cloneDeep(comp9);
     const element = document.createElement('div');
     const originalMakeRequest = Formio.makeRequest;
 
-<<<<<<< HEAD
-    Formio.makeRequest = function() {
-      return new Promise(resolve => {
-        const values = [
-          { name : 'Alabama', abbreviation : 'AL' },
-          { name : 'Alaska', abbreviation: 'AK' },
-          { name: 'American Samoa', abbreviation: 'AS' }
-=======
     Formio.makeRequest = function () {
       return new Promise((resolve) => {
         const values = [
           { name: 'Alabama', abbreviation: 'AL' },
           { name: 'Alaska', abbreviation: 'AK' },
           { name: 'American Samoa', abbreviation: 'AS' },
->>>>>>> upstream/main
         ];
         resolve(values);
       });
     };
 
-<<<<<<< HEAD
-    Formio.createForm(element, form).then(form => {
-      const radio = form.getComponent('radio');
-
-      setTimeout(()=>{
-        assert.equal(radio.loadedOptions.length, 3);
-
-        Formio.makeRequest = originalMakeRequest;
-        done();
-      }, 200);
-    }).catch(done);
-  });
-
-  it('Should provide metadata.selectData for radio component with URL DataSrc', (done) => {
-    const form = _.cloneDeep(comp9);
-    const element = document.createElement('div');
-    const originalMakeRequest = Formio.makeRequest;
-
-    Formio.makeRequest = function() {
-      return new Promise(resolve => {
-        const values = [
-          { name : 'Alabama', abbreviation : 'AL' },
-          { name : 'Alaska', abbreviation: 'AK' },
-          { name: 'American Samoa', abbreviation: 'AS' }
-        ];
-        resolve(values);
-      });
-    };
-
-    Formio.createForm(element, form).then(form => {
-      const radio = form.getComponent('radio');
-
-      setTimeout(()=>{
-        const value = 'AK';
-        radio.setValue(value);
-        setTimeout(() => {
-          assert.equal(radio.dataValue, value);
-          const submit = form.getComponent('submit');
-          const clickEvent = new Event('click');
-          const submitBtn = submit.refs.button;
-          submitBtn.dispatchEvent(clickEvent);
-          setTimeout(() => {
-            assert.equal(_.isEqual(form.submission.metadata.selectData.radio, { name : 'Alaska' }), true);
-            assert.equal(form.submission.metadata.listData.radio.length, 3);
-            Formio.makeRequest = originalMakeRequest;
-            done();
-          },200);
-        },200);
-      }, 200);
-    }).catch(done);
-  });
-
-  it('Should save checked value after redrawing if storage type is Number', (done) => {
-=======
     Formio.createForm(element, form)
       .then((form) => {
         const radio = form.getComponent('radio');
@@ -241,16 +144,11 @@ describe('Radio Component', function () {
   });
 
   it('Should save checked value after redrawing if storage type is Number', function (done) {
->>>>>>> upstream/main
     Harness.testCreate(RadioComponent, comp3).then((component) => {
       component.setValue(22);
       component.redraw();
 
-<<<<<<< HEAD
-      setTimeout(()=>{
-=======
       setTimeout(() => {
->>>>>>> upstream/main
         assert.equal(component.refs.input[0].checked, false);
         assert.equal(component.refs.input[1].value, '22');
         assert.equal(component.refs.input[1].checked, true);
@@ -260,41 +158,6 @@ describe('Radio Component', function () {
     });
   });
 
-<<<<<<< HEAD
-  it('Should set the Value according to Storage Type', (done) => {
-    const form = _.cloneDeep(comp11);
-    const element = document.createElement('div');
-
-    Formio.createForm(element, form).then(form => {
-      const radioNumber = form.getComponent('radioNumber');
-      const radioString = form.getComponent('radioString');
-      const radioBoolean = form.getComponent('radioBoolean');
-      const value1 = '0';
-      const value2 = 'true';
-      radioNumber.setValue(value1);
-      radioString.setValue(value1);
-      radioBoolean.setValue(value2);
-
-      const submit = form.getComponent('submit');
-      const clickEvent = new Event('click');
-      const submitBtn = submit.refs.button;
-      submitBtn.dispatchEvent(clickEvent);
-
-      setTimeout(() => {
-        assert.equal(form.submission.data.radioNumber, 0);
-        assert.equal(typeof form.submission.data.radioNumber, 'number');
-        assert.equal(form.submission.data.radioString, '0');
-        assert.equal(typeof form.submission.data.radioString, 'string');
-        assert.equal(form.submission.data.radioBoolean, true);
-        assert.equal(typeof form.submission.data.radioBoolean, 'boolean');
-        document.innerHTML = '';
-        done();
-      }, 300);
-    }).catch(done);
-  });
-
-  it('Should set correct data for 0s values', (done) => {
-=======
   it('Should set the Value according to Storage Type', function (done) {
     const form = _.cloneDeep(comp11);
     const element = document.createElement('div');
@@ -330,24 +193,15 @@ describe('Radio Component', function () {
   });
 
   it('Should set correct data for 0s values', function (done) {
->>>>>>> upstream/main
     Harness.testCreate(RadioComponent, comp10).then((component) => {
       component.setValue('01');
       component.redraw();
 
-<<<<<<< HEAD
-      setTimeout(()=>{
-        assert.equal(component._data.radio, '01');
-        component.setValue(1);
-        component.redraw();
-        setTimeout(()=>{
-=======
       setTimeout(() => {
         assert.equal(component._data.radio, '01');
         component.setValue(1);
         component.redraw();
         setTimeout(() => {
->>>>>>> upstream/main
           assert.equal(component._data.radio, 1);
           done();
         }, 200);
@@ -355,12 +209,6 @@ describe('Radio Component', function () {
     });
   });
 
-<<<<<<< HEAD
-  it('Span should have correct text label', () => {
-    return Harness.testCreate(RadioComponent, comp1).then((component) => {
-      component.element.querySelectorAll('input').forEach((input) => {
-        assert(input.getAttribute('class').indexOf('form-check-input') !== -1, 'No form-check-input on radios.');
-=======
   it('Span should have correct text label', function () {
     return Harness.testCreate(RadioComponent, comp1).then((component) => {
       component.element.querySelectorAll('input').forEach((input) => {
@@ -368,7 +216,6 @@ describe('Radio Component', function () {
           input.getAttribute('class').indexOf('form-check-input') !== -1,
           'No form-check-input on radios.',
         );
->>>>>>> upstream/main
       });
       const spans = component.element.querySelectorAll('span');
       assert.equal(spans[0].innerHTML, 'Red');
@@ -378,11 +225,7 @@ describe('Radio Component', function () {
     });
   });
 
-<<<<<<< HEAD
-  it('Should set false as defaultValue correctly', (done) => {
-=======
   it('Should set false as defaultValue correctly', function (done) {
->>>>>>> upstream/main
     Harness.testCreate(RadioComponent, comp4).then((component) => {
       assert.equal(component.dataValue, false, 'Should be equal to false');
       const input = component.element.querySelector('input[value="false"]');
@@ -391,71 +234,6 @@ describe('Radio Component', function () {
     });
   });
 
-<<<<<<< HEAD
-  it('Should provide "Allow only available values" validation', (done) => {
-    const form = _.cloneDeep(comp5);
-    const element = document.createElement('div');
-
-    Formio.createForm(element, form).then(form => {
-      const radio = form.getComponent('radio');
-      let value = 'five';
-      radio.setValue(value);
-
-      setTimeout(() => {
-        assert.equal(radio.getValue(), value);
-        assert.equal(radio.dataValue, value);
-        const submit = form.getComponent('submit');
-        const clickEvent = new Event('click');
-        const submitBtn = submit.refs.button;
-        submitBtn.dispatchEvent(clickEvent);
-
-        setTimeout(() => {
-          assert.equal(form.errors.length, 1);
-          assert.equal(radio.errors[0].message, 'Radio is an invalid value.');
-          value = 'one';
-          radio.setValue(value);
-
-          setTimeout(() => {
-            assert.equal(radio.getValue(), value);
-            assert.equal(radio.dataValue, value);
-            assert.equal(form.errors.length, 0);
-            assert.equal(!!radio.errors.length, 0);
-
-            document.innerHTML = '';
-            done();
-          }, 300);
-        }, 300);
-      }, 200);
-    }).catch(done);
-  });
-
-  it('Should use whole Object as value if URL DataSrc and ValueProperty is not set', (done) => {
-    const form = _.cloneDeep(comp9);
-    delete form.components[0].valueProperty;
-    const element = document.createElement('div');
-    const originalMakeRequest = Formio.makeRequest;
-    const values = [
-      { name : 'Alabama', abbreviation : 'AL' },
-      { name : 'Alaska', abbreviation: 'AK' }
-    ];
-
-    Formio.makeRequest = function() {
-      return new Promise(resolve => {
-        resolve(values);
-      });
-    };
-
-    Formio.createForm(element, form).then(form => {
-      const radio = form.getComponent('radio');
-
-      setTimeout(()=>{
-        values.forEach((value, i) => {
-          assert.equal(_.isEqual(value, radio.loadedOptions[i].value), true);
-        });
-        radio.setValue(values[1]);
-
-        setTimeout(() => {
-=======
   it('Should show aria-invalid attribute only if an error occurs', async () => {
     const initForm = _.cloneDeep(comp5);
     const element = document.createElement('div');
@@ -491,29 +269,12 @@ describe('Radio Component', function () {
         setTimeout(() => {
           assert.equal(radio.getValue(), value);
           assert.equal(radio.dataValue, value);
->>>>>>> upstream/main
           const submit = form.getComponent('submit');
           const clickEvent = new Event('click');
           const submitBtn = submit.refs.button;
           submitBtn.dispatchEvent(clickEvent);
 
           setTimeout(() => {
-<<<<<<< HEAD
-            assert.equal(form.errors.length, 0);
-            assert.equal(!!radio.errors.length, 0);
-            assert.equal(radio.getValue(), values[1]);
-            assert.equal(radio.dataValue, values[1]);
-            document.innerHTML = '';
-            Formio.makeRequest = originalMakeRequest;
-            done();
-          }, 300);
-        }, 300);
-      }, 200);
-    }).catch(done);
-  });
-
-  it('Should not have default values in schema', (done) => {
-=======
             assert.equal(form.errors.length, 1);
             assert.equal(radio.errors[0].message, 'Radio is an invalid value.');
             value = 'one';
@@ -582,7 +343,6 @@ describe('Radio Component', function () {
   });
 
   it('Should not have default values in schema', function (done) {
->>>>>>> upstream/main
     const form = _.cloneDeep(comp6);
     const element = document.createElement('div');
 
@@ -593,19 +353,6 @@ describe('Radio Component', function () {
       tableView: false,
       key: 'radio',
       type: 'radio',
-<<<<<<< HEAD
-      input: true
-    };
-
-    Formio.createForm(element, form).then(form => {
-      const radio = form.getComponent('radio');
-      assert.deepEqual(requiredSchema, radio.schema);
-      done();
-    }).catch(done);
-  });
-
-  it('Should not show infinite loader for radio with URL data source if options loading failed', (done) => {
-=======
       input: true,
     };
 
@@ -619,37 +366,15 @@ describe('Radio Component', function () {
   });
 
   it('Should not show infinite loader for radio with URL data source if options loading failed', function (done) {
->>>>>>> upstream/main
     const form = _.cloneDeep(comp9);
     const element = document.createElement('div');
     const originalMakeRequest = Formio.makeRequest;
 
-<<<<<<< HEAD
-    Formio.makeRequest = function() {
-=======
     Formio.makeRequest = function () {
->>>>>>> upstream/main
       return new Promise((res, rej) => {
         setTimeout(() => rej('loading error'), 200);
       });
     };
-<<<<<<< HEAD
-    Formio.createForm(element, form).then(form => {
-      const radio = form.getComponent('radio');
-      assert.equal(!!radio.element.querySelector('.loader'), true, 'Should show loader.')
-      setTimeout(()=>{
-        assert.equal(!!radio.element.querySelector('.loader'), false, 'Should not show loader.')
-        Formio.makeRequest = originalMakeRequest;
-        done();
-      }, 350);
-    }).catch(done);
-  });
-
-  it('should have red asterisk left hand side to the options labels if component is required and label is hidden', () => {
-    return Harness.testCreate(RadioComponent, comp7).then(component => {
-      const options = component.element.querySelectorAll('.form-check-label');
-      options.forEach(i => {
-=======
     Formio.createForm(element, form)
       .then((form) => {
         const radio = form.getComponent('radio');
@@ -667,34 +392,21 @@ describe('Radio Component', function () {
     return Harness.testCreate(RadioComponent, comp7).then((component) => {
       const options = component.element.querySelectorAll('.form-check-label');
       options.forEach((i) => {
->>>>>>> upstream/main
         assert.deepEqual(!!getComputedStyle(i, ':before'), true);
       });
     });
   });
 
-<<<<<<< HEAD
-  it('Should not provide empty error message when hidden radio has storage type as string', (done) => {
-=======
   it('Should not provide empty error message when hidden radio has storage type as string', function (done) {
->>>>>>> upstream/main
     const form = _.cloneDeep(comp8);
     const element = document.createElement('div');
 
     Formio.createForm(element, form)
-<<<<<<< HEAD
-      .then(form => {
-        form.submission = {
-          data: {
-            radio: 'no'
-          }
-=======
       .then((form) => {
         form.submission = {
           data: {
             radio: 'no',
           },
->>>>>>> upstream/main
         };
         const alerts = document.querySelectorAll('.alert-danger');
         setTimeout(() => {
@@ -705,11 +417,7 @@ describe('Radio Component', function () {
       .catch(done);
   });
 
-<<<<<<< HEAD
-  it('Should show correct attributes during performance', function(done) {
-=======
   it('Should show correct attributes during performance', function (done) {
->>>>>>> upstream/main
     const formElement = document.createElement('div');
 
     const JSON = {
@@ -749,20 +457,9 @@ describe('Radio Component', function () {
 
         const appleRadioInput = component.refs.input[0];
         const appleComponentWrapper = formElement.querySelector('.form-check');
-<<<<<<< HEAD
-        const isContainClass =
-          appleComponentWrapper.classList.contains('radio-selected');
-
-        assert.equal(
-          appleRadioInput.checked,
-          false,
-          'should be false by default'
-        );
-=======
         const isContainClass = appleComponentWrapper.classList.contains('radio-selected');
 
         assert.equal(appleRadioInput.checked, false, 'should be false by default');
->>>>>>> upstream/main
         assert.equal(isContainClass, false, 'should be false by default');
 
         appleRadioInput.click();
@@ -771,12 +468,7 @@ describe('Radio Component', function () {
           assert.equal(appleRadioInput.checked, true);
 
           const elementWrapper = formElement.querySelector('.form-check');
-<<<<<<< HEAD
-          const isContainClass =
-            elementWrapper.classList.contains('radio-selected');
-=======
           const isContainClass = elementWrapper.classList.contains('radio-selected');
->>>>>>> upstream/main
           assert.equal(isContainClass, true);
 
           appleRadioInput.click();
@@ -784,12 +476,7 @@ describe('Radio Component', function () {
           setTimeout(() => {
             assert.equal(appleRadioInput.checked, false);
             const elementWrapper = formElement.querySelector('.form-check');
-<<<<<<< HEAD
-            const isContainClass =
-              elementWrapper.classList.contains('radio-selected');
-=======
             const isContainClass = elementWrapper.classList.contains('radio-selected');
->>>>>>> upstream/main
             assert.equal(isContainClass, false);
 
             done();
@@ -799,11 +486,7 @@ describe('Radio Component', function () {
       .catch(done);
   });
 
-<<<<<<< HEAD
-  it('Should wait for radio url options to load before submit', (done) => {
-=======
   it('Should wait for radio url options to load before submit', function (done) {
->>>>>>> upstream/main
     const element = document.createElement('div');
     const originalMakeRequest = Formio.makeRequest;
     const urlResponse = [
@@ -831,13 +514,8 @@ describe('Radio Component', function () {
         label: 'Option C',
       },
     ];
-<<<<<<< HEAD
-    Formio.makeRequest = function() {
-      return new Promise((res, rej) => {
-=======
     Formio.makeRequest = function () {
       return new Promise((res) => {
->>>>>>> upstream/main
         setTimeout(() => {
           res(fastCloneDeep(urlResponse));
         }, 400);
@@ -845,12 +523,6 @@ describe('Radio Component', function () {
     };
 
     Formio.createForm(element, fastCloneDeep(comp13))
-<<<<<<< HEAD
-      .then(instance => {
-        const radio = instance.getComponent('radio');
-        assert.equal(radio.optionsLoaded, false);
-        assert.equal(!!radio.element.querySelector('.loader'), true, 'Should show loader while options are loading.')
-=======
       .then((instance) => {
         const radio = instance.getComponent('radio');
         assert.equal(radio.optionsLoaded, false);
@@ -859,37 +531,23 @@ describe('Radio Component', function () {
           true,
           'Should show loader while options are loading.',
         );
->>>>>>> upstream/main
         instance.submit().then((subm) => {
           assert.equal(radio.loadedOptions.length, urlResponse.length);
           assert.equal(radio.optionsLoaded, true);
           assert.deepEqual(subm.metadata?.listData?.radio, listData);
           Formio.makeRequest = originalMakeRequest;
           done();
-<<<<<<< HEAD
-        })
-=======
         });
->>>>>>> upstream/main
       })
       .catch(done);
   });
 
-<<<<<<< HEAD
-  it('Should render options from metadata in readOnly when radio value is empty in submission', (done) => {
-    const element = document.createElement('div');
-    const originalMakeRequest = Formio.makeRequest;
-    let optionsCalls = 0;
-    Formio.makeRequest = function() {
-      return new Promise((res, rej) => {
-=======
   it('Should render options from metadata in readOnly when radio value is empty in submission', function (done) {
     const element = document.createElement('div');
     const originalMakeRequest = Formio.makeRequest;
     let optionsCalls = 0;
     Formio.makeRequest = function () {
       return new Promise((res) => {
->>>>>>> upstream/main
         optionsCalls = optionsCalls + 1;
         res([]);
       });
@@ -909,11 +567,7 @@ describe('Radio Component', function () {
               label: 'Option C',
             },
           ],
-<<<<<<< HEAD
-        }
-=======
         },
->>>>>>> upstream/main
       },
       data: {
         radio: '',
@@ -923,13 +577,8 @@ describe('Radio Component', function () {
       state: 'submitted',
     };
 
-<<<<<<< HEAD
-    Formio.createForm(element, fastCloneDeep(comp13), { readOnly: true})
-      .then(instance => {
-=======
     Formio.createForm(element, fastCloneDeep(comp13), { readOnly: true })
       .then((instance) => {
->>>>>>> upstream/main
         instance.setSubmission(submission).then(() => {
           setTimeout(() => {
             assert.equal(optionsCalls, 0);
@@ -938,32 +587,18 @@ describe('Radio Component', function () {
             assert.equal(radio.loadedOptions.length, 3);
             Formio.makeRequest = originalMakeRequest;
             done();
-<<<<<<< HEAD
-          }, 100)
-        })
-=======
           }, 100);
         });
->>>>>>> upstream/main
       })
       .catch(done);
   });
 
-<<<<<<< HEAD
-  it('Should render options from metadata in readOnly when radio has a value in submission', (done) => {
-    const element = document.createElement('div');
-    const originalMakeRequest = Formio.makeRequest;
-    let optionsCalls = 0;
-    Formio.makeRequest = function() {
-      return new Promise((res, rej) => {
-=======
   it('Should render options from metadata in readOnly when radio has a value in submission', function (done) {
     const element = document.createElement('div');
     const originalMakeRequest = Formio.makeRequest;
     let optionsCalls = 0;
     Formio.makeRequest = function () {
       return new Promise((res) => {
->>>>>>> upstream/main
         optionsCalls = optionsCalls + 1;
         res([]);
       });
@@ -986,15 +621,9 @@ describe('Radio Component', function () {
         },
         selectData: {
           radio: {
-<<<<<<< HEAD
-              label: 'Option B'
-          }
-      },
-=======
             label: 'Option B',
           },
         },
->>>>>>> upstream/main
       },
       data: {
         radio: 'opt_b',
@@ -1004,13 +633,8 @@ describe('Radio Component', function () {
       state: 'submitted',
     };
 
-<<<<<<< HEAD
-    Formio.createForm(element, fastCloneDeep(comp13), { readOnly: true})
-      .then(instance => {
-=======
     Formio.createForm(element, fastCloneDeep(comp13), { readOnly: true })
       .then((instance) => {
->>>>>>> upstream/main
         instance.setSubmission(submission).then(() => {
           setTimeout(() => {
             assert.equal(optionsCalls, 0);
@@ -1019,13 +643,6 @@ describe('Radio Component', function () {
             assert.equal(radio.loadedOptions.length, 3);
             Formio.makeRequest = originalMakeRequest;
             done();
-<<<<<<< HEAD
-          }, 100)
-        })
-      })
-      .catch(done);
-  });
-=======
           }, 100);
         });
       })
@@ -1038,5 +655,4 @@ describe('Radio Component', function () {
     const submission = await form.submit();
     assert.equal(submission.data.editGrid[0].radio, 'one');
   });
->>>>>>> upstream/main
 });

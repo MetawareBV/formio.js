@@ -1,16 +1,12 @@
 import _ from 'lodash';
 import moment from 'moment';
 import Field from '../_classes/field/Field';
-<<<<<<< HEAD
-import { boolValue, componentValueTypes, getComponentSavedTypes, getLocaleDateFormatInfo } from '../../utils/utils';
-=======
 import {
   boolValue,
   componentValueTypes,
   getComponentSavedTypes,
   getLocaleDateFormatInfo,
 } from '../../utils';
->>>>>>> upstream/main
 import { getDayFormat } from '@formio/core';
 
 export default class DayComponent extends Field {
@@ -40,14 +36,8 @@ export default class DayComponent extends Field {
         dayFirst: false,
         defaultValue: '',
       },
-<<<<<<< HEAD
-      dayFirst: false,
-      defaultValue: ''
-    }, ...extend);
-=======
       ...extend,
     );
->>>>>>> upstream/main
   }
 
   static get builderInfo() {
@@ -90,11 +80,7 @@ export default class DayComponent extends Field {
   static oldEmptyValue = '00/00/0000';
 
   constructor(component, options, data) {
-<<<<<<< HEAD
-    if (!options.inFormBuilder && !options.building) {
-=======
     if (options && !options.inFormBuilder && !options.building) {
->>>>>>> upstream/main
       if (component.maxDate && component.maxDate.indexOf('moment(') === -1) {
         component.maxDate = moment(component.maxDate, 'YYYY-MM-DD').toISOString();
       }
@@ -102,7 +88,6 @@ export default class DayComponent extends Field {
         component.minDate = moment(component.minDate, 'YYYY-MM-DD').toISOString();
       }
     }
-
     super(component, options, data);
   }
 
@@ -164,11 +149,7 @@ export default class DayComponent extends Field {
 
   isEmpty(value = this.dataValue) {
     if (value === DayComponent.oldEmptyValue) {
-<<<<<<< HEAD
-      return true
-=======
       return true;
->>>>>>> upstream/main
     }
     return super.isEmpty(value);
   }
@@ -233,13 +214,9 @@ export default class DayComponent extends Field {
     const months = [
       {
         value: '',
-<<<<<<< HEAD
-        label: _.get(this.component, 'fields.month.placeholder') || (this.hideInputLabels ? this.t('month') : '')
-=======
         label:
           _.get(this.component, 'fields.month.placeholder') ||
           (this.hideInputLabels ? this.t('Month') : ''),
->>>>>>> upstream/main
       },
       { value: 1, label: 'January' },
       { value: 2, label: 'February' },
@@ -357,14 +334,8 @@ export default class DayComponent extends Field {
     const updateValueAndSaveFocus = (element, name) => () => {
       try {
         this.saveCaretPosition(element, name);
-<<<<<<< HEAD
-      }
-      catch (err) {
-        console.warn(this.t('caretPositionSavingError'), err);
-=======
       } catch (err) {
         console.warn('An error occurred while trying to save caret position', err);
->>>>>>> upstream/main
       }
       this.updateValue(null, {
         modified: true,
@@ -488,16 +459,6 @@ export default class DayComponent extends Field {
     let defaultDay = '';
     let defaultMonth = '';
     let defaultYear = '';
-<<<<<<< HEAD
-    if(defaultValue) {
-      const hasHiddenFields = defaultValue.length !==3;
-      defaultDay = hasHiddenFields ? this.getDayWithHiddenFields(defaultValue).day : defaultValue[DAY];
-      defaultMonth = hasHiddenFields ? this.getDayWithHiddenFields(defaultValue).month : defaultValue[MONTH];
-      defaultYear = hasHiddenFields ? this.getDayWithHiddenFields(defaultValue).year : defaultValue[YEAR];
-    }
-
-    if(this.options.building && defaultValue.length ===3) {
-=======
     if (defaultValue) {
       const hasHiddenFields = defaultValue.length !== 3;
       defaultDay = hasHiddenFields
@@ -512,25 +473,16 @@ export default class DayComponent extends Field {
     }
 
     if (this.options.building && defaultValue.length === 3) {
->>>>>>> upstream/main
       return this.component.defaultValue;
     }
 
     const getNextPart = (shouldTake, defaultValue) => {
-<<<<<<< HEAD
-       // Only push the part if it's not an empty string
-=======
       // Only push the part if it's not an empty string
->>>>>>> upstream/main
       const part = shouldTake ? valueParts.shift() : defaultValue;
       if (part !== '') {
         dateParts.push(part);
       }
-<<<<<<< HEAD
-    }
-=======
     };
->>>>>>> upstream/main
 
     if (this.dayFirst) {
       getNextPart(this.showDay, defaultDay);
@@ -565,12 +517,7 @@ export default class DayComponent extends Field {
       day = this.getDayWithHiddenFields(parts).day;
       month = this.getDayWithHiddenFields(parts).month;
       year = this.getDayWithHiddenFields(parts).year;
-<<<<<<< HEAD
-    }
-    else {
-=======
     } else {
->>>>>>> upstream/main
       if (this.component.dayFirst) {
         day = parts.shift();
       }
@@ -592,9 +539,6 @@ export default class DayComponent extends Field {
   }
 
   getDayWithHiddenFields(parts) {
-<<<<<<< HEAD
-    let [DAY, MONTH, YEAR] = this.component.dayFirst ? [0, 1, 2] : [1, 0, 2];
-=======
     let [
       DAY,
       MONTH,
@@ -610,7 +554,6 @@ export default class DayComponent extends Field {
           0,
           2,
         ];
->>>>>>> upstream/main
     if (!this.showDay) {
       MONTH = MONTH === 0 ? 0 : MONTH - 1;
       YEAR = YEAR - 1;
@@ -630,11 +573,7 @@ export default class DayComponent extends Field {
       month: _.isNull(MONTH) ? '' : parts[MONTH],
       day: _.isNull(DAY) ? '' : parts[DAY],
       year: _.isNull(YEAR) ? '' : parts[YEAR],
-<<<<<<< HEAD
-    }
-=======
     };
->>>>>>> upstream/main
   }
 
   getFieldValue(name) {
@@ -706,14 +645,6 @@ export default class DayComponent extends Field {
 
     const isModalEditClosed = this.component.modalEdit && !this.componentModal.isOpened;
     if (this.showDay && this.refs.day) {
-<<<<<<< HEAD
-      day = (this.refs.day.value === '' && !isModalEditClosed) ? '' : parseInt(this.refs.day.value, 10);
-    }
-    if (day === undefined || _.isNaN(day) || value) {
-      day = (defaults.length !== 3)
-        ? this.getDayWithHiddenFields(defaults).day
-        : (defaults[DAY] && !_.isNaN(defaults[DAY]) ? defaults[DAY] : 0);
-=======
       day =
         this.refs.day.value === '' && !isModalEditClosed ? '' : parseInt(this.refs.day.value, 10);
     }
@@ -724,28 +655,10 @@ export default class DayComponent extends Field {
           : defaults[DAY] && !_.isNaN(defaults[DAY])
             ? defaults[DAY]
             : 0;
->>>>>>> upstream/main
     }
 
     if (this.showMonth && this.refs.month) {
       // Months are 0 indexed.
-<<<<<<< HEAD
-      month = (this.refs.month.value === '' && !isModalEditClosed) ? '' : parseInt(this.refs.month.value, 10);
-    }
-    if (month === undefined || _.isNaN(month) || value) {
-      month = (defaults.length !== 3)
-        ? this.getDayWithHiddenFields(defaults).month
-        : (defaults[MONTH] && !_.isNaN(defaults[MONTH]) ? defaults[MONTH] : 0);
-    }
-
-    if (this.showYear && this.refs.year) {
-      year = (this.refs.year.value === '' && !isModalEditClosed) ? '' : parseInt(this.refs.year.value);
-    }
-    if (year === undefined || _.isNaN(year) || value) {
-      year = (defaults.length !== 3)
-        ? this.getDayWithHiddenFields(defaults).year
-        : (defaults[YEAR] && !_.isNaN(defaults[YEAR]) ? defaults[YEAR] : 0);
-=======
       month =
         this.refs.month.value === '' && !isModalEditClosed
           ? ''
@@ -771,7 +684,6 @@ export default class DayComponent extends Field {
           : defaults[YEAR] && !_.isNaN(defaults[YEAR])
             ? defaults[YEAR]
             : 0;
->>>>>>> upstream/main
     }
 
     let result;
@@ -779,11 +691,7 @@ export default class DayComponent extends Field {
       if (!isModalEditClosed) {
         this.dataValue = this.emptyValue;
         if (this.options.building) {
-<<<<<<< HEAD
-          this.triggerChange();
-=======
           this.triggerChange?.();
->>>>>>> upstream/main
         }
       }
       return null;
@@ -903,17 +811,10 @@ export default class DayComponent extends Field {
           2,
         ];
     const values = value.split('/');
-<<<<<<< HEAD
-    if(values.length < 3){
-      return true;
-    }
-    return (values[DAY] === '00' || values[MONTH] === '00' || values[YEAR] === '0000');
-=======
     if (values.length < 3) {
       return true;
     }
     return values[DAY] === '00' || values[MONTH] === '00' || values[YEAR] === '0000';
->>>>>>> upstream/main
   }
 
   getValidationFormat() {
@@ -924,11 +825,7 @@ export default class DayComponent extends Field {
     if (this.fields?.month?.hide) {
       validationFormat = validationFormat.replace('MM-', '');
     }
-<<<<<<< HEAD
-    if ( this.fields?.year?.hide ) {
-=======
     if (this.fields?.year?.hide) {
->>>>>>> upstream/main
       validationFormat = validationFormat.replace('-YYYY', '');
     }
     return validationFormat;

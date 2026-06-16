@@ -209,15 +209,9 @@ export default class SignatureComponent extends Input {
 
   getModalPreviewTemplate() {
     return this.renderModalPreview({
-<<<<<<< HEAD
-      previewText: this.dataValue ?
-        `<img src=${this.dataValue} ${this._referenceAttributeName}='openModal' style="width: 100%;height: 100%;" />` :
-        this.t('clickToSign')
-=======
       previewText: this.dataValue
         ? `<img src=${this.dataValue} ${this._referenceAttributeName}='openModal' style="width: 100%;height: 100%;" />`
         : this.t('Click to Sign'),
->>>>>>> upstream/main
     });
   }
 
@@ -310,7 +304,7 @@ export default class SignatureComponent extends Input {
     if (_.isUndefined(value) && this.inDataTable) {
       return '';
     }
-    return this.t(value ? 'yes' : 'no');
+    return value ? 'Yes' : 'No';
   }
 
   focus() {

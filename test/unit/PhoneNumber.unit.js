@@ -5,10 +5,6 @@ import { Formio } from '../../src/Formio';
 
 import {
   comp1,
-<<<<<<< HEAD
-  comp2
-=======
->>>>>>> upstream/main
 } from './fixtures/phonenumber';
 
 describe('PhoneNumber Component', () => {
@@ -58,19 +54,5 @@ describe('PhoneNumber Component', () => {
         }, 300);
       })
       .catch(done);
-  });
-
-  it('Should remove previous input mask when switching to a blank input mask', (done) => {
-    Formio.createForm(document.createElement('div'), comp2, {}).then((form) => {
-      const phoneNumberComponent = form.getComponent('phoneNumber');
-      const changeEvent = new Event('change');
-      phoneNumberComponent.refs.select[0].value = "Other";
-      phoneNumberComponent.refs.select[0].dispatchEvent(changeEvent);
-      setTimeout(()=>{
-        assert.equal(phoneNumberComponent.refs.input[0].querySelector('input').value, "");
-        assert.equal(phoneNumberComponent.refs.input[0].querySelector('input').getAttribute('placeholder'), null);
-        done();
-      },200);
-    });
   });
 });

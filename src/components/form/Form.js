@@ -2,11 +2,7 @@ import _ from 'lodash';
 import Component from '../_classes/component/Component';
 import ComponentModal from '../_classes/componentModal/ComponentModal';
 import EventEmitter from 'eventemitter3';
-<<<<<<< HEAD
-import {isMongoId, eachComponent, componentValueTypes} from '../../utils/utils';
-=======
 import { isMongoId, eachComponent, componentValueTypes } from '../../utils';
->>>>>>> upstream/main
 import { Formio } from '../../Formio';
 import Form from '../../Form';
 
@@ -248,7 +244,7 @@ export default class FormComponent extends Component {
 
   render() {
     if (this.builderMode) {
-      return super.render(this.t(this.component.label || 'nestedForm'));
+      return super.render(this.component.label || 'Nested form');
     }
     const subform = this.subForm ? this.subForm.render() : this.renderTemplate('loading');
     return super.render(subform);
@@ -264,13 +260,13 @@ export default class FormComponent extends Component {
 
   getValueAsString(value, options) {
     if (!value) {
-      return this.t('noDataProvided');
+      return 'No data provided';
     }
     if (!value.data && value._id) {
       return value._id;
     }
     if (!value.data || !Object.keys(value.data).length) {
-      return this.t('noDataProvided');
+      return 'No data provided';
     }
     if (options?.email) {
       let result = `
@@ -343,11 +339,6 @@ export default class FormComponent extends Component {
         const postAttach = () => {
           if (!this.builderMode && this.component.modalEdit) {
             const modalShouldBeOpened = this.componentModal ? this.componentModal.isOpened : false;
-<<<<<<< HEAD
-            const currentValue = modalShouldBeOpened ? this.componentModal.currentValue : this.dataValue;
-            this.componentModal = new ComponentModal(this, element, modalShouldBeOpened, currentValue, this._referenceAttributeName);
-            this.subForm.element = this.componentModal.refs.componentContent || this.subForm.element;
-=======
             const currentValue = modalShouldBeOpened
               ? this.componentModal.currentValue
               : this.dataValue;
@@ -360,7 +351,6 @@ export default class FormComponent extends Component {
             );
             this.subForm.element =
               this.componentModal.refs.componentContent || this.subForm.element;
->>>>>>> upstream/main
             this.setOpenModalElement();
           }
           this.calculateValue();
@@ -424,10 +414,6 @@ export default class FormComponent extends Component {
       _.isNumber(this.formObj._vid) &&
       this.formObj._vid !== this.subFormRevision
     );
-  }
-
-  get subFormData() {
-    return this.dataValue?.data || {};
   }
 
   get subFormData() {
@@ -505,50 +491,6 @@ export default class FormComponent extends Component {
    * @returns {*} - The subform instance.
    */
   createSubForm(fromAttach, beforeSubmit) {
-<<<<<<< HEAD
-    this.subFormReady = this.loadSubForm(fromAttach, beforeSubmit).then((form) => {
-      if (!form) {
-        return;
-      }
-
-      // Iterate through every component and hide the submit button.
-      eachComponent(form.components, (component) => {
-        this.hideSubmitButton(component);
-      });
-
-      // If the subform is already created then destroy the old one.
-      if (this.subForm) {
-        this.subForm.destroy();
-      }
-
-      // Render the form.
-      return (new Form(form, this.getSubOptions())).ready.then((instance) => {
-        this.subForm = instance;
-        this.subForm.currentForm = this;
-        this.subForm.parentVisible = this.visible;
-        const componentsMap = this.componentsMap;
-        const formComponentsMap = this.subForm.componentsMap;
-        _.assign(componentsMap, formComponentsMap);
-        this.component.components = this.subForm.components.map((comp) => comp.component);
-        this.subForm.on('change', () => {
-          if (this.subForm) {
-            this.dataValue = this.subForm.getValue();
-            this.triggerChange({
-              noEmit: true
-            });
-          }
-        });
-        this.subForm.url = this.formSrc;
-        this.subForm.nosubmit = true;
-        this.subForm.root = this.root;
-        this.subForm.localRoot = this.isNestedWizard ? this.localRoot : this.subForm;
-        this.restoreValue();
-        this.valueChanged = this.hasSetValue;
-        this.onChange();
-        return this.subForm;
-      }).catch((err) => {
-        console.log(err);
-=======
     this.subFormReady = this.loadSubForm(fromAttach, beforeSubmit)
       .then((form) => {
         if (!form) {
@@ -598,18 +540,13 @@ export default class FormComponent extends Component {
       .then((subForm) => {
         this.updateSubWizards(subForm);
         return subForm;
->>>>>>> upstream/main
       });
     return this.subFormReady;
   }
 
   hideSubmitButton(component) {
-<<<<<<< HEAD
-    const isSubmitButton = component.type === 'button' && (component.action === 'submit' || !component.action);
-=======
     const isSubmitButton =
       component.type === 'button' && (component.action === 'submit' || !component.action);
->>>>>>> upstream/main
 
     if (isSubmitButton) {
       component.hidden = true;
@@ -626,15 +563,11 @@ export default class FormComponent extends Component {
    */
   loadSubForm(fromAttach, beforeSubmit) {
     const loadHiddenForm = beforeSubmit && !this.component.clearOnHide;
-<<<<<<< HEAD
-    if (this.builderMode || (this.conditionallyHidden() && !loadHiddenForm) || (this.isSubFormLazyLoad() && !fromAttach)) {
-=======
     if (
       this.builderMode ||
       (this.conditionallyHidden() && !loadHiddenForm) ||
       (this.isSubFormLazyLoad() && !fromAttach)
     ) {
->>>>>>> upstream/main
       return Promise.resolve();
     }
 
@@ -724,9 +657,6 @@ export default class FormComponent extends Component {
    * @returns {*|boolean} - TRUE if the subform should be submitted, FALSE if it should not.
    */
   get shouldSubmit() {
-<<<<<<< HEAD
-    return this.subFormReady && (!this.component.hasOwnProperty('reference') || this.component.reference) && (!this.conditionallyHidden() || !this.component.clearOnHide);
-=======
     const hiddenByJsonOnly = !this.hasCondition() && this.component.hidden;
     return (
       this.subFormReady &&
@@ -734,7 +664,6 @@ export default class FormComponent extends Component {
       !this.shouldConditionallyClear() &&
       !(hiddenByJsonOnly && this.component.clearOnHide)
     );
->>>>>>> upstream/main
   }
 
   /**
@@ -762,18 +691,6 @@ export default class FormComponent extends Component {
         }
         this.subForm.nosubmit = false;
         this.subForm.submitted = true;
-<<<<<<< HEAD
-        return this.subForm.submitForm({}, true).then(result => {
-          this.subForm.loading = false;
-          this.subForm.showAllErrors = false;
-          this.dataValue = result.submission;
-          return this.dataValue;
-        }).catch(err => {
-          this.subForm.showAllErrors = true;
-          this.subForm.onSubmissionError(err);
-          return Promise.reject(err);
-        });
-=======
         return this.subForm
           .submitForm({}, true)
           .then((result) => {
@@ -787,7 +704,6 @@ export default class FormComponent extends Component {
             this.subForm.onSubmissionError(err);
             return Promise.reject(err);
           });
->>>>>>> upstream/main
       });
     }
     return this.getSubFormData();
@@ -827,28 +743,15 @@ export default class FormComponent extends Component {
     }
     // we need to load a hidden form (when clearOnHide is disabled) in order to get and submit (if needed) its data
     const loadHiddenForm = !this.component.clearOnHide;
-<<<<<<< HEAD
-    if((this.isSubFormLazyLoad() || loadHiddenForm) && !this.subFormLoading && !this.subForm){
-=======
     if ((this.isSubFormLazyLoad() || loadHiddenForm) && !this.subFormLoading && !this.subForm) {
->>>>>>> upstream/main
       return this.createSubForm(true, true)
         .then(() => this.submitSubForm(false))
         .then(() => this.dataValue)
         .then(() => super.beforeSubmit());
-<<<<<<< HEAD
-
-    }
-    else {
-      return this.submitSubForm(false)
-      .then(() => this.dataValue)
-      .then(() => super.beforeSubmit());
-=======
     } else {
       return this.submitSubForm(false)
         .then(() => this.dataValue)
         .then(() => super.beforeSubmit());
->>>>>>> upstream/main
     }
   }
 
@@ -905,17 +808,11 @@ export default class FormComponent extends Component {
           : {};
       this.subForm.setUrl(submissionUrl, { ...this.options, ...options });
       this.subForm.loadSubmission().catch((err) => {
-        console.error(this.t('subformSubmissionLoadingError', { submissionId: submission._id }), err);
+        console.error(`Unable to load subform submission ${submission._id}:`, err);
       });
     } else {
       this.onSetSubFormValue(submission, flags);
     }
-<<<<<<< HEAD
-    else {
-      this.onSetSubFormValue(submission, flags);
-    }
-=======
->>>>>>> upstream/main
   }
   /**
    * Sets the subform value

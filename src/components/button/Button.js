@@ -440,30 +440,22 @@ export default class ButtonComponent extends Field {
         break;
       case 'oauth':
         if (this.root === this) {
-          console.warn(this.t('noOAuthBtn'));
+          console.warn('You must add the OAuth button to a form for it to function properly');
           return;
         }
 
         // Display Alert if OAuth config is missing
         if (!this.oauthConfig) {
-<<<<<<< HEAD
-          this.root.setAlert('danger', this.t('noOAuthConfiguration'));
-=======
           this.root?.setAlert(
             'danger',
             'OAuth not configured. You must configure oauth for your project before it will work.',
           );
->>>>>>> upstream/main
           break;
         }
 
         // Display Alert if oAuth has an error is missing
         if (this.oauthConfig.error) {
-<<<<<<< HEAD
-          this.root.setAlert('danger', `${this.t('oAuthErrorsTitle')} ${this.t(this.oauthConfig.error)}`);
-=======
           this.root?.setAlert('danger', `The Following Error Has Occured ${this.oauthConfig.error}`);
->>>>>>> upstream/main
           break;
         }
 
@@ -474,10 +466,6 @@ export default class ButtonComponent extends Field {
   }
 
   openOauth(settings) {
-<<<<<<< HEAD
-    if (!this.root.formio) {
-      console.warn(this.t('noOAuthFormUrl'));
-=======
     // this is if the temp session (storing the state and code verifiers) expires in the db 
     // and we need to fetch new oauth state
     if (settings.sessionExpireAt && Date.now() >= settings.sessionExpireAt) {
@@ -486,7 +474,6 @@ export default class ButtonComponent extends Field {
     }
     if (!this.root?.formio) {
       console.warn('You must attach a Form API url to your form in order to use OAuth buttons.');
->>>>>>> upstream/main
       return;
     }
 
@@ -547,14 +534,10 @@ export default class ButtonComponent extends Field {
           }
           // TODO: check for error response here
           if (settings.state !== params.state) {
-<<<<<<< HEAD
-            this.root.setAlert('danger', this.t('oAuthStateError'));
-=======
             this.root?.setAlert(
               'danger',
               'OAuth state does not match. Please try logging in again.',
             );
->>>>>>> upstream/main
             return;
           }
           if (settings.sessionId) {
@@ -603,19 +586,12 @@ export default class ButtonComponent extends Field {
               this.root?.onSubmissionError(err);
             });
         }
-<<<<<<< HEAD
-      }
-      catch (error) {
-        if (error.name !== 'SecurityError' && (error.name !== 'Error' || error.message !== 'Permission denied')) {
-          this.root.setAlert('danger', this.t(`${error.message || error}`));
-=======
       } catch (error) {
         if (
           error.name !== 'SecurityError' &&
           (error.name !== 'Error' || error.message !== 'Permission denied')
         ) {
           this.root?.setAlert('danger', error.message || error);
->>>>>>> upstream/main
         }
       }
       if (!popup || popup.closed || popup.closed === undefined) {

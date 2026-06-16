@@ -241,14 +241,6 @@ export class GoogleAddressProvider extends AddressProvider {
     }
 
     const existingScript = document.querySelector(`script[src^="${GOOGLE_MAPS_JS_URL}"]`);
-<<<<<<< HEAD
-    if (existingScript && options.params?.key && !existingScript.attributes.src.value.endsWith(options.params.key)) {
-        const googleMapsScripts = document.querySelectorAll(`script[src^="${GOOGLE_MAPS_BASE_URL}"]`) ?? [];
-        googleMapsScripts.forEach(script => script.parentNode.removeChild(script));
-        delete Formio.libraries[this.getLibraryName()];
-        delete global?.google?.maps;
-        delete global[`${this.getLibraryName()}Callback`];
-=======
     if (
       existingScript &&
       options.params?.key &&
@@ -260,7 +252,6 @@ export class GoogleAddressProvider extends AddressProvider {
       delete Formio.libraries[this.getLibraryName()];
       delete globalThis?.google?.maps;
       delete globalThis[`${this.getLibraryName()}Callback`];
->>>>>>> upstream/main
     }
   }
 }

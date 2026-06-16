@@ -3,11 +3,7 @@
 import _ from 'lodash';
 import { Utils } from '@formio/core/utils';
 const { getComponentPaths } = Utils;
-<<<<<<< HEAD
-import { componentValueTypes, isLayoutComponent } from '../../../utils/utils';
-=======
 import { componentValueTypes } from '../../../utils';
->>>>>>> upstream/main
 
 import Component from '../component/Component';
 import NestedDataComponent from '../nesteddata/NestedDataComponent';
@@ -28,7 +24,7 @@ export default class NestedArrayComponent extends NestedDataComponent {
   }
 
   get iteratableRows() {
-    throw new Error(this.t('iteratableRowsError'));
+    throw new Error('Getter #iteratableRows() is not implemented');
   }
 
   get rowIndex() {
@@ -85,7 +81,7 @@ export default class NestedArrayComponent extends NestedDataComponent {
   }
 
   checkRow(...args) {
-    console.log(this.t('checkRowDeprecation'));
+    console.log('Deprecation Warning: checkRow method has been replaced with processRow');
     return this.processRow.call(this, ...args);
   }
 
@@ -145,69 +141,43 @@ export default class NestedArrayComponent extends NestedDataComponent {
     });
   }
 
-  _getEmailTableHeader(options) {
-    let row = '';
-
-    const getHeaderCell = (component) => {
-      if (!component.isInputComponent || !component.visible || component.skipInEmail) {
-        return '';
-      }
-
-      const label = component.label || component.key;
-      return `<th style="padding: 5px 10px;">${this.t(label, { _userInput: true })}</th>`;
-    };
-
-    const components = this.getComponents(0);
-    for (const component of components) {
-      if (component.isInputComponent) {
-        row += getHeaderCell(component);
-      }
-      else if (isLayoutComponent(component) && typeof component.everyComponent === 'function') {
-        component.everyComponent((comp) => {
-          row += getHeaderCell(comp);
-        }, options);
-      }
-    }
-
-    return `<thead><tr>${row}</tr></thead>`;
-  }
-
-  _getEmailTableBody(options) {
-    const getBodyCell = (component) => {
-      if (!component.isInputComponent || !component.visible || component.skipInEmail) {
-        return '';
-      }
-
-      return `<td style="padding: 5px 10px;">${component.getView(component.dataValue, options)}</td>`;
-    }
-
-    const rows = [];
-    for (const { components } of this.iteratableRows) {
-      let row = '';
-      for (const component of components) {
-        if (component.isInputComponent) {
-          row += getBodyCell(component);
-        }
-        else if (isLayoutComponent(component) && typeof component.everyComponent === 'function') {
-          component.everyComponent((comp) => {
-            row += getBodyCell(comp);
-          }, options);
-        }
-      }
-      rows.push(`<tr>${row}</tr>`);
-    }
-
-    return `<tbody>${rows.join('')}</tbody>`;
-  }
-
   getValueAsString(value, options) {
     if (options?.email) {
-      return `
+      let result = (`
         <table border="1" style="width:100%">
-          ${this._getEmailTableHeader(options)}
-          ${this._getEmailTableBody(options)}
+          <thead>
+            <tr>
+      `);
+
+      this.component.components?.forEach((component) => {
+        const label = component.label || component.key;
+        result += `<th style="padding: 5px 10px;">${label}</th>`;
+      });
+
+      result += (`
+          </tr>
+        </thead>
+        <tbody>
+      `);
+
+      this.iteratableRows.forEach(({ components }) => {
+        result += '<tr>';
+        _.each(components, (component) => {
+          result += '<td style="padding:5px 10px;">';
+          if (component.isInputComponent && component.visible && !component.skipInEmail) {
+            result += component.getView(component.dataValue, options);
+          }
+          result += '</td>';
+        });
+        result += '</tr>';
+      });
+
+      result += (`
+          </tbody>
         </table>
-      `;
+      `);
+
+      return result;
     }
 
     if (!value || !value.length) {

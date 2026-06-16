@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-import Harness from '../harness';
-import HiddenComponent from '../../src/components/hidden/Hidden';
-import assert from 'power-assert';
-=======
 
 
 import Harness from '../harness';
 import HiddenComponent from '../../src/components/hidden/Hidden';
 import assert from 'power-assert';
 
->>>>>>> upstream/main
 import {
   comp1
 } from './fixtures/hidden';

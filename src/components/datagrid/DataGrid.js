@@ -1,11 +1,7 @@
 import _ from 'lodash';
 import NestedArrayComponent from '../_classes/nestedarray/NestedArrayComponent';
-<<<<<<< HEAD
-import { fastCloneDeep, getFocusableElements } from '../../utils/utils';
-=======
 import { fastCloneDeep, getFocusableElements, getComponent, eachComponent } from '../../utils';
 import dragula from 'dragula';
->>>>>>> upstream/main
 
 export default class DataGridComponent extends NestedArrayComponent {
   static schema(...extend) {
@@ -52,10 +48,6 @@ export default class DataGridComponent extends NestedArrayComponent {
 
     if (this.initRows || !_.isEqual(this.dataValue, this.emptyValue)) {
       this.createRows(true);
-    }
-
-    if(this.allowReorder) {
-      this.dragulaReady = this.getDragula();
     }
 
     this.visibleColumns = {};
@@ -392,26 +384,14 @@ export default class DataGridComponent extends NestedArrayComponent {
 
     if (this.allowReorder) {
       this.refs[`${this.datagridKey}-row`].forEach((row, index) => {
-        row.dragInfo = {index};
+        row.dragInfo = { index };
       });
-<<<<<<< HEAD
-      this.dragulaReady.then((dragula) => {
-        // The drop event may call redraw twice which calls attach twice and because this block of code is asynchronous
-        // BOTH redraws may be called before this block of code runs (which causes this block of code to run twice sequentially).
-        // This causes two dragula() calls on the same container which breaks dragula. To fix this the return value must
-        // be saved in this.dragula and have its container contents reset if it exists
-        if (this.dragula && this.dragula.containers) {
-          this.dragula.containers = [];
-        }
-        this.dragula = dragula([this.refs[`${this.datagridKey}-tbody`]], {
-=======
 
       this.dragula = dragula(
         [
           this.refs[`${this.datagridKey}-tbody`],
         ],
         {
->>>>>>> upstream/main
           moves: (_draggedElement, _oldParent, clickedElement) => {
             const clickedElementKey = clickedElement.getAttribute('data-key');
             const oldParentKey = _oldParent.getAttribute('data-key');
@@ -420,12 +400,6 @@ export default class DataGridComponent extends NestedArrayComponent {
             if (oldParentKey === clickedElementKey) {
               return clickedElement.classList.contains('formio-drag-button');
             }
-<<<<<<< HEAD
-          }
-        }).on('drop', this.onReorder.bind(this))
-          .on('cloned', this.onCloned.bind(this));
-      })
-=======
           },
         },
       ).on('drop', this.onReorder.bind(this));
@@ -447,7 +421,6 @@ export default class DataGridComponent extends NestedArrayComponent {
           });
         }
       });
->>>>>>> upstream/main
     }
 
     this.refs[`${this.datagridKey}-addRow`].forEach((addButton) => {
@@ -512,7 +485,7 @@ export default class DataGridComponent extends NestedArrayComponent {
 
   onReorder(element, _target, _source, sibling) {
     if (!element.dragInfo || (sibling && !sibling.dragInfo)) {
-      console.warn(this.t('noDragInfoError'));
+      console.warn('There is no Drag Info available for either dragged or sibling element');
       return;
     }
 
@@ -523,47 +496,16 @@ export default class DataGridComponent extends NestedArrayComponent {
     const dataValue = fastCloneDeep(this.dataValue);
     this.reorderValues(dataValue, oldPosition, newPosition, movedBelow);
     //reorder select data
-<<<<<<< HEAD
-    this.reorderValues(_.get(this.root, `submission.metadata.selectData.${this.path}`, []), oldPosition, newPosition, movedBelow);
-
-    // When components are reordered we need to set the dataGrid and form pristine properties to false
-    this.root.pristine = false;
-    this.pristine = false;
-=======
     this.reorderValues(
       _.get(this.root, `submission.metadata.selectData.${this.path}`, []),
       oldPosition,
       newPosition,
       movedBelow,
     );
->>>>>>> upstream/main
 
     //need to re-build rows to re-calculate indexes and other indexed fields for component instance (like rows for ex.)
     this.setValue(dataValue, { isReordered: true });
     this.rebuild();
-  }
-
-  onCloned(el, original) {
-    if (el && el.children && original && original.children) {
-      _.each(original.children, (child, index) => {
-        const styles = getComputedStyle(child, null);
-
-        if (styles.cssText !== '') {
-          el.children[index].style.cssText = styles.cssText;
-        } else {
-          const cssText = Object.values(styles).reduce(
-            (css, propertyName) => {
-              return `${css}${propertyName}:${styles.getPropertyValue(
-                propertyName
-              )};`;
-            },
-            ''
-          );
-
-          el.children[index].style.cssText = cssText;
-        }
-      });
-    }
   }
 
   focusOnNewRowElement(row) {
@@ -605,11 +547,7 @@ export default class DataGridComponent extends NestedArrayComponent {
       row,
     });
     this.checkConditions();
-<<<<<<< HEAD
-    this.triggerChange({ modified: true });
-=======
     this.triggerChange?.({ modified: true, noPristineChangeOnModified: true });
->>>>>>> upstream/main
     this.redraw().then(() => {
       this.focusOnNewRowElement(this.rows[index]);
       this.announce(this.t('Row has been added'));
@@ -639,8 +577,6 @@ export default class DataGridComponent extends NestedArrayComponent {
       }
       component.rowIndex = rowIndex;
       component.row = `${rowIndex}-${colIndex}`;
-<<<<<<< HEAD
-=======
 
       entries.forEach(({ instance, oldPath }) => {
         instance.eachRootChildComponentsMap((map) => {
@@ -650,7 +586,6 @@ export default class DataGridComponent extends NestedArrayComponent {
           map[instance.paths.dataPath] = instance;
         });
       });
->>>>>>> upstream/main
     });
   }
 
@@ -662,16 +597,12 @@ export default class DataGridComponent extends NestedArrayComponent {
 
   removeRow(index) {
     const makeEmpty = index === 0 && this.rows.length === 1;
-    const flags = { isReordered: !makeEmpty, resetValue: makeEmpty, modified: true };
+    const flags = { isReordered: !makeEmpty, resetValue: makeEmpty };
     this.splice(index, flags);
     this.emit('dataGridDeleteRow', { index });
-<<<<<<< HEAD
-    const [row] = this.rows.splice(index, 1);
-=======
     const [
       row,
     ] = this.rows.splice(index, 1);
->>>>>>> upstream/main
     this.removeSubmissionMetadataRow(index);
     this.removeRowComponents(row);
     this.updateRowsComponents(index);
@@ -733,10 +664,6 @@ export default class DataGridComponent extends NestedArrayComponent {
       options.row = `${rowIndex}-${colIndex}`;
       options.rowIndex = rowIndex;
       options.onChange = (flags, changed, modified) => {
-<<<<<<< HEAD
-        this.triggerChange({ modified });
-      }
-=======
         const changedComponent = changed.component;
         if (changedComponent?.type === 'form' && changedComponent?.key) {
           const formComp = getComponent(this.component.components, changedComponent.key);
@@ -769,7 +696,6 @@ export default class DataGridComponent extends NestedArrayComponent {
           _.toArray(this.rows[rowIndex]),
         );
       };
->>>>>>> upstream/main
 
       let columnComponent;
 

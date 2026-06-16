@@ -1,11 +1,7 @@
 import { expect, assert } from 'chai';
 import _ from 'lodash';
 import utils from '../../src/utils';
-<<<<<<< HEAD
-const submission1 = JSON.parse(fs.readFileSync('test/unit/fixtures/utils/submission1.json'));
-=======
 import submission1 from './fixtures/utils/submission1.json'
->>>>>>> upstream/main
 
 describe('Util Tests', () => {
   describe('getValue', () => {

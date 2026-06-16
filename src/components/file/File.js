@@ -150,11 +150,7 @@ export default class FileComponent extends Field {
   getValueAsString(value, options) {
     if (options?.review && !this.component.uploadOnly) {
       return _.map(value, (val, index) => {
-<<<<<<< HEAD
-        return `<a href="${val.url || '#'}" target="_blank" data-path='${this.path}' data-fileindex='${index}'>${val.originalName}</a>`
-=======
         return `<a href="${val.url || '#'}" target="_blank" data-path='${this.path}' data-fileindex='${index}'>${val.originalName}</a>`;
->>>>>>> upstream/main
       }).join(', ');
     }
     if (_.isArray(value)) {
@@ -269,7 +265,7 @@ export default class FileComponent extends Field {
 
         const { videoPlayer } = this.refs;
         if (!videoPlayer) {
-          console.warn(this.t('videoPlayerNotFound'));
+          console.warn('Video player not found in template.');
           this.cameraMode = false;
           this.redraw();
           return;
@@ -297,7 +293,7 @@ export default class FileComponent extends Field {
   takePicture() {
     const { videoPlayer } = this.refs;
     if (!videoPlayer) {
-      console.warn(this.t('videoPlayerNotFound'));
+      console.warn('Video player not found in template.');
       this.cameraMode = false;
       this.redraw();
       return;
@@ -773,7 +769,7 @@ export default class FileComponent extends Field {
       file,
       size: file.size,
       status: 'info',
-      message: this.t('waitFileProcessing'),
+      message: this.t('Processing file. Please wait...'),
       hash: '',
     };
   }
@@ -811,17 +807,11 @@ export default class FileComponent extends Field {
 
     return fileWithSameNameUploaded || fileWithSameNameUploading
       ? {
-<<<<<<< HEAD
-        status: 'error',
-        message: this.t(fileWithSameNameUploading ? 'fileWithDuplicatedNameInProgress' : 'fileWithDuplicatedNameLoaded'),
-      }
-=======
           status: 'error',
           message: this.t(
             `File with the same name is already ${fileWithSameNameUploading ? 'being ' : ''}uploaded`,
           ),
         }
->>>>>>> upstream/main
       : {};
   }
 
@@ -830,32 +820,13 @@ export default class FileComponent extends Field {
     if (this.component.filePattern && !this.validatePattern(file, this.component.filePattern)) {
       return {
         status: 'error',
-        message: this.t('wrongFileType', {
+        message: this.t('File is the wrong type; it must be {{ pattern }}', {
           pattern: this.component.filePattern,
         }),
       };
     }
 
     // Check file minimum size
-<<<<<<< HEAD
-    if (this.component.fileMinSize && !this.validateMinSize(file, this.component.fileMinSize)) {
-      return {
-        status: 'error',
-        message: this.t('fileTooSmall', {
-          size: this.component.fileMinSize,
-        }),
-      };
-    }
-
-    // Check file maximum size
-    if (this.component.fileMaxSize && !this.validateMaxSize(file, this.component.fileMaxSize)) {
-      return {
-        status: 'error',
-        message: this.t('fileTooBig', {
-          size: this.component.fileMaxSize,
-        }),
-      };
-=======
     if (this.component.fileMinSize) {
       const interpolatedMinSize = this.interpolate(this.component.fileMinSize, this.evalContext());
       // This case is when the user entered fileMinSize expression, but did not enter or made a typo when
@@ -893,7 +864,6 @@ export default class FileComponent extends Field {
           }),
         }
       }
->>>>>>> upstream/main
     }
 
     return {};
@@ -903,15 +873,9 @@ export default class FileComponent extends Field {
     const { fileService } = this;
     return !fileService
       ? {
-<<<<<<< HEAD
-        status: 'error',
-        message: this.t('noFileService'),
-      }
-=======
           status: 'error',
           message: this.t('File Service not provided.'),
         }
->>>>>>> upstream/main
       : {};
   }
 
@@ -977,7 +941,7 @@ export default class FileComponent extends Field {
         this.fileDropHidden = false;
         return {
           status: 'error',
-          message: this.t('fileProcessingFailed'),
+          message: this.t('File processing has been failed.'),
         };
       } finally {
         if (this.refs.fileProcessingLoader) {
@@ -1017,7 +981,7 @@ export default class FileComponent extends Field {
     }
 
     if (this.autoSync) {
-      fileToSync.message = this.t('readyForUpload');
+      fileToSync.message = this.t('Ready to be uploaded into storage');
     }
 
     this.filesToSync.filesToUpload.push({
@@ -1064,8 +1028,8 @@ export default class FileComponent extends Field {
       ...fileInfo,
       status: 'info',
       message: this.autoSync
-        ? this.t('readyForRemovingFromStorage')
-        : this.t('preparingFileToRemove'),
+        ? this.t('Ready to be removed from storage')
+        : this.t('Preparing file to remove'),
     });
 
     const index = this.dataValue.findIndex((file) => file.name === fileInfo.name);
@@ -1128,26 +1092,9 @@ export default class FileComponent extends Field {
           this.redraw();
         }
 
-<<<<<<< HEAD
-        await this.deleteFile(fileToSync);
-        fileToSync.status = 'success';
-        fileToSync.message = this.t('succefullyRemoved');
-      }
-      catch (response) {
-        fileToSync.status = 'error';
-        fileToSync.message = typeof response === 'string' ? response : response.toString();
-      }
-      finally {
-        this.redraw();
-      }
-
-      return { fileToSync };
-    }));
-=======
         return { fileToSync };
       }),
     );
->>>>>>> upstream/main
   }
 
   updateProgress(fileInfo, progressEvent) {
@@ -1280,46 +1227,12 @@ export default class FileComponent extends Field {
           }
         }
 
-<<<<<<< HEAD
-        fileInfo = await this.uploadFile(fileToSync);
-        fileToSync.status = 'success';
-        fileToSync.message = this.t('succefullyUploaded');
-
-        fileInfo.originalName = fileToSync.originalName;
-        fileInfo.hash = fileToSync.hash;
-      }
-      catch (response) {
-        fileToSync.status = 'error';
-        delete fileToSync.progress;
-        fileToSync.message = typeof response === 'string'
-          ? response
-          : response.type === 'abort'
-            ? this.t('Request was aborted')
-            : response.toString();
-
-        this.emit('fileUploadError', {
-          fileToSync,
-          response,
-        });
-      }
-      finally {
-        delete fileToSync.progress;
-        this.redraw();
-      }
-
-      return {
-        fileToSync,
-        fileInfo,
-      };
-    }));
-=======
         return {
           fileToSync,
           fileInfo,
         };
       }),
     );
->>>>>>> upstream/main
   }
 
   async syncFiles() {
@@ -1415,16 +1328,8 @@ export default class FileComponent extends Field {
       }
 
       await this.syncFiles();
-<<<<<<< HEAD
-      return this.shouldSyncFiles
-        ? Promise.reject(this.t('synchronizationFailed'))
-        : Promise.resolve();
-    }
-    catch (error) {
-=======
       return this.shouldSyncFiles ? Promise.reject('Synchronization is failed') : Promise.resolve();
     } catch (error) {
->>>>>>> upstream/main
       return Promise.reject(error.message);
     }
   }

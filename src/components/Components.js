@@ -77,9 +77,6 @@ export default class Components {
       comp = new Component(component, options, data);
     }
     if (comp.path) {
-<<<<<<< HEAD
-      comp.componentsMap[comp.path] = comp;
-=======
       comp.eachRootChildComponentsMap((map) => {
         map[comp.path] = comp;
       });
@@ -89,7 +86,6 @@ export default class Components {
     while (parent) {
       parent.componentMatches = {};
       parent = parent.parent;
->>>>>>> upstream/main
     }
     return comp;
   }

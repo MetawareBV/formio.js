@@ -1,10 +1,6 @@
 import assert from 'power-assert';
 import Harness from '../harness';
-<<<<<<< HEAD
-import { flattenComponents } from '../../src/utils/formUtils';
-=======
 import { flattenComponents } from '../../src/utils';
->>>>>>> upstream/main
 import PanelComponent from '../../src/components/panel/Panel';
 import panelEditForm from '../../src/components/panel/Panel.form';
 import { Formio } from '../../src/Formio';
@@ -75,11 +71,7 @@ describe('Panel Component', () => {
 
   it('Should show its label in DataGrid when "Hide Label" is set to true and "Show Label in DataGrid" is set to true', () => {
     return Formio.createForm(document.createElement('div'), comp3, {}).then((form) => {
-<<<<<<< HEAD
-        assert(form.getComponent('dataGrid[0]').element.querySelector('.card-title'), 'Panel should display its label');
-=======
       assert(form.getComponent('dataGrid[0]').element.querySelector('.card-title'), 'Panel should display its label');
->>>>>>> upstream/main
     });
   });
 

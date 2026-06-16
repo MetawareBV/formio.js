@@ -2,11 +2,7 @@ const renders = require('../renders');
 const forms = require('../formtest');
 const pretty = require('pretty');
 const fs = require('fs');
-<<<<<<< HEAD
-import assert from 'power-assert';
-=======
 const assert = require('power-assert');
->>>>>>> upstream/main
 const AllComponents = require('../../src/components').default;
 const Components = require('../../src/components/Components').default;
 const templates = require('../../src/templates/index').default;
@@ -75,8 +71,8 @@ describe('Rendering Tests', () => {
               done();
             });
 
-            if (fs.existsSync(`./fixtures/${component}/values.js`)) {
-              const values = require(`./fixtures/${component}/values.js`).default.slice(0);
+            if (fs.existsSync(`./lib/${componentDir}/${component}/fixtures/values.js`)) {
+              const values = require(`../${componentDir}/${component}/fixtures/values.js`).default.slice(0);
 
               values.unshift(undefined);
 

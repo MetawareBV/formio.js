@@ -1214,8 +1214,6 @@ const form8 = {
     }
   ],
 };
-<<<<<<< HEAD
-=======
 
 const form9 = {
   "type": "form",
@@ -1262,7 +1260,6 @@ const form9 = {
     }
   ],
 };
->>>>>>> upstream/main
 
 export default {
   form1,
@@ -1272,10 +1269,6 @@ export default {
   form5,
   form6,
   form7,
-<<<<<<< HEAD
-  form8
-=======
   form8,
   form9
->>>>>>> upstream/main
 };

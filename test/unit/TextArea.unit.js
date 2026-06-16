@@ -7,16 +7,10 @@ import formWithRichTextAreas from '../forms/formWithRichTextAreas';
 import textAreaJsonType from '../forms/textAreaJsonType';
 import Harness from '../harness';
 import { Formio } from '../../src/Formio';
-<<<<<<< HEAD
-import { comp1, comp2, comp3, comp4 } from './fixtures/textarea';
-import TextAreaComponent from '../../src/components/textarea/TextArea';
-import { fastCloneDeep } from '@formio/core';
-=======
 import { comp1, comp2, comp3, comp4, comp5 } from './fixtures/textarea';
 import TextAreaComponent from '../../src/components/textarea/TextArea';
 import { fastCloneDeep } from '@formio/core';
 import { getFormioUploadAdapterPlugin } from '../../src/providers/storage/uploadAdapter';
->>>>>>> upstream/main
 window.ace = require('ace-builds');
 
 describe('TextArea Component', () => {
@@ -588,11 +582,7 @@ describe('TextArea Component', () => {
 
     it('Should set array as value for textarea with ace editor with json data type', (done) => {
       const element = document.createElement('div');
-<<<<<<< HEAD
-     
-=======
 
->>>>>>> upstream/main
       Formio.createForm(element, textAreaJsonType).then(form => {
           const textArea = form.getComponent('textArea');
           textArea.setValue([1,2,3]);

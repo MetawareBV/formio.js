@@ -127,10 +127,10 @@ export default class EditGridComponent extends NestedArrayComponent {
 
   get defaultDialogTemplate() {
     return `
-    <h3 ${this._referenceAttributeName}="dialogHeader">${this.t('wantToClearData')}</h3>
+    <h3 ${this._referenceAttributeName}="dialogHeader">${this.t('Do you want to clear data?')}</h3>
     <div style="display:flex; justify-content: flex-end;">
-      <button ${this._referenceAttributeName}="dialogCancelButton" class="btn btn-secondary" aria-label="${this.t('cancel')}">${this.t('cancel')}</button>
-      <button ${this._referenceAttributeName}="dialogYesButton" class="btn btn-danger" aria-label="${this.t('yesDelete')}">${this.t('yesDelete')}</button>
+      <button ${this._referenceAttributeName}="dialogCancelButton" class="btn btn-secondary" aria-label="${this.t('Cancel')}">${this.t('Cancel')}</button>
+      <button ${this._referenceAttributeName}="dialogYesButton" class="btn btn-danger" aria-label="${this.t('Yes, delete it')}">${this.t('Yes, delete it')}</button>
     </div>
   `;
   }
@@ -339,7 +339,6 @@ export default class EditGridComponent extends NestedArrayComponent {
 
   checkRowVariableTypeComponents(editRow, rowIndex) {
     const rowComponents = editRow.components;
-    let typeChanged = false;
 
     if (
       _.some(this.variableTypeComponentsIndexes, (compIndex) => {
@@ -348,9 +347,7 @@ export default class EditGridComponent extends NestedArrayComponent {
       })
     ) {
       editRow.components = this.createRowComponents(editRow.data, rowIndex, true);
-      typeChanged = true;
     }
-    return typeChanged;
   }
 
   setVariableTypeComponents() {
@@ -816,12 +813,6 @@ export default class EditGridComponent extends NestedArrayComponent {
       instance: this,
     });
 
-    this.emit('editGridOpenModal', {
-      component: this.component,
-      row: editRow,
-      instance: this,
-    });
-
     return this.attachComponents(modalContent, components);
   }
 
@@ -1145,16 +1136,10 @@ export default class EditGridComponent extends NestedArrayComponent {
       options.name += `[${rowIndex}]`;
       options.row = `${rowIndex}-${colIndex}`;
       options.rowIndex = rowIndex;
-<<<<<<< HEAD
-      options.onChange = (flags = {}, changed, modified) => {
-        if (changed.instance.root?.id && (this.root?.id !== changed.instance.root.id)) {
-          changed.instance.root.triggerChange(flags, changed, modified);
-=======
       if (this.submissionTimezone) {
         options.submissionTimezone = this.submissionTimezone;
         if (column.type === 'datetime') {
           column.widget = { ...column.widget, submissionTimezone: this.submissionTimezone };
->>>>>>> upstream/main
         }
       }
       options.onChange = (flags = {}, changed, modified) => {
@@ -1171,12 +1156,6 @@ export default class EditGridComponent extends NestedArrayComponent {
         const editRow = this.editRows[rowIndex];
 
         if (editRow) {
-<<<<<<< HEAD
-          this.processRow('checkData', null, {
-            ...flags,
-            changed,
-          }, editRow.data, editRow.components);
-=======
           this.processRow(
             'checkData',
             null,
@@ -1187,15 +1166,12 @@ export default class EditGridComponent extends NestedArrayComponent {
             editRow.data,
             editRow.components,
           );
->>>>>>> upstream/main
           this.validateRow(editRow, false, false);
         }
 
         if (this.variableTypeComponentsIndexes.length) {
-          const typeChanged = this.checkRowVariableTypeComponents(editRow, rowIndex);
-          if (typeChanged) {
-            this.redraw();
-          }
+          this.checkRowVariableTypeComponents(editRow, rowIndex);
+          this.redraw();
         }
       };
 
@@ -1238,45 +1214,29 @@ export default class EditGridComponent extends NestedArrayComponent {
   }
 
   shouldValidateRow(editRow, dirty, fromSubmission) {
-<<<<<<< HEAD
-    return this.shouldValidateDraft(editRow) ||
-=======
     return (
       this.shouldValidateDraft(editRow) ||
->>>>>>> upstream/main
       editRow.state === EditRowState.New ||
       editRow.state === EditRowState.Editing ||
       editRow.alerts ||
       fromSubmission ||
-<<<<<<< HEAD
-      dirty;
-=======
       dirty
     );
->>>>>>> upstream/main
   }
 
   validateRow(editRow, dirty, forceSilentCheck, fromSubmission) {
     editRow.errors = [];
     if (this.shouldValidateRow(editRow, dirty, fromSubmission)) {
-<<<<<<< HEAD
-      const silentCheck = forceSilentCheck === false ? false : ((this.component.rowDrafts && !this.shouldValidateDraft(editRow)) || forceSilentCheck);
-=======
       const silentCheck =
         forceSilentCheck === false
           ? false
           : (this.component.rowDrafts && !this.shouldValidateDraft(editRow)) || forceSilentCheck;
->>>>>>> upstream/main
       const rootValue = fastCloneDeep(this.rootValue);
       const editGridValue = _.get(rootValue, this.path, []);
       editGridValue[editRow.rowIndex] = editRow.data;
       _.set(rootValue, this.path, editGridValue);
-<<<<<<< HEAD
-      const validationProcessorProcess = (context) => this.validationProcessor(context, { dirty, silentCheck });
-=======
       const validationProcessorProcess = (context) =>
         this.validationProcessor(context, { dirty, silentCheck });
->>>>>>> upstream/main
       const errors = processSync({
         components: this.component.components,
         data: rootValue,
@@ -1287,11 +1247,7 @@ export default class EditGridComponent extends NestedArrayComponent {
         parent: this.component,
         parentPaths: {
           ...this.paths,
-<<<<<<< HEAD
-          dataIndex: editRow.rowIndex
-=======
           dataIndex: editRow.rowIndex,
->>>>>>> upstream/main
         },
         processors: [
           {
@@ -1301,11 +1257,6 @@ export default class EditGridComponent extends NestedArrayComponent {
         ],
       }).errors;
 
-<<<<<<< HEAD
-      editRow.errors = (this.component.modal || this.component.rowDrafts)
-      ? errors
-      : errors.filter((err) => _.find(this.visibleErrors, ['component.id', err.component.id]));
-=======
       editRow.errors =
         this.component.modal || this.component.rowDrafts
           ? errors
@@ -1315,7 +1266,6 @@ export default class EditGridComponent extends NestedArrayComponent {
                 err.component.id,
               ]),
             );
->>>>>>> upstream/main
     }
 
     // TODO: this is essentially running its own custom validation and should be moved into a validation rule
@@ -1339,20 +1289,13 @@ export default class EditGridComponent extends NestedArrayComponent {
       if (valid === null) {
         editRow.errors.push({
           type: 'error',
-<<<<<<< HEAD
-          message: this.t('componentInvalidRowValidation', { componentKey: this.key })
-=======
           message: `Invalid row validation for ${this.key}`,
->>>>>>> upstream/main
         });
       }
     }
 
-    if (editRow.alerts && (!this.component.rowDrafts || this.root?.submitted)) {
+    if (!this.component.rowDrafts || this.root?.submitted) {
       this.showRowErrorAlerts(editRow, editRow.errors);
-    }
-    else if (editRow.errors?.length) {
-      this.setCustomValidity(editRow.errors, dirty);
     }
 
     return editRow.errors;
@@ -1414,11 +1357,7 @@ export default class EditGridComponent extends NestedArrayComponent {
             );
           } else if (errorContainer) {
             errorContainer.textContent = '';
-<<<<<<< HEAD
-            this.removeClass(errorContainer,  'help-block' );
-=======
             this.removeClass(errorContainer, 'help-block');
->>>>>>> upstream/main
           }
         }
       }
@@ -1436,12 +1375,7 @@ export default class EditGridComponent extends NestedArrayComponent {
         this.removeClass(this.element, 'has-error');
       }
       return false;
-<<<<<<< HEAD
-    }
-    else if (rowsEditing && this.saveEditMode && !this.component.openWhenEmpty) {
-=======
     } else if (rowsEditing && this.saveEditMode && !this.component.openWhenEmpty) {
->>>>>>> upstream/main
       this._errors = this.setCustomValidity(this.t(this.errorMessage('unsavedRowsError')), dirty);
       errors.push(...this._errors);
       return false;

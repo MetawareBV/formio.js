@@ -47,15 +47,6 @@ export default class RadioComponent extends ListComponent {
               dataType: classComp.dataType || '',
               data: {
                 custom: `values = ${classComp && classComp.values ? JSON.stringify(classComp.values) : []}`,
-<<<<<<< HEAD
-              }
-            }
-          : {
-              ...classComp,
-              type: 'select',
-            }
-      }
-=======
               },
             }
           : {
@@ -63,7 +54,6 @@ export default class RadioComponent extends ListComponent {
               type: 'select',
             };
       },
->>>>>>> upstream/main
     };
   }
 
@@ -124,11 +114,7 @@ export default class RadioComponent extends ListComponent {
     this.setValue(this.emptyValue, {
       noUpdateEvent: true,
       noValidate: true,
-<<<<<<< HEAD
-      resetValue: true
-=======
       resetValue: true,
->>>>>>> upstream/main
     });
   }
 
@@ -195,11 +181,7 @@ export default class RadioComponent extends ListComponent {
     this.optionsLoaded = !this.component.dataSrc || this.component.dataSrc === 'values';
     this.loadedOptions = [];
 
-<<<<<<< HEAD
-    if (!this.visible) {
-=======
     if (!this.visible || this.optionsLoaded) {
->>>>>>> upstream/main
       this.itemsLoadedResolve();
     }
 
@@ -208,11 +190,7 @@ export default class RadioComponent extends ListComponent {
   }
 
   beforeSubmit() {
-<<<<<<< HEAD
-    return new Promise(res => {
-=======
     return new Promise((res) => {
->>>>>>> upstream/main
       this.dataReady.then(() => res(true));
     });
   }
@@ -221,15 +199,6 @@ export default class RadioComponent extends ListComponent {
     if (!this.optionsLoaded) {
       return super.render(this.renderTemplate('loader'));
     }
-<<<<<<< HEAD
-    return super.render(this.renderTemplate('radio', {
-      input: this.inputInfo,
-      inline: this.component.inline,
-      values: this.component.dataSrc === 'values' ? this.component.values : this.loadedOptions,
-      value: this.dataValue,
-      row: this.row,
-    }));
-=======
     return super.render(
       this.renderTemplate('radio', {
         input: this.inputInfo,
@@ -239,7 +208,6 @@ export default class RadioComponent extends ListComponent {
         row: this.row,
       }),
     );
->>>>>>> upstream/main
   }
 
   attach(element) {
@@ -349,32 +317,21 @@ export default class RadioComponent extends ListComponent {
       value = _.toString(value);
     }
 
-<<<<<<< HEAD
-    const shouldUseSelectData = (options.modalPreview || this.inDataTable)
-      && this.component.dataSrc === 'url' && (this.loadedOptions.length || this.selectData);
-=======
     const shouldUseSelectData =
       (options.modalPreview || this.inDataTable) &&
       this.component.dataSrc === 'url' &&
       (this.loadedOptions.length || this.selectData);
->>>>>>> upstream/main
     if (this.component.dataSrc !== 'values' && !shouldUseSelectData) {
       return value;
     }
 
     const values = shouldUseSelectData ? this.loadedOptions : this.component.values;
-<<<<<<< HEAD
-    const option = !values?.length && shouldUseSelectData ? {
-      label: this.itemTemplate(this.selectData),
-    } : _.find(values, (v) => v.value === value);
-=======
     const option =
       !values?.length && shouldUseSelectData
         ? {
             label: this.itemTemplate(this.selectData),
           }
         : _.find(values, (v) => v.value === value);
->>>>>>> upstream/main
 
     if (!value) {
       return _.get(option, 'label', '');
@@ -422,15 +379,6 @@ export default class RadioComponent extends ListComponent {
     const skip = this.isScrollLoading ? this.selectOptions.length : 0;
 
     // Allow for url interpolation.
-<<<<<<< HEAD
-    url = this.sanitize(this.interpolate(url, {
-      formioBase: Formio.getBaseUrl(),
-      search,
-      limit,
-      skip,
-      page: Math.abs(Math.floor(skip / limit))
-    }), this.shouldSanitizeValue);
-=======
     url = this.sanitize(
       this.interpolate(url, {
         formioBase: Formio.getBaseUrl(),
@@ -441,7 +389,6 @@ export default class RadioComponent extends ListComponent {
       }),
       this.shouldSanitizeValue,
     );
->>>>>>> upstream/main
 
     // Set ignoreCache if it is
     options.ignoreCache = this.component.ignoreCache;
@@ -450,19 +397,6 @@ export default class RadioComponent extends ListComponent {
 
     this.loading = true;
     Formio.makeRequest(this.options.formio, 'select', url, method, body, options)
-<<<<<<< HEAD
-    .then((response) => {
-      this.loading = false;
-      this.setItems(response);
-    })
-    .catch((err) => {
-      this.handleLoadingError(err);
-    })
-    .finally(() => {
-      this.optionsLoaded = true;
-      this.redraw();
-    });
-=======
       .then((response) => {
         this.loading = false;
         this.setItems(response);
@@ -474,7 +408,6 @@ export default class RadioComponent extends ListComponent {
         this.optionsLoaded = true;
         this.redraw();
       });
->>>>>>> upstream/main
   }
 
   loadItemsFromMetadata() {
@@ -496,24 +429,14 @@ export default class RadioComponent extends ListComponent {
       const valueAtProperty = _.get(item, this.component.valueProperty);
       this.loadedOptions[i] = {
         value: this.component.valueProperty ? valueAtProperty : item,
-<<<<<<< HEAD
-        label: this.component.valueProperty ? this.itemTemplate(item, valueAtProperty) : this.itemTemplate(item, item, i)
-=======
         label: this.component.valueProperty
           ? this.itemTemplate(item, valueAtProperty)
           : this.itemTemplate(item, item, i),
->>>>>>> upstream/main
       };
       listData.push(this.templateData[this.component.valueProperty ? valueAtProperty : i]);
 
       const value = this.loadedOptions[i].value;
-<<<<<<< HEAD
-      if (!this.isRadio && (
-        _.isObject(value) || _.isBoolean(value) || _.isUndefined(value)
-      )) {
-=======
       if (!this.isRadio && (_.isObject(value) || _.isBoolean(value) || _.isUndefined(value))) {
->>>>>>> upstream/main
         this.loadedOptions[i].invalid = true;
       }
     });
@@ -538,16 +461,12 @@ export default class RadioComponent extends ListComponent {
       const value = this.dataValue;
       this.refs.wrapper.forEach((wrapper, index) => {
         const input = this.refs.input[index];
-<<<<<<< HEAD
-        const checked  = (value === undefined || value === null) ? false : (input.type === 'checkbox') ? value[input.value] || input.checked : (input.value.toString() === value.toString());
-=======
         const checked =
           value === undefined || value === null
             ? false
             : input.type === 'checkbox'
               ? value[input.value] || input.checked
               : input.value.toString() === value.toString();
->>>>>>> upstream/main
         if (checked) {
           //add class to container when selected
           this.addClass(wrapper, this.optionSelectedClass);

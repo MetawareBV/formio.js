@@ -149,11 +149,7 @@ describe('Password Component', () => {
     const form = _.cloneDeep(comp2);
     form.components[0].validate = { required: true };
     const element = document.createElement('div');
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> upstream/main
     Formio.createForm(element, form).then(form => {
       const component = form.getComponent('password');
       component.setValue('');

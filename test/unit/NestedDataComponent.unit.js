@@ -3,11 +3,7 @@ import { Formio } from '../../src/Formio';
 import NestedDataComponent from '../../src/components/_classes/nesteddata/NestedDataComponent';
 import Harness from '../harness';
 import assert from 'power-assert';
-<<<<<<< HEAD
-import nestedDataCompWithModalPreview from '../forms/nestedDataWithModalViewAndLayoutComponents';
-=======
 import nestedDataCompWithModalPreview from '../forms/nestedDataWithModalViewAndLayoutComponents.json';
->>>>>>> upstream/main
 
 let component = null;
 describe('NestedDataComponent class', () => {

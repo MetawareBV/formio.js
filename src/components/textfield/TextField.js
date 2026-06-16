@@ -111,13 +111,8 @@ export default class TextFieldComponent extends Input {
         locale: this.component.widget.locale || this.options.language,
         saveAs: 'text',
       };
-<<<<<<< HEAD
-      // update originalComponent to include widget settings after component initialization 
-      // originalComponent is used to restore the component (and widget) after evaluating field logic 
-=======
       // update originalComponent to include widget settings after component initialization
       // originalComponent is used to restore the component (and widget) after evaluating field logic
->>>>>>> upstream/main
       this.originalComponent = FormioUtils.fastCloneDeep(this.component);
     }
   }

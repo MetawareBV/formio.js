@@ -4,8 +4,6 @@ $autocomplete-in-dialog-z-index: $dialog-z-index + 1000;
 
 .formio-form {
   position: relative;
-<<<<<<< HEAD
-=======
 }
 
 .col-form-label.field-required:after {
@@ -21,7 +19,6 @@ $autocomplete-in-dialog-z-index: $dialog-z-index + 1000;
 
 .required-star {
   color: #eb0000;
->>>>>>> upstream/main
 }
 
 .formio-error-wrapper,

@@ -144,11 +144,7 @@ export default [
     key: 'clearOnHide',
     defaultValue: true,
     tooltip: 'When a field is conditionally hidden, omit the value from the submission data.',
-<<<<<<< HEAD
-    input: true
-=======
     input: true,
->>>>>>> upstream/main
   },
   EditFormUtils.javaScriptValue(
     'Custom Default Value',
@@ -165,11 +161,7 @@ export default [
     1100,
     '<p><h4>Example:</h4><pre>value = data.a + data.b + data.c;</pre></p>',
     '<p><h4>Example:</h4><pre>{"+": [{"var": "data.a"}, {"var": "data.b"}, {"var": "data.c"}]}</pre><p><a href="https://help.form.io/userguide/form-building/logic-and-conditions#calculated-values" target="_blank" rel="noopener noreferrer">Click here for an example</a></p>',
-<<<<<<< HEAD
-    EditFormUtils.tokenVariableDescription()
-=======
     EditFormUtils.tokenVariableDescription(),
->>>>>>> upstream/main
   ),
   {
     type: 'checkbox',
@@ -200,8 +192,4 @@ export default [
     defaultValue: {},
     description: '<b>Example</b>: { "clearOnHide": true }',
   }
-<<<<<<< HEAD
-]
-=======
 ];
->>>>>>> upstream/main

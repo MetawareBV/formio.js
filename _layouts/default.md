@@ -53,10 +53,6 @@
   {% endif %}
 </head>
 <body>
-<<<<<<< HEAD
-<a href="https://github.com/formio/formio.js"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:3000;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_green_007200.png?resize=149%2C149" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-=======
->>>>>>> upstream/main
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 p-0">
   <div class="container">
     <a class="navbar-brand p-0" href="#">

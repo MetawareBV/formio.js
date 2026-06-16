@@ -38,11 +38,7 @@ const setSelectData = (context) => {
     const selectDataComponent = instance?.root?.getComponent('selectData');
     // clear selectData if conditions are not met or clearing default value
     if (selectDataComponent && (!selectDataComponent.visible || !data.defaultValue)) {
-<<<<<<< HEAD
-      selectDataComponent.setValue(null, { resetValue: true});
-=======
       selectDataComponent.setValue(null, { resetValue: true });
->>>>>>> upstream/main
       return;
     }
     // nothing can set if don't have downloaded resources
@@ -50,17 +46,11 @@ const setSelectData = (context) => {
       return;
     }
     const shouldCalculateUrlData = data.dataSrc === 'url' && data.data.url && data.valueProperty;
-<<<<<<< HEAD
-    const shouldCalculateResourceData = data.dataSrc === 'resource' && data.data.resource && data.valueProperty;
-    const newValue = shouldCalculateUrlData || shouldCalculateResourceData ? calculateSelectData(context) : null;
-    selectDataComponent.setValue(newValue, { resetValue: newValue === null});
-=======
     const shouldCalculateResourceData =
       data.dataSrc === 'resource' && data.data.resource && data.valueProperty;
     const newValue =
       shouldCalculateUrlData || shouldCalculateResourceData ? calculateSelectData(context) : null;
     selectDataComponent.setValue(newValue, { resetValue: newValue === null });
->>>>>>> upstream/main
   }, 0);
 };
 
@@ -782,14 +772,9 @@ export default [
     input: true,
     weight: 25,
     key: 'reference',
-<<<<<<< HEAD
-    label: 'Submit as reference',
-    tooltip: 'Using this option will submit this field as a reference id and link its value to the value of the origin record.',
-=======
     label: 'Save as reference',
     tooltip:
       'Using this option will save this field as a reference and link its value to the value of the origin record.',
->>>>>>> upstream/main
     conditional: {
       json: {
         '===': [
@@ -839,28 +824,10 @@ export default [
   },
   {
     key: 'selectData',
-    type: 'hidden',
     conditional: {
       json: {
         and: [
           { var: 'data.valueProperty' },
-<<<<<<< HEAD
-          { '===': [{ var: 'data.lazyLoad' }, true]},
-          { '!==': [{ var: 'data.widget' }, 'html5'] },
-          {
-            or: [
-              { '===': [{ var: 'data.dataSrc' }, 'url'] },
-              {
-                and: [
-                  { '===': [{ var: 'data.dataSrc' }, 'resource'] },
-                  // 'data' means entire object from resource will be used
-                  { '!==': [{ var: 'data.valueProperty' }, 'data'] },
-                ],
-              }
-            ]
-          }
-        ]
-=======
           {
             '===': [
               { var: 'data.lazyLoad' },
@@ -901,7 +868,6 @@ export default [
             ],
           },
         ],
->>>>>>> upstream/main
       },
     },
   },

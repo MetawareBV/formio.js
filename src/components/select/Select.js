@@ -96,16 +96,12 @@ export default class SelectComponent extends ListComponent {
         return valueComp;
       },
       dataTypeOperators: {
-<<<<<<< HEAD
-        number: ['lessThan', 'greaterThan', 'lessThanOrEqual', 'greaterThanOrEqual'],
-=======
         number: [
           'lessThan',
           'greaterThan',
           'lessThanOrEqual',
           'greaterThanOrEqual',
         ],
->>>>>>> upstream/main
       },
       dataTypeValueComponents: {
         number: {
@@ -299,12 +295,6 @@ export default class SelectComponent extends ListComponent {
   }
 
   selectValueAndLabel(data) {
-<<<<<<< HEAD
-    const value = this.getOptionValue((this.isEntireObjectDisplay() && !this.itemValue(data)) ? data : this.itemValue(data));
-    return {
-      value,
-      label: this.itemTemplate((this.isEntireObjectDisplay() && !_.isObject(data.data)) ? { data: data } : data, value)
-=======
     let value;
     // If the select is a resource reference, use the actual object value
     if (this.component.reference && this.isSelectResource) {
@@ -320,7 +310,6 @@ export default class SelectComponent extends ListComponent {
         this.isEntireObjectDisplay() && !_.isObject(data.data) ? { data: data } : data,
         value,
       ),
->>>>>>> upstream/main
     };
   }
 
@@ -342,21 +331,12 @@ export default class SelectComponent extends ListComponent {
     }
 
     // Inside DataTable component won't have dataValue set
-<<<<<<< HEAD
-    const shouldUseSelectData = (this.component.multiple && _.isArray(this.dataValue)
-      ? this.dataValue.find((val) => this.normalizeSingleValue(value) === val)
-      : (this.dataValue === this.normalizeSingleValue(value))) || this.inDataTable;
-
-    if (shouldUseSelectData) {
-      const selectData = this.selectData;
-=======
     const shouldUseSelectData =
       (this.component.multiple && _.isArray(this.dataValue)
         ? this.dataValue.find((val) => this.normalizeSingleValue(value) === val)
         : this.dataValue === this.normalizeSingleValue(value)) || (this.inDataTable && !this.element);
     if (shouldUseSelectData) {
       const selectData = (this.inDataTable && !this.element) ? this.component.selectData : this.selectData;
->>>>>>> upstream/main
       if (selectData) {
         const templateValue = this.component.reference && value?._id ? value._id.toString() : value;
         if (!this.templateData || !this.templateData[templateValue]) {
@@ -741,15 +721,6 @@ export default class SelectComponent extends ListComponent {
         };
 
     // Allow for url interpolation.
-<<<<<<< HEAD
-    url = this.sanitize(this.interpolate(url, {
-      formioBase: Formio.getBaseUrl(),
-      search,
-      limit,
-      skip,
-      page: Math.abs(Math.floor(skip / limit))
-    }), this.shouldSanitizeValue);
-=======
     url = this.sanitize(
       this.interpolate(url, {
         formioBase: Formio.getBaseUrl(),
@@ -760,7 +731,6 @@ export default class SelectComponent extends ListComponent {
       }),
       this.shouldSanitizeValue,
     );
->>>>>>> upstream/main
 
     // Add search capability.
     if (this.component.searchField && search) {
@@ -841,7 +811,7 @@ export default class SelectComponent extends ListComponent {
       component: this.component,
       message: err.toString(),
     });
-    console.warn(this.t('loadResourcesError', { componentKey: this.key}));
+    console.warn(`Unable to load resources for ${this.key}`);
   }
   /**
    * Get the request headers for this select dropdown.
@@ -1008,21 +978,8 @@ export default class SelectComponent extends ListComponent {
           true,
         );
       }
-<<<<<<< HEAD
-      else {
-        this.choices.setChoices([{
-          value: '',
-          label: `<i class="${this.iconClass('refresh')}" style="font-size:1.3em;"></i>`,
-          disabled: true,
-        }], 'value', 'label', true);
-      }
-    }
-    else if (this.component.dataSrc === 'url' || this.component.dataSrc === 'resource') {
-      this.addOption('', `${this.t('loading')}...`);
-=======
     } else if (this.component.dataSrc === 'url' || this.component.dataSrc === 'resource') {
       this.addOption('', this.t('loading...'));
->>>>>>> upstream/main
     }
   }
 
@@ -1080,10 +1037,6 @@ export default class SelectComponent extends ListComponent {
         : _.get(this.component, 'removeItemButton', true),
       itemSelectText: '',
       classNames: {
-<<<<<<< HEAD
-        containerOuter: ['choices', 'form-group', 'formio-choices'],
-        containerInner: this.transform('class', 'form-control ui fluid selection dropdown').split(' '),
-=======
         containerOuter: [
           'choices',
           'form-group',
@@ -1092,15 +1045,14 @@ export default class SelectComponent extends ListComponent {
         containerInner: this.transform('class', 'form-control ui fluid selection dropdown').split(
           ' ',
         ),
->>>>>>> upstream/main
       },
       addItemText: false,
       allowHTML: true,
       placeholder: hasPlaceholder,
       placeholderValue: placeholderValue,
-      noResultsText: this.t('noResultsFound'),
-      noChoicesText: this.t('noChoices'),
-      searchPlaceholderValue: this.t('typeToSearch'),
+      noResultsText: this.t('No results found'),
+      noChoicesText: this.t('No choices to choose from'),
+      searchPlaceholderValue: this.t('Type to search'),
       shouldSort: false,
       position: this.component.dropdown || 'auto',
       searchEnabled: useSearch,
@@ -1414,10 +1366,6 @@ export default class SelectComponent extends ListComponent {
     }
   }
 
-<<<<<<< HEAD
-  /* eslint-enable max-statements */
-=======
->>>>>>> upstream/main
   update() {
     if (this.component.dataSrc === 'custom') {
       this.updateCustomItems();
@@ -1634,14 +1582,8 @@ export default class SelectComponent extends ListComponent {
 
     try {
       return normalize[dataType]().value;
-<<<<<<< HEAD
-    }
-    catch (err) {
-      console.warn(this.t('failedToNormalize'), err);
-=======
     } catch (err) {
       console.warn('Failed to normalize value', err);
->>>>>>> upstream/main
       return value;
     }
   }
@@ -1670,10 +1612,6 @@ export default class SelectComponent extends ListComponent {
     }
     // Check to see if we need to save off the template data into our metadata.
     const templateValue = this.component.reference && value?._id ? value._id.toString() : value;
-<<<<<<< HEAD
-    const shouldSaveData = (!valueIsObject || this.component.reference) && !this.inDataTable;
-    if (!_.isNil(templateValue) && shouldSaveData && this.templateData && this.templateData[templateValue] && this.root?.submission) {
-=======
     const shouldSaveData = (!valueIsObject || this.component.reference) && !(this.inDataTable && this.row === '');
     if (
       !_.isNil(templateValue) &&
@@ -1682,7 +1620,6 @@ export default class SelectComponent extends ListComponent {
       this.templateData[templateValue] &&
       this.root?.submission
     ) {
->>>>>>> upstream/main
       const submission = this.root.submission;
       if (!submission.metadata) {
         submission.metadata = {};
@@ -1720,27 +1657,14 @@ export default class SelectComponent extends ListComponent {
       }
       submission.metadata.selectData = {};
     }
-    if (flags.resetValue && this.root?.submission && !this.options.readOnly) {
-      const submission = this.root.submission;
-      if (!submission.metadata) {
-        submission.metadata = {};
-      }
-      submission.metadata.selectData = {};
-    }
   }
 
   updateValue(value, flags) {
     const changed = super.updateValue(value, flags);
     if (changed || !this.selectMetadata || flags.resetValue) {
       if (this.component.multiple && Array.isArray(this.dataValue)) {
-<<<<<<< HEAD
-        this.dataValue.forEach(singleValue => this.setMetadata(singleValue, flags));
-      }
-      else {
-=======
         this.dataValue.forEach((singleValue) => this.setMetadata(singleValue, flags));
       } else {
->>>>>>> upstream/main
         this.setMetadata(this.dataValue, flags);
       }
     }
@@ -1750,22 +1674,13 @@ export default class SelectComponent extends ListComponent {
   undoValueTyping(value) {
     let untypedValue = value;
     if (this.component.multiple && Array.isArray(value)) {
-<<<<<<< HEAD
-      untypedValue = value.map(v => {
-=======
       untypedValue = value.map((v) => {
->>>>>>> upstream/main
         if (typeof v === 'boolean' || typeof v === 'number') {
           return v.toString();
         }
         return v;
       });
-<<<<<<< HEAD
-    }
-    else {
-=======
     } else {
->>>>>>> upstream/main
       if (typeof value === 'boolean' || typeof value === 'number') {
         untypedValue = value.toString();
       }
@@ -1913,16 +1828,9 @@ export default class SelectComponent extends ListComponent {
           }
 
           try {
-<<<<<<< HEAD
-            return (JSON.stringify(normalizedOptionValue) === JSON.stringify(value));
-          }
-          catch (err) {
-            console.warn.error(this.t('failedToCompareItems'), err);
-=======
             return JSON.stringify(normalizedOptionValue) === JSON.stringify(value);
           } catch (err) {
             console.warn.error('Error while comparing items', err);
->>>>>>> upstream/main
             return false;
           }
         };
@@ -2035,13 +1943,6 @@ export default class SelectComponent extends ListComponent {
   asString(value, options = {}) {
     value = value ?? this.getValue();
 
-<<<<<<< HEAD
-    if (options.modalPreview || this.inDataTable || options.email) {
-      if (this.inDataTable) {
-        value = this.undoValueTyping(value);
-      }
-     const templateValue = (this.isEntireObjectDisplay() && !_.isObject(value.data)) ? { data: value } : value;
-=======
     if (
       options.modalPreview ||
       ((this.inDataTable || this.inEditGrid) && !['values', 'custom'].includes(this.component.dataSrc))
@@ -2051,7 +1952,6 @@ export default class SelectComponent extends ListComponent {
       }
       const templateValue =
         !_.isEmpty(value) && this.isEntireObjectDisplay() && !_.isObject(value.data) ? { data: value } : value;
->>>>>>> upstream/main
       const template = this.itemTemplate(templateValue, value, options);
       return template;
     }
@@ -2059,14 +1959,8 @@ export default class SelectComponent extends ListComponent {
     const convertToString = (data, valueProperty) => {
       if (valueProperty) {
         if (Array.isArray(data)) {
-<<<<<<< HEAD
-          data.forEach((item) => item[valueProperty] = item[valueProperty].toString());
-        }
-        else if (_.isObject(data)) {
-=======
           data.forEach((item) => (item[valueProperty] = item[valueProperty].toString()));
         } else if (_.isObject(data)) {
->>>>>>> upstream/main
           data[valueProperty] = data[valueProperty].toString();
         }
         return data;
@@ -2076,13 +1970,8 @@ export default class SelectComponent extends ListComponent {
         data = data.toString();
       }
 
-<<<<<<< HEAD
-      if (Array.isArray(data) && data.some(item => this.isBooleanOrNumber(item))) {
-        data = data.map(item => this.isBooleanOrNumber(item) ? item.toString() : item);
-=======
       if (Array.isArray(data) && data.some((item) => this.isBooleanOrNumber(item))) {
         data = data.map((item) => (this.isBooleanOrNumber(item) ? item.toString() : item));
->>>>>>> upstream/main
       }
 
       return data;
@@ -2116,20 +2005,12 @@ export default class SelectComponent extends ListComponent {
         const values = this.defaultSchema.data.values || [];
         return _.isEqual(initialValue, values[0]) ? '-' : initialValue;
       };
-<<<<<<< HEAD
-      value = (this.component.multiple && Array.isArray(value))
-        ? _.filter(items, (item) => value.includes(item.value))
-        : (valueProperty && items)
-          ? getFromValues() ?? { value, label: value }
-          : value;
-=======
       value =
         this.component.multiple && Array.isArray(value)
           ? _.filter(items, (item) => value.includes(item.value))
           : valueProperty && items
             ? (getFromValues() ?? { value, label: value })
             : value;
->>>>>>> upstream/main
     }
 
     if (_.isString(value)) {

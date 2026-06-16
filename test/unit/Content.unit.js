@@ -1,15 +1,9 @@
 import assert from 'power-assert';
-<<<<<<< HEAD
-import Harness from '../harness';
-import ContentComponent from '../../src/components/content/Content';
-import { Formio } from '../../src/Formio';
-=======
 
 import Harness from '../harness';
 import ContentComponent from '../../src/components/content/Content';
 import { Formio } from '../../src/Formio';
 
->>>>>>> upstream/main
 import {
   comp1
 } from './fixtures/content';

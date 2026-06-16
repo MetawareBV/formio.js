@@ -1,16 +1,10 @@
 import { Formio } from '../../src/Formio';
 import assert from 'power-assert';
-<<<<<<< HEAD
-import Harness from '../harness';
-import DayComponent from '../../src/components/day/Day';
-import PanelComponent from '../../src/components/panel/Panel';
-=======
 
 import Harness from '../harness';
 import DayComponent from '../../src/components/day/Day';
 import Components from '../../src/components/Components';
 
->>>>>>> upstream/main
 import {
   comp1,
   comp2,
@@ -21,10 +15,7 @@ import {
   comp7,
   comp8
 } from './fixtures/day';
-<<<<<<< HEAD
-=======
 import PanelComponent from '../../src/components/panel/Panel';
->>>>>>> upstream/main
 
 describe('Day Component', () => {
   it('Should build a day component', () => {
@@ -34,14 +25,11 @@ describe('Day Component', () => {
     });
   });
 
-<<<<<<< HEAD
-=======
   it('Should build a day component directly by Components class create method', () => {
     const {component} = Components.create(comp1);
     assert.deepEqual(comp1, component)
   });
 
->>>>>>> upstream/main
   it('Should handle blank data correctly', (done) => {
     Harness.testCreate(DayComponent, comp1).then((component) => {
       component.setValue();

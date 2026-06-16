@@ -72,18 +72,6 @@ export default class NumberComponent extends Input {
 
     const separators = getNumberSeparators(this.options.language || navigator.language);
 
-<<<<<<< HEAD
-    this.decimalSeparator = this.options.decimalSeparator = this.component.decimalSymbol || this.options.decimalSeparator
-      || this.options.properties?.decimalSeparator
-      || separators.decimalSeparator;
-
-    if (this.component.delimiter) {
-      this.delimiter = this.component.thousandsSeparator || this.options.properties?.thousandsSeparator || this.options.thousandsSeparator || separators.delimiter;
-    }
-    else {
-      if (this.component.thousandsSeparator || this.options.properties?.thousandsSeparator || this.options.thousandsSeparator){
-        console.warn(this.t('noDelimiterSet'));
-=======
     this.decimalSeparator = this.options.decimalSeparator =
       this.component.decimalSymbol ||
       this.options.decimalSeparator ||
@@ -105,7 +93,6 @@ export default class NumberComponent extends Input {
         console.warn(
           'In order for thousands separator to work properly, you must set the delimiter to true in the component json',
         );
->>>>>>> upstream/main
       }
       this.delimiter = '';
     }
@@ -145,13 +132,6 @@ export default class NumberComponent extends Input {
 
   get defaultValue() {
     let defaultValue = super.defaultValue;
-<<<<<<< HEAD
-    if (typeof defaultValue === 'string'){
-      // Default value may be a string or have custom thousands separators or decimal symbols, so we need to call
-      // parseNumber on it
-      defaultValue = this.parseNumber(defaultValue);
-    }
-=======
     if (typeof defaultValue === 'string' && defaultValue) {
       // Default value may be a string or have custom thousands separators or decimal symbols, so we need to call
       // parseNumber on it
@@ -163,7 +143,6 @@ export default class NumberComponent extends Input {
       }
     }
 
->>>>>>> upstream/main
     if (!defaultValue && this.component.defaultValue === 0) {
       defaultValue = this.component.defaultValue;
     }
@@ -280,21 +259,12 @@ export default class NumberComponent extends Input {
         // if decimal limit is 3, 1.23e5 will be converted to 1.230e+5
         // if decimal limit is not set, 1.23e5 will be converted to 1.23000000000000000000e+5
         value = parseFloat(input);
-<<<<<<< HEAD
-        value = value.toExponential(this.decimalLimit); 
-=======
         value = value.toExponential(this.decimalLimit);
->>>>>>> upstream/main
       } else {
         value = parseFloat(input);
         value = !_.isNaN(value) ? String(value).replace('.', this.decimalSeparator) : null;
       }
-<<<<<<< HEAD
-    }
-    else {
-=======
     } else {
->>>>>>> upstream/main
       value = null;
     }
 

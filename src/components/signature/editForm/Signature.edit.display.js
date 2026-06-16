@@ -46,11 +46,7 @@ export default [
     label: 'Keep Overlay Aspect Ratio',
     tooltip: 'If checked, the field will have the same aspect ratio as its preview.',
     key: 'keepOverlayRatio',
-<<<<<<< HEAD
-    input: true
-=======
     input: true,
->>>>>>> upstream/main
   },
   {
     type: 'textfield',

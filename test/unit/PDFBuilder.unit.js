@@ -1,9 +1,6 @@
 import { fake } from 'sinon';
 import { expect } from 'chai';
-<<<<<<< HEAD
-=======
 
->>>>>>> upstream/main
 import { Formio } from '../../src/Formio';
 import FormBuilder from '../../src/FormBuilder';
 

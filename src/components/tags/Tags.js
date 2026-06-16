@@ -150,16 +150,9 @@ export default class TagsComponent extends Input {
   normalizeValue(value) {
     if (this.component.storeas === 'string' && Array.isArray(value)) {
       return super.normalizeValue(value.join(this.delimiter));
-<<<<<<< HEAD
-    }
-    else if (this.component.storeas === 'array' && typeof value === 'string') {
-      return super.normalizeValue(value.split(this.delimiter).filter(result => result));
-    }
-=======
     } else if (this.component.storeas === 'array' && typeof value === 'string') {
       return super.normalizeValue(value.split(this.delimiter).filter((result) => result));
     }
->>>>>>> upstream/main
     return super.normalizeValue(value);
   }
 
