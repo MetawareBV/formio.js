@@ -42,11 +42,7 @@
     "build": "npm run doc && npm run lib && npm run dist",
     "doc": "typedoc",
     "dist": "gulp clean:dist && webpack --config webpack.config.js && webpack --config webpack.prod.js && gulp build",
-<<<<<<< HEAD
-    "lib": "gulp clean:lib && tsc --project tsconfig.cjs.json && tsc --project tsconfig.mjs.json && yarn lib:package  && gulp version",
-=======
     "lib": "gulp clean:lib && npx tsc --project tsconfig.cjs.json && npx tsc --project tsconfig.mjs.json && npm run lib:package && gulp version",
->>>>>>> upstream/main
     "lib:package": "node ./libpackage.js",
     "version": "node -e 'console.log(require(`./package.json`).version)'",
     "build-app": "npm run build-app:create-app && npm run build-app:jekyll && npm run build-app:remove-app",
