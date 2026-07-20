@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import stringHash from 'string-hash';
-import { DefaultEvaluator as CoreEvaluator } from '@formio/core';
+import { Evaluator as CoreEvaluator } from '@formio/core';
 
 export class DefaultEvaluator extends CoreEvaluator {
   cache = {};

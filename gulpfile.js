@@ -98,25 +98,31 @@ gulp.task('styles-builder', function builderStyles() {
     'formio.builder',
   );
 });
-// Same as `styles-builder`, but bundles Bootstrap in (Bootstrap is otherwise a peer/runtime
-// dependency the host app supplies itself — see package.json) and scopes every rule under
-// `.formio-scope`, so a consumer can drop this single stylesheet into an app that has its own
-// global CSS (e.g. Tailwind) without Bootstrap's resets/utilities leaking out.
-gulp.task('styles-builder-scoped', function builderStylesScoped() {
-  return compileStyles(
-    [
-      './node_modules/bootstrap/dist/css/bootstrap.css',
-      './node_modules/choices.js/public/assets/styles/choices.css',
-      './node_modules/tippy.js/dist/tippy.css',
-      './node_modules/dialog-polyfill/dialog-polyfill.css',
-      './node_modules/dragula/dist/dragula.css',
-      './src/sass/formio.form.scss',
-      './src/sass/formio.form.builder.scss',
-    ],
-    'formio.builder.scoped',
-    '.formio-scope',
-  );
-});
+// Same as `styles-builder`, but bundles Bootstrap and Bootstrap Icons in (both are otherwise
+// peer/runtime dependencies the host app supplies itself — see package.json) and scopes every
+// rule under `.formio-scope`, so a consumer can drop this single stylesheet into an app that has
+// its own global CSS (e.g. Tailwind) without Bootstrap's resets/utilities leaking out. Depends on
+// `builder-fonts` (like `styles-full`) since the sidebar's component icons (<i class="bi bi-...">)
+// need the actual Bootstrap Icons webfont files in dist/fonts, not just their CSS.
+gulp.task(
+  'styles-builder-scoped',
+  gulp.series('builder-fonts', function builderStylesScoped() {
+    return compileStyles(
+      [
+        './node_modules/bootstrap/dist/css/bootstrap.css',
+        './node_modules/bootstrap-icons/font/bootstrap-icons.css',
+        './node_modules/choices.js/public/assets/styles/choices.css',
+        './node_modules/tippy.js/dist/tippy.css',
+        './node_modules/dialog-polyfill/dialog-polyfill.css',
+        './node_modules/dragula/dist/dragula.css',
+        './src/sass/formio.form.scss',
+        './src/sass/formio.form.builder.scss',
+      ],
+      'formio.builder.scoped',
+      '.formio-scope',
+    );
+  }),
+);
 gulp.task(
   'styles-full',
   gulp.series('builder-fonts', function fullStyles() {
