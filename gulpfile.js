@@ -7,6 +7,8 @@ const replace = require('gulp-replace');
 const rename = require('gulp-rename');
 const cleanCSS = require('gulp-clean-css');
 const clean = require('gulp-clean');
+const postcss = require('gulp-postcss');
+const prefixwrap = require('postcss-prefixwrap');
 const packageJson = require('./package.json');
 
 // Clean lib folder.
@@ -31,9 +33,12 @@ gulp.task('version', () => {
 });
 
 // Generate styles
-const compileStyles = (styles, file) => {
+// `scopeSelector` (optional) wraps every rule under that selector via postcss-prefixwrap —
+// used for the `-scoped` variants so consumers can load the builder CSS without it leaking
+// into a host app's own global styles (e.g. an app using Bootstrap-free/Tailwind styling).
+const compileStyles = (styles, file, scopeSelector) => {
   const sassFilter = filter('**/*.scss', { restore: true });
-  return gulp
+  let stream = gulp
     .src(styles)
     .pipe(sassFilter)
     .pipe(sass().on('error', sass.logError))
@@ -54,7 +59,13 @@ const compileStyles = (styles, file) => {
       ),
     )
 
-    .pipe(replace(/\.\.\/fonts\/\/?/g, 'fonts/'))
+    .pipe(replace(/\.\.\/fonts\/\/?/g, 'fonts/'));
+
+  if (scopeSelector) {
+    stream = stream.pipe(postcss([prefixwrap(scopeSelector)]));
+  }
+
+  return stream
     .pipe(gulp.dest('dist'))
     .pipe(rename(`${file}.min.css`))
     .pipe(cleanCSS({ compatibility: 'ie8' }))
@@ -85,6 +96,25 @@ gulp.task('styles-builder', function builderStyles() {
       './src/sass/formio.form.builder.scss',
     ],
     'formio.builder',
+  );
+});
+// Same as `styles-builder`, but bundles Bootstrap in (Bootstrap is otherwise a peer/runtime
+// dependency the host app supplies itself — see package.json) and scopes every rule under
+// `.formio-scope`, so a consumer can drop this single stylesheet into an app that has its own
+// global CSS (e.g. Tailwind) without Bootstrap's resets/utilities leaking out.
+gulp.task('styles-builder-scoped', function builderStylesScoped() {
+  return compileStyles(
+    [
+      './node_modules/bootstrap/dist/css/bootstrap.css',
+      './node_modules/choices.js/public/assets/styles/choices.css',
+      './node_modules/tippy.js/dist/tippy.css',
+      './node_modules/dialog-polyfill/dialog-polyfill.css',
+      './node_modules/dragula/dist/dragula.css',
+      './src/sass/formio.form.scss',
+      './src/sass/formio.form.builder.scss',
+    ],
+    'formio.builder.scoped',
+    '.formio-scope',
   );
 });
 gulp.task(
@@ -131,7 +161,7 @@ gulp.task(
   'build',
   gulp.series(
     gulp.parallel('timezones'),
-    gulp.parallel('styles-embed', 'styles-form', 'styles-builder', 'styles-full'),
+    gulp.parallel('styles-embed', 'styles-form', 'styles-builder', 'styles-builder-scoped', 'styles-full'),
     gulp.parallel('clean:embed-css', 'clean:embed-js'),
     gulp.parallel('embed-css', 'embed-js'),
   ),
