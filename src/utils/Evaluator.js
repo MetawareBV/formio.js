@@ -2,9 +2,34 @@ import _ from 'lodash';
 import stringHash from 'string-hash';
 import { Evaluator as CoreEvaluator } from '@formio/core';
 
+// @formio/core's BaseEvaluator/Evaluator expose noeval, templateSettings, interpolateString and
+// evaluate as STATIC members only (see node_modules/@formio/core/lib/utils/Evaluator.js) — but this
+// class is designed to be instantiated (see the `Evaluator` singleton below) and used throughout the
+// wider codebase as `Evaluator.noeval`, `Evaluator.templateSettings`, `Evaluator.interpolateString(...)`
+// and `Evaluator.evaluate(...)` on that INSTANCE (e.g. src/utils/i18n.js, src/utils/utils.js,
+// src/Element.js, several components' editForm files). Static members aren't reachable via `this`/an
+// instance regardless of inheritance, so without these delegating getters/methods every one of those
+// call sites would see `undefined` (a silent no-op for the noeval/templateSettings reads, a hard
+// "is not a function" crash for interpolateString/evaluate).
 export class DefaultEvaluator extends CoreEvaluator {
   cache = {};
   protectedEval = false;
+
+  get noeval() {
+    return CoreEvaluator.noeval;
+  }
+
+  get templateSettings() {
+    return CoreEvaluator.templateSettings;
+  }
+
+  interpolateString(...args) {
+    return CoreEvaluator.interpolateString(...args);
+  }
+
+  evaluate(...args) {
+    return CoreEvaluator.evaluate(...args);
+  }
 
   template(template, hash) {
     hash = hash || stringHash(template);
