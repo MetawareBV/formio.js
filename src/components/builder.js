@@ -39,6 +39,8 @@ import TimeForm from './time/Time.form';
 import UnknownForm from './unknown/Unknown.form';
 import UrlForm from './url/Url.form';
 import WellForm from './well/Well.form';
+// Metaware Components
+import ImageForm from './image/Image.form';
 
 Components.address.editForm = AddressForm;
 Components.button.editForm = ButtonForm;
@@ -80,5 +82,7 @@ Components.time.editForm = TimeForm;
 Components.unknown.editForm = UnknownForm;
 Components.url.editForm = UrlForm;
 Components.well.editForm = WellForm;
+// Metaware Components
+Components.image.editForm = ImageForm;
 
 export default Components;

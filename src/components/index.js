@@ -44,6 +44,8 @@ import TimeComponent from './time/Time';
 import UnknownComponent from './unknown/Unknown';
 import UrlComponent from './url/Url';
 import WellComponent from './well/Well';
+// Metaware Components
+import ImageComponent from './image/Image';
 
 export default {
   address: AddressComponent,
@@ -93,4 +95,6 @@ export default {
   unknown: UnknownComponent,
   url: UrlComponent,
   well: WellComponent,
+  // Metaware Components
+  image: ImageComponent,
 };

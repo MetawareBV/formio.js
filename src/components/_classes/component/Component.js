@@ -2003,6 +2003,15 @@ export default class Component extends Element {
    */
   createModal(element, attr, confirm) {
     const dialog = this.ce('div', attr || {});
+    // createModal() below appends this dialog to document.body (or the nearest
+    // .formio-form-wrapper in shadow DOM setups) rather than keeping it inside this component's
+    // own element tree — a deliberate escape from any clipping/overflow/z-index ancestor. Consumers
+    // that scope Form.io's CSS under a wrapper class (selectors like `.formio-scope .dialog...`)
+    // rely on that wrapper being an ANCESTOR of everything Form.io renders, which this breaks: the
+    // dialog would otherwise render completely unstyled wherever it lands in the page's natural
+    // flow. Tag the dialog itself as a (new, independent) scoping root so it carries its own styling
+    // regardless of where it's appended, without requiring the wrapper to cover the whole page.
+    dialog.classList.add('formio-scope');
     this.setContent(dialog, this.renderTemplate('dialog'));
 
     // Add refs to dialog, not "this".
