@@ -15,7 +15,6 @@ export default class ImageComponent extends Component {
       attrs: [],
       content: 'Title',
       showImageTitle: false,
-      shortDbName: Formio.shortDbName,
       input: false,
       persistent: false
     }, ...extend);

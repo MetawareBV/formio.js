@@ -79,7 +79,7 @@ export default [
     weight: 1,
     dataSrc: 'url',
     data: {
-      url:  location.href.substring(0, location.href.lastIndexOf("/application.nsf") ) + '/application.nsf/Form.xsp/infoware/' + getDatabaseName() + '/images?id=*'
+      url:   '/infoware/app002/images?id=*'
     },
     searchField: 'title__regex',
     template: '<span>{{ item.title }}</span>',
