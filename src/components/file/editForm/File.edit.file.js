@@ -254,6 +254,14 @@ export default [
   {
     type: 'checkbox',
     input: true,
+    key: 'showSize',
+    label: 'Show size column',
+    tooltip: 'Show size column in the list of linked files.',
+    weight: 30
+  },
+  {
+    type: 'checkbox',
+    input: true,
     key: 'uploadOnly',
     label: 'Upload Only',
     tooltip: 'When this is checked, will only allow you to upload file(s) and consequently the download, in this component, will be unavailable.',

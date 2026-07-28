@@ -60,6 +60,7 @@ export default [
     data: {
       values: [
         { label: 'Values', value: 'values' },
+        { label: 'Form', value: 'resource' },
         { label: 'URL', value: 'url' },
         { label: 'Resource', value: 'resource' },
         { label: 'Custom', value: 'custom' },

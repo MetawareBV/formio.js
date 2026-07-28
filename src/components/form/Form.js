@@ -14,7 +14,7 @@ export default class FormComponent extends Component {
         type: 'form',
         key: 'form',
         src: '',
-        reference: true,
+        reference: false,
         form: '',
         path: '',
         tableView: true,

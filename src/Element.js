@@ -614,6 +614,19 @@ export default class Element {
       string = FormioUtils.translateHTMLTemplate(String(string), (value) => this.t(value));
     }
 
+     /*
+      *  Deze functie wordt aangeroepen bij render als html. Dan willen we ook dat de datetime op de juiste manier weergegeven wordt.
+      *  Waarschijnlijk is dit niet een mooie plek. Maar ik weet niet hoe ik die in de evalContext kan realiseren.
+      */
+     
+      if (data && data.component && data.component.type === 'datetime') {
+        if (data.value) {
+          const d = moment(data.value) ;
+          // Format is in uibDateParser -> deze moet eigenlijk omgezet worden in een moment format. Doe ik nu ff met uppercase
+          data.value = d.format(data.component.format.toUpperCase());
+        }
+      }
+
     if (this.component.filter === string && !this.options.building) {
       const evalContext = this.evalContext(data);
       evalContext.data = _.mapValues(evalContext.data, (val) =>

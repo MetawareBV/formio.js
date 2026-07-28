@@ -41,6 +41,8 @@ import UrlForm from './url/Url.form';
 import WellForm from './well/Well.form';
 // Metaware Components
 import ImageForm from './image/Image.form';
+import TitleForm from './title/Title.form';
+import LocationForm from './location/Location.form';
 
 Components.address.editForm = AddressForm;
 Components.button.editForm = ButtonForm;
@@ -84,5 +86,7 @@ Components.url.editForm = UrlForm;
 Components.well.editForm = WellForm;
 // Metaware Components
 Components.image.editForm = ImageForm;
+Components.title.editForm = TitleForm;
+Components.location.editForm = LocationForm;
 
 export default Components;

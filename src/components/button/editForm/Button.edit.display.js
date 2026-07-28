@@ -31,12 +31,12 @@ export default [
     data: {
       values: [
         { label: 'Submit', value: 'submit' },
-        { label: 'Save in state', value: 'saveState' },
-        { label: 'Event', value: 'event' },
-        { label: 'Custom', value: 'custom' },
+       // { label: 'Save in state', value: 'saveState' },
+       // { label: 'Event', value: 'event' },
+       // { label: 'Custom', value: 'custom' },
         { label: 'Reset', value: 'reset' },
-        { label: 'OAuth', value: 'oauth' },
-        { label: 'POST to URL', value: 'url' },
+        //{ label: 'OAuth', value: 'oauth' },
+        //{ label: 'POST to URL', value: 'url' },
       ],
     },
   },

@@ -188,6 +188,14 @@ export default [
     input: true
   },
   {
+    weight: 1550,
+    type: 'checkbox',
+    label: 'Hide when printing',
+    tooltip: 'Hide this component when printing.',
+    key: 'hidewhenprinting',
+    input: true
+  },
+  {
     weight: 1600,
     type: 'checkbox',
     label: 'Modal Edit',

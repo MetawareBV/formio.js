@@ -46,6 +46,8 @@ import UrlComponent from './url/Url';
 import WellComponent from './well/Well';
 // Metaware Components
 import ImageComponent from './image/Image';
+import TitleComponent from './title/Title';
+import LocationComponent from './location/Location';
 
 export default {
   address: AddressComponent,
@@ -97,4 +99,6 @@ export default {
   well: WellComponent,
   // Metaware Components
   image: ImageComponent,
+  title: TitleComponent,
+  location: LocationComponent,
 };

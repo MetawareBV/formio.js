@@ -136,6 +136,8 @@ export default class Component extends Element {
         calculateServer: false,
         widget: null,
 
+        clearOnHide: false,
+
         /**
          * Attributes that will be assigned to the input elements of this component.
          */
@@ -1537,7 +1539,7 @@ export default class Component extends Element {
         {
           visible: isVisible,
           id: this.id,
-          classes: this.className,
+          classes: (this.component.hidewhenprinting ? 'd-print-none ' : '' ) + this.className,
           styles: this.customStyle,
           children,
         },

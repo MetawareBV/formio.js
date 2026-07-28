@@ -142,7 +142,7 @@ export default [
     type: 'checkbox',
     label: 'Omit Value From Submission Data When Conditionally Hidden',
     key: 'clearOnHide',
-    defaultValue: true,
+    defaultValue: false,
     tooltip: 'When a field is conditionally hidden, omit the value from the submission data.',
     input: true,
   },

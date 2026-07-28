@@ -53,6 +53,7 @@ export default class FileComponent extends Field {
         label: 'Upload',
         key: 'file',
         image: false,
+        showSize: true,
         privateDownload: false,
         imageSize: '200',
         filePattern: '*',

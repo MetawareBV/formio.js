@@ -539,6 +539,7 @@ export default class NestedComponent extends Field {
         this.renderTemplate(this.templateName, {
           children: !this.visible ? '' : this.renderComponents(),
           nestedKey: this.nestedKey,
+          backgroundcolor: this.component.backgroundcolor,
           collapsed: this.options.pdf ? false : this.collapsed,
         }),
     );
