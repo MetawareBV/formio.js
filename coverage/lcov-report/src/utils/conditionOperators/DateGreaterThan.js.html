@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.73% </span>
+                <span class="strong">21.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>4/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/21</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.73% </span>
+                <span class="strong">21.05% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>4/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -116,33 +116,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">56x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">56x</span>
-<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">31x</span>
-<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">31x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import ConditionOperator from './ConditionOperator';
@@ -156,34 +156,34 @@ export default class DateGeaterThan extends ConditionOperator {
 <span class="cstat-no" title="statement not covered" >        return 'Greater Than';</span>
     }
 &nbsp;
-    getFormattedDates({ value, comparedValue, conditionTriggerComponent }) {
-        const hasValidationFormat = conditionTriggerComponent ? conditionTriggerComponent.getValidationFormat : <span class="branch-1 cbranch-no" title="branch not covered" >null;</span>
-        const date = hasValidationFormat ? moment(value, conditionTriggerComponent.getValidationFormat()) : moment(value);
-        const comparedDate = hasValidationFormat ? moment(comparedValue, conditionTriggerComponent.getValidationFormat()) : moment(comparedValue);
+<span class="fstat-no" title="function not covered" >    getFormattedDates(</span>{ value, comparedValue, conditionTriggerComponent }) {
+        const hasValidationFormat = <span class="cstat-no" title="statement not covered" >conditionTriggerComponent ? conditionTriggerComponent.getValidationFormat : null;</span>
+        const date = <span class="cstat-no" title="statement not covered" >hasValidationFormat ? moment(value, conditionTriggerComponent.getValidationFormat()) : moment(value);</span>
+        const comparedDate = <span class="cstat-no" title="statement not covered" >hasValidationFormat ? moment(comparedValue, conditionTriggerComponent.getValidationFormat()) : moment(comparedValue);</span>
 &nbsp;
-        return { date, comparedDate };
+<span class="cstat-no" title="statement not covered" >        return { date, comparedDate };</span>
     }
 &nbsp;
-    execute(options, functionName = 'isAfter') {
-        const { value, instance, conditionComponentPath } = options;
+<span class="fstat-no" title="function not covered" >    execute(</span>options, functionName = <span class="branch-0 cbranch-no" title="branch not covered" >'isAfter')</span> {
+        const { value, instance, path } = <span class="cstat-no" title="statement not covered" >options;</span>
 &nbsp;
-        if (!value) {
-            return false;
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!value) {</span>
+<span class="cstat-no" title="statement not covered" >            return false;</span>
         }
 &nbsp;
-        let conditionTriggerComponent = null;
+        let conditionTriggerComponent = <span class="cstat-no" title="statement not covered" >null;</span>
 &nbsp;
-        if (instance<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>oot<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>etComponent) {
-            conditionTriggerComponent = instance.root.getComponent(conditionComponentPath);
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (instance?.root?.getComponent) {</span>
+<span class="cstat-no" title="statement not covered" >            conditionTriggerComponent = instance.root.getComponent(path);</span>
         }
 &nbsp;
-        if ( conditionTriggerComponent &amp;&amp; conditionTriggerComponent.isPartialDay &amp;&amp; conditionTriggerComponent.isPartialDay(value)) {
-            return false;
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if ( conditionTriggerComponent &amp;&amp; conditionTriggerComponent.isPartialDay &amp;&amp; conditionTriggerComponent.isPartialDay(value)) {</span>
+<span class="cstat-no" title="statement not covered" >            return false;</span>
         }
 &nbsp;
-        const { date, comparedDate } = this.getFormattedDates({ ...options, conditionTriggerComponent });
+        const { date, comparedDate } = <span class="cstat-no" title="statement not covered" >this.getFormattedDates({ ...options, conditionTriggerComponent });</span>
 &nbsp;
-        return date[functionName](comparedDate);
+<span class="cstat-no" title="statement not covered" >        return date[functionName](comparedDate);</span>
     }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -193,7 +193,7 @@ export default class DateGeaterThan extends ConditionOperator {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

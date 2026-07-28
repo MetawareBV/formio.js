@@ -2692,6 +2692,72 @@ eval("{\nvar __importDefault = (this && this.__importDefault) || function (mod) 
 
 /***/ }),
 
+/***/ "./lib/cjs/templates/bootstrap5/image/form.js":
+/*!****************************************************!*\
+  !*** ./lib/cjs/templates/bootstrap5/image/form.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+eval("{\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports[\"default\"] = default_1;\nfunction default_1(ctx) {\n    let html = '<div class=\"container-fluid\">';\n    html += `<figure class=\"figure ${ctx.component.figureClass || ''}\">`;\n    if (ctx.component.imageSource) {\n        const src = location.href.substring(0, location.href.lastIndexOf('/application.nsf')) +\n            '/application.nsf/InfowareForms.xsp/infoware/' + ctx.component.imageSource;\n        html += `<img class=\"figure-img ${ctx.component.imageClass || ''} ${ctx.component.figureClass || ''}\" src=\"${src}\" alt=\"${ctx.component.imageTitle || ''}\"`;\n        if (ctx.component.width) {\n            html += ` style=\"width:${ctx.component.width}px;\"`;\n        }\n        html += ' />';\n    }\n    else {\n        html += `[${ctx.t('No Image Selected')}]`;\n    }\n    if (ctx.component.showImageTitle) {\n        html += `<figcaption class=\"figure-caption\">${ctx.component.imageTitle}</figcaption>`;\n    }\n    html += '</figure><div class=\"clearfix\"></div></div>';\n    return html;\n}\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/bootstrap5/image/form.js?\n}");
+
+/***/ }),
+
+/***/ "./lib/cjs/templates/bootstrap5/image/index.js":
+/*!*****************************************************!*\
+  !*** ./lib/cjs/templates/bootstrap5/image/index.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+eval("{\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst form_1 = __importDefault(__webpack_require__(/*! ./form */ \"./lib/cjs/templates/bootstrap5/image/form.js\"));\nexports[\"default\"] = { form: form_1.default };\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/bootstrap5/image/index.js?\n}");
+
+/***/ }),
+
+/***/ "./lib/cjs/templates/bootstrap5/location/form.js":
+/*!*******************************************************!*\
+  !*** ./lib/cjs/templates/bootstrap5/location/form.js ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+eval("{\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports[\"default\"] = default_1;\nfunction default_1(ctx) {\n    if (ctx.component.hideElement) {\n        return '<input name=\"ctx.data[location]\" type=\"hidden\" class=\"form-control\" lang=\"en\" value=\"\" ref=\"input\">';\n    }\n    let html = '<div class=\"card card-body\"';\n    if (ctx.component.hideLabel) {\n        html += ` aria-label=\"${ctx.component.label}\"`;\n    }\n    else {\n        html += ` aria-labelledby=\"l-${ctx.id}-${ctx.component.key}\"`;\n    }\n    if (ctx.component.description) {\n        html += ` aria-describedby=\"d-${ctx.id}-${ctx.component.key}\"`;\n    }\n    html += '><div class=\"row\">';\n    if (ctx.component.showGoogleMaps) {\n        html += '<div class=\"col\">';\n        if (ctx.value.base64Image && ctx.value.base64Image !== '') {\n            html += `<img src=\"data:image/png;base64, ${ctx.value.base64Image}\" alt=\"Location\" />`;\n        }\n        else {\n            html += '[Google Maps Image]';\n        }\n        html += '</div>';\n    }\n    html += '<div class=\"col\"><strong>' + ctx.t('Location:') + '</strong>';\n    if (ctx.component.showDDCoordinates) {\n        html += '<div><i class=\"fa fa-map-marker\" style=\"margin-right:5px;\"></i>';\n        if (ctx.value.latitude && ctx.value.latitude !== '' && ctx.value.latitude != -1) {\n            html += `<a href=\"https://www.google.com/maps/search/?api=1&query=${ctx.value.latitude},${ctx.value.longitude}\" target=\"_blank\">${ctx.value.latitude}, ${ctx.value.longitude}</a>`;\n        }\n        html += '</div>';\n    }\n    if (ctx.component.showDMSCoordinates) {\n        html += '<div><i class=\"fa fa-map-marker\" style=\"margin-right:5px;\"></i>';\n        if (ctx.value.DMS && ctx.value.DMS !== '') {\n            html += `<a href=\"https://www.google.com/maps/search/?api=1&query=${ctx.value.latitude},${ctx.value.longitude}\" target=\"_blank\">${ctx.value.DMS}</a>`;\n        }\n        html += '</div>';\n    }\n    if (ctx.component.showLocationName) {\n        html += '<div><i class=\"fa fa-map-marker\" style=\"margin-right:5px;\"></i>';\n        if (ctx.value.locationName && ctx.value.locationName !== '') {\n            html += ctx.value.locationName;\n        }\n        html += '</div>';\n    }\n    html += '</div>';\n    if (ctx.value.error && ctx.value.error !== '') {\n        html += `<div class=\"formio-location-error\">${ctx.value.error}</div>`;\n    }\n    html += '</div></div>';\n    html += '<input name=\"ctx.data[location]\" type=\"hidden\" class=\"form-control\" lang=\"en\" value=\"\" ref=\"input\">';\n    return html;\n}\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/bootstrap5/location/form.js?\n}");
+
+/***/ }),
+
+/***/ "./lib/cjs/templates/bootstrap5/location/index.js":
+/*!********************************************************!*\
+  !*** ./lib/cjs/templates/bootstrap5/location/index.js ***!
+  \********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+eval("{\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst form_1 = __importDefault(__webpack_require__(/*! ./form */ \"./lib/cjs/templates/bootstrap5/location/form.js\"));\nexports[\"default\"] = { form: form_1.default };\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/bootstrap5/location/index.js?\n}");
+
+/***/ }),
+
+/***/ "./lib/cjs/templates/bootstrap5/title/form.js":
+/*!****************************************************!*\
+  !*** ./lib/cjs/templates/bootstrap5/title/form.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+eval("{\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports[\"default\"] = default_1;\nfunction default_1(ctx) {\n    let attrs = '';\n    (ctx.attrs || []).forEach((attr) => {\n        attrs += ` ${attr.attr}=\"${attr.value}\"`;\n    });\n    let html = `<${ctx.tag} class=\"card card-body titleComponent ${ctx.component.className || ''}\" ref=\"title\" style=\"text-align:${ctx.alignment};color:${ctx.color};background-color:${ctx.backgroundcolor};\"${attrs}>${ctx.t(ctx.content)}`;\n    if (!ctx.singleTags || ctx.singleTags.indexOf(ctx.tag) === -1) {\n        html += `</${ctx.tag}>`;\n    }\n    return html;\n}\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/bootstrap5/title/form.js?\n}");
+
+/***/ }),
+
+/***/ "./lib/cjs/templates/bootstrap5/title/index.js":
+/*!*****************************************************!*\
+  !*** ./lib/cjs/templates/bootstrap5/title/index.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+eval("{\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst form_1 = __importDefault(__webpack_require__(/*! ./form */ \"./lib/cjs/templates/bootstrap5/title/form.js\"));\nexports[\"default\"] = { form: form_1.default };\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/bootstrap5/title/index.js?\n}");
+
+/***/ }),
+
 /***/ "./lib/cjs/templates/index.js":
 /*!************************************!*\
   !*** ./lib/cjs/templates/index.js ***!
@@ -2699,7 +2765,7 @@ eval("{\nvar __importDefault = (this && this.__importDefault) || function (mod) 
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-eval("{\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst bootstrap5_1 = __importDefault(__webpack_require__(/*! @formio/bootstrap/bootstrap5 */ \"./node_modules/@formio/bootstrap/lib/cjs/bootstrap5.js\"));\nexports[\"default\"] = {\n    bootstrap: bootstrap5_1.default.templates.bootstrap5\n};\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/index.js?\n}");
+eval("{\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst bootstrap5_1 = __importDefault(__webpack_require__(/*! @formio/bootstrap/bootstrap5 */ \"./node_modules/@formio/bootstrap/lib/cjs/bootstrap5.js\"));\nconst title_1 = __importDefault(__webpack_require__(/*! ./bootstrap5/title */ \"./lib/cjs/templates/bootstrap5/title/index.js\"));\nconst image_1 = __importDefault(__webpack_require__(/*! ./bootstrap5/image */ \"./lib/cjs/templates/bootstrap5/image/index.js\"));\nconst location_1 = __importDefault(__webpack_require__(/*! ./bootstrap5/location */ \"./lib/cjs/templates/bootstrap5/location/index.js\"));\nexports[\"default\"] = {\n    bootstrap: Object.assign(Object.assign({}, bootstrap5_1.default.templates.bootstrap5), { title: title_1.default,\n        image: image_1.default,\n        location: location_1.default })\n};\n\n\n//# sourceURL=webpack://Formio/./lib/cjs/templates/index.js?\n}");
 
 /***/ }),
 

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.85% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/14</span>
+                <span class='fraction'>7/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.85% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/14</span>
+                <span class='fraction'>7/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -131,7 +131,9 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,9 +169,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,12 +179,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,27 +234,29 @@ export default class FormBuilder extends Form {
   /**
    * Creates a new form builder.
    * @param {HTMLElement} element - The HTML element to place the form builder.
-   * @param {string | object} form - The form to pass to the builder
+   * @param {string | object | undefined} form - The form to pass to the builder
    * @param {FormBuilderOptions} options - The options to create this builder.
    * @returns {FormBuilder} - The form builder instance.
    */
-  constructor(element, form, options) {
-    form = form || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
-    options = options || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
-    super(element, form, Object.assign(
-      options,
-      FormBuilder.options,
-      ((Formio.options &amp;&amp; Formio.options.builder) ? <span class="branch-0 cbranch-no" title="branch not covered" >Formio.options.builder </span>: {})
-    ));
+<span class="fstat-no" title="function not covered" >  constructor(e</span>lement, form, options) {
+<span class="cstat-no" title="statement not covered" >    form = form || {};</span>
+<span class="cstat-no" title="statement not covered" >    options = options || {};</span>
+<span class="cstat-no" title="statement not covered" >    super(</span>
+      element,
+      form,
+      Object.assign(
+        options,
+        FormBuilder.options,
+        Formio.options &amp;&amp; Formio.options.builder ? Formio.options.builder : {},
+      ),
+    );
   }
 &nbsp;
-  create(display) {
-    if (Builders.builders[display]) {
-      return new Builders.builders[display](this.element, this.options);
-    }
-    else {
-      // eslint-disable-next-line new-cap
-      return new Builders.builders['webform'](this.element, this.options);
+<span class="fstat-no" title="function not covered" >  create(</span>display) {
+<span class="cstat-no" title="statement not covered" >    if (Builders.builders[display]) {</span>
+<span class="cstat-no" title="statement not covered" >      return new Builders.builders[display](this.element, this.options);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return new Builders.builders['webform'](this.element, this.options);</span>
     }
   }
 }
@@ -263,7 +269,7 @@ export default class FormBuilder extends Form {
  * @returns {Promise} - When the form is instance is ready.
  */
 Formio.builder = <span class="fstat-no" title="function not covered" >(e</span>lement, form, options) =&gt; {
-<span class="cstat-no" title="statement not covered" >  return (new FormBuilder(element, form, options)).ready;</span>
+<span class="cstat-no" title="statement not covered" >  return new FormBuilder(element, form, options).ready;</span>
 };
 &nbsp;
 Formio.FormBuilder = FormBuilder;
@@ -274,7 +280,7 @@ Formio.FormBuilder = FormBuilder;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../prettify.js"></script>
         <script>

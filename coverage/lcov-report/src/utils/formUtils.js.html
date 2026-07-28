@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/44</span>
+                <span class='fraction'>47/47</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/44</span>
+                <span class='fraction'>47/47</span>
             </div>
         
             
@@ -158,7 +158,14 @@
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,17 +209,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -258,13 +260,19 @@ const {
   flattenComponents,
   guid,
   uniqueName,
-  MODEL_TYPES,
+  MODEL_TYPES_OF_KNOWN_COMPONENTS,
   getModelType,
-  getComponentAbsolutePath,
   getComponentPath,
+  setComponentScope,
+  resetComponentScope,
   isComponentNestedDataType,
   componentPath,
-  componentChildPath,
+  getComponentPaths,
+  componentMatches,
+  getBestMatch,
+  getComponentFromPath,
+  getComponentValue,
+  findComponents,
   eachComponentDataAsync,
   eachComponentData,
   getComponentKey,
@@ -296,28 +304,23 @@ const {
   getItemTemplateKeys
 } = Utils;
 &nbsp;
-/**
- * Deprecated version of findComponents. Renamed to searchComponents.
- * @param {import('@formio/core').Component[]} components - The components to find components within.
- * @param {object} query - The query to use when searching for the components.
- * @returns {import('@formio/core').Component[]} - The result of the component that is found.
- */
-export function <span class="fstat-no" title="function not covered" >findComponents(</span>components, query) {
-<span class="cstat-no" title="statement not covered" >  console.warn('formio.js/utils findComponents is deprecated. Use searchComponents instead.');</span>
-<span class="cstat-no" title="statement not covered" >  return searchComponents(components, query);</span>
-}
-&nbsp;
 export {
   flattenComponents,
   guid,
   uniqueName,
-  MODEL_TYPES,
+  MODEL_TYPES_OF_KNOWN_COMPONENTS,
   getModelType,
-  getComponentAbsolutePath,
   getComponentPath,
+  setComponentScope,
+  resetComponentScope,
   isComponentNestedDataType,
   componentPath,
-  componentChildPath,
+  getComponentPaths,
+  componentMatches,
+  getBestMatch,
+  getComponentFromPath,
+  getComponentValue,
+  findComponents,
   eachComponentDataAsync,
   eachComponentData,
   getComponentKey,
@@ -355,7 +358,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>2/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>2/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,7 +104,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -113,7 +113,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,24 +124,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">93x</span>
-<span class="cline-any cline-yes">93x</span>
-<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import TextFieldComponent from '../textfield/TextField';
 &nbsp;
 export default class UrlComponent extends TextFieldComponent {
-  static schema(...extend) {
-    return TextFieldComponent.schema({
+<span class="fstat-no" title="function not covered" >  static </span>schema(...extend) {
+<span class="cstat-no" title="statement not covered" >    return TextFieldComponent.schema({</span>
       type: 'url',
       label: 'Url',
       key: 'url',
@@ -149,8 +149,8 @@ export default class UrlComponent extends TextFieldComponent {
     }, ...extend);
   }
 &nbsp;
-  static get builderInfo() {
-    return {
+<span class="fstat-no" title="function not covered" >  static </span>get builderInfo() {
+<span class="cstat-no" title="statement not covered" >    return {</span>
       title: 'Url',
       group: 'advanced',
       icon: 'link',
@@ -160,18 +160,18 @@ export default class UrlComponent extends TextFieldComponent {
     };
   }
 &nbsp;
-  constructor(component, options, data) {
-    super(component, options, data);
+<span class="fstat-no" title="function not covered" >  constructor(c</span>omponent, options, data) {
+<span class="cstat-no" title="statement not covered" >    super(component, options, data);</span>
   }
 &nbsp;
-  get defaultSchema() {
-    return UrlComponent.schema();
+<span class="fstat-no" title="function not covered" >  get d</span>efaultSchema() {
+<span class="cstat-no" title="statement not covered" >    return UrlComponent.schema();</span>
   }
 &nbsp;
-  elementInfo() {
-    const info = super.elementInfo();
-    info.attr.type = this.component.mask ? <span class="branch-0 cbranch-no" title="branch not covered" >'password' </span>: 'url';
-    return info;
+<span class="fstat-no" title="function not covered" >  elementInfo(</span>) {
+    const info = <span class="cstat-no" title="statement not covered" >super.elementInfo();</span>
+<span class="cstat-no" title="statement not covered" >    info.attr.type = this.component.mask ? 'password' : 'url';</span>
+<span class="cstat-no" title="statement not covered" >    return info;</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -181,7 +181,7 @@ export default class UrlComponent extends TextFieldComponent {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

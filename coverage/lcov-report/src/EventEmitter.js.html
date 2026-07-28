@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">18.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>3/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">18.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>3/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,63 +99,63 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10794x</span>
-<span class="cline-any cline-yes">10794x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10794x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10794x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10794x</span>
-<span class="cline-any cline-yes">19698x</span>
-<span class="cline-any cline-yes">19696x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19696x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10794x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10794x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { EventEmitter as EventEmitter3 } from 'eventemitter3';
-import * as utils from './utils/utils';
+import { observeOverload } from './utils';
 export default class EventEmitter extends EventEmitter3 {
-  constructor(conf = {}) {
-    const { loadLimit = 1000, eventsSafeInterval = 300 } = conf;
-    super();
+<span class="fstat-no" title="function not covered" >  constructor(c</span>onf = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
+    const { loadLimit = <span class="branch-0 cbranch-no" title="branch not covered" >1000,</span> eventsSafeInterval = <span class="branch-0 cbranch-no" title="branch not covered" >300 </span>} = <span class="cstat-no" title="statement not covered" >conf;</span>
+<span class="cstat-no" title="statement not covered" >    super();</span>
 &nbsp;
-    const overloadHandler = () =&gt; {
-      console.warn(`There were more than ${loadLimit} events emitted in ${eventsSafeInterval} ms. It might be caused by events' infinite loop`, this.id);
+    const overloadHandler = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      console.warn(`There were more than ${loadLimit} events emitted in ${eventsSafeInterval} ms. It might be caused by events' infinite loop`, this.id);</span>
     };
 &nbsp;
-    const dispatch = utils.observeOverload(overloadHandler, {
+    const dispatch = <span class="cstat-no" title="statement not covered" >observeOverload(overloadHandler, {</span>
       limit: loadLimit,
       delay: eventsSafeInterval
     });
 &nbsp;
-    this.emit = (...args) =&gt; {
-      super.emit(...args);
-      super.emit('any', ...args);
+<span class="cstat-no" title="statement not covered" >    this.emit = <span class="fstat-no" title="function not covered" >(.</span>..args) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      super.emit(...args);</span>
+<span class="cstat-no" title="statement not covered" >      super.emit('any', ...args);</span>
 &nbsp;
-      dispatch();
+<span class="cstat-no" title="statement not covered" >      dispatch();</span>
     };
   }
 &nbsp;
-  onAny = <span class="fstat-no" title="function not covered" >(f</span>n) =&gt; {
+<span class="cstat-no" title="statement not covered" >  onAny = <span class="fstat-no" title="function not covered" >(f</span>n) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    this.on('any', fn);</span>
   };
 &nbsp;
-  offAny = <span class="fstat-no" title="function not covered" >(f</span>n) =&gt; {
+<span class="cstat-no" title="statement not covered" >  offAny = <span class="fstat-no" title="function not covered" >(f</span>n) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    this.off('any', fn);</span>
   };
 }
@@ -166,7 +166,7 @@ export default class EventEmitter extends EventEmitter3 {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../prettify.js"></script>
         <script>

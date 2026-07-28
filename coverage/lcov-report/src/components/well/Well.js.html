@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -109,11 +109,12 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,7 +124,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,27 +141,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">65x</span>
-<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import NestedComponent from '../_classes/nested/NestedComponent';
 &nbsp;
 export default class WellComponent extends NestedComponent {
-  static schema(...extend) {
-    return NestedComponent.schema({
+<span class="fstat-no" title="function not covered" >  static </span>schema(...extend) {
+<span class="cstat-no" title="statement not covered" >    return NestedComponent.schema({</span>
+      label: 'Well',
       type: 'well',
       key: 'well',
       input: false,
@@ -168,8 +171,8 @@ export default class WellComponent extends NestedComponent {
     }, ...extend);
   }
 &nbsp;
-  static get builderInfo() {
-    return {
+<span class="fstat-no" title="function not covered" >  static </span>get builderInfo() {
+<span class="cstat-no" title="statement not covered" >    return {</span>
       title: 'Well',
       icon: 'square-o',
       group: 'layout',
@@ -184,21 +187,21 @@ export default class WellComponent extends NestedComponent {
 <span class="cstat-no" title="statement not covered" >    return [];</span>
   }
 &nbsp;
-  get defaultSchema() {
-    return WellComponent.schema();
+<span class="fstat-no" title="function not covered" >  get d</span>efaultSchema() {
+<span class="cstat-no" title="statement not covered" >    return WellComponent.schema();</span>
   }
 &nbsp;
-  get className() {
-    return `${this.component.customClass}`;
+<span class="fstat-no" title="function not covered" >  get c</span>lassName() {
+<span class="cstat-no" title="statement not covered" >    return `${this.component.customClass}`;</span>
   }
 &nbsp;
-  get templateName() {
-    return 'well';
+<span class="fstat-no" title="function not covered" >  get t</span>emplateName() {
+<span class="cstat-no" title="statement not covered" >    return 'well';</span>
   }
 &nbsp;
-  constructor(...args) {
-    super(...args);
-    this.noField = true;
+<span class="fstat-no" title="function not covered" >  constructor(.</span>..args) {
+<span class="cstat-no" title="statement not covered" >    super(...args);</span>
+<span class="cstat-no" title="statement not covered" >    this.noField = true;</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -208,7 +211,7 @@ export default class WellComponent extends NestedComponent {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

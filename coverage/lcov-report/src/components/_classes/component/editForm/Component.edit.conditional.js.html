@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -116,7 +116,11 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -149,7 +153,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,8 +178,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import EditFormUtils from './utils';
-import { getContextComponents } from '../../../../utils/utils';
-/* eslint-disable quotes, max-len */
+import { getContextComponents } from '../../../../utils';
+&nbsp;
 export default [
   {
     type: 'panel',
@@ -189,9 +197,9 @@ export default [
         data: {
           values: [
             { label: 'True', value: 'true' },
-            { label: 'False', value: 'false' }
-          ]
-        }
+            { label: 'False', value: 'false' },
+          ],
+        },
       },
       {
         type: 'select',
@@ -201,27 +209,31 @@ export default [
         dataSrc: 'custom',
         valueProperty: 'value',
         data: {
-          custom(context) {
-            return getContextComponents(context);
-          }
-        }
+<span class="fstat-no" title="function not covered" >          custom(</span>context) {
+<span class="cstat-no" title="statement not covered" >            return getContextComponents(context);</span>
+          },
+        },
       },
       {
         type: 'textfield',
         input: true,
         label: 'Has the value:',
-        key: 'conditional.eq'
-      }
-    ]
+        key: 'conditional.eq',
+      },
+    ],
   },
-  EditFormUtils.javaScriptValue('Advanced Conditions', 'customConditional', 'conditional.json', 110,
+  EditFormUtils.javaScriptValue(
+    'Advanced Conditions',
+    'customConditional',
+    'conditional.json',
+    110,
     '&lt;p&gt;You must assign the &lt;strong&gt;show&lt;/strong&gt; variable a boolean result.&lt;/p&gt;' +
-    '&lt;p&gt;&lt;strong&gt;Note: Advanced Conditional logic will override the results of the Simple Conditional logic.&lt;/strong&gt;&lt;/p&gt;' +
-    '&lt;h5&gt;Example&lt;/h5&gt;&lt;pre&gt;show = !!data.showMe;&lt;/pre&gt;',
-    '&lt;p&gt;&lt;a href="https://help.form.io/userguide/form-building/logic-and-conditions" target="_blank" rel="noopener noreferrer"&gt;Click here for an example&lt;/a&gt;&lt;/p&gt;'
-  )
+      '&lt;p&gt;&lt;strong&gt;Note: Advanced Conditional logic will override the results of the Simple Conditional logic.&lt;/strong&gt;&lt;/p&gt;' +
+      '&lt;h5&gt;Example&lt;/h5&gt;&lt;pre&gt;show = !!data.showMe;&lt;/pre&gt;',
+    '&lt;p&gt;&lt;a href="https://help.form.io/userguide/form-building/logic-and-conditions" target="_blank" rel="noopener noreferrer"&gt;Click here for an example&lt;/a&gt;&lt;/p&gt;',
+    EditFormUtils.tokenVariableDescription(),
+  ),
 ];
-/* eslint-enable quotes, max-len */
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -229,7 +241,7 @@ export default [
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

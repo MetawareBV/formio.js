@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">54.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>12/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">54.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>12/22</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -144,19 +144,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,20 +192,20 @@ const settingComponent = EditFormUtils.javaScriptValue(
 export default [
   {
     ...settingComponent,
-    customConditional(context) {
-      let isWizardPanel = false;
-      if (context.instance.options.editForm.display === 'wizard') {
-        const { components } = context.instance.options.editForm;
-        const component = context.instance.options.editComponent;
-        if (components &amp;&amp; component) {
-          isWizardPanel = components.some((comp) =&gt; {
-            const diff = _difference(_keys(comp), _keys(component)) || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
-            diff.push('components');
-            return _isEqual(_omit(comp, diff), _omit(component, diff));
+<span class="fstat-no" title="function not covered" >    customConditional(</span>context) {
+      let isWizardPanel = <span class="cstat-no" title="statement not covered" >false;</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (context.instance.options.editForm.display === 'wizard') {</span>
+        const { components } = <span class="cstat-no" title="statement not covered" >context.instance.options.editForm;</span>
+        const component = <span class="cstat-no" title="statement not covered" >context.instance.options.editComponent;</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (components &amp;&amp; component) {</span>
+<span class="cstat-no" title="statement not covered" >          isWizardPanel = components.some(<span class="fstat-no" title="function not covered" >(c</span>omp) =&gt; {</span>
+            const diff = <span class="cstat-no" title="statement not covered" >_difference(_keys(comp), _keys(component)) || [];</span>
+<span class="cstat-no" title="statement not covered" >            diff.push('components');</span>
+<span class="cstat-no" title="statement not covered" >            return _isEqual(_omit(comp, diff), _omit(component, diff));</span>
           });
         }
       }
-      return isWizardPanel;
+<span class="cstat-no" title="statement not covered" >      return isWizardPanel;</span>
     }
   }
 ];
@@ -217,7 +217,7 @@ export default [
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

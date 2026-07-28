@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>4/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.23% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/17</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>4/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -111,18 +111,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">113x</span>
-<span class="cline-any cline-yes">113x</span>
-<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import ConditionOperator from './ConditionOperator';
@@ -141,19 +141,19 @@ export default class IsEmptyValue extends ConditionOperator {
 <span class="cstat-no" title="statement not covered" >        return false;</span>
     }
 &nbsp;
-    execute({ value, instance, conditionComponentPath }) {
-        const isEmptyValue = _.isEmpty(_.isNumber(value)? String(value): value);
+<span class="fstat-no" title="function not covered" >    execute(</span>{ value, instance, path }) {
+        const isEmptyValue = <span class="cstat-no" title="statement not covered" >_.isEmpty(_.isNumber(value)? String(value): value);</span>
 &nbsp;
-        if (instance<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>oot<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>etComponent) {
-            const conditionTriggerComponent =  instance.root.getComponent(conditionComponentPath);
-            return conditionTriggerComponent?.isEmpty ? conditionTriggerComponent.isEmpty() : isEmptyValue;
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (instance?.root?.getComponent) {</span>
+            const conditionTriggerComponent =  <span class="cstat-no" title="statement not covered" >instance.root.getComponent(path);</span>
+<span class="cstat-no" title="statement not covered" >            return conditionTriggerComponent?.isEmpty ? conditionTriggerComponent.isEmpty() : isEmptyValue;</span>
         }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return  isEmptyValue;</span>
     }
 &nbsp;
-    getResult(options) {
-        return this.execute(options);
+<span class="fstat-no" title="function not covered" >    getResult(</span>options) {
+<span class="cstat-no" title="statement not covered" >        return this.execute(options);</span>
     }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -163,7 +163,7 @@ export default class IsEmptyValue extends ConditionOperator {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

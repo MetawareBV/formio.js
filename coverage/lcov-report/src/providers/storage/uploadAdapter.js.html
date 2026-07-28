@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.04% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/23</span>
+                <span class='fraction'>3/24</span>
             </div>
         
             
@@ -127,7 +127,9 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,11 +189,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { uniqueName } from '../../utils/utils';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { uniqueName } from '../../utils';
 &nbsp;
 /**
  * UploadAdapter for CKEditor https://ckeditor.com/docs/ckeditor5/latest/framework/guides/deep-dive/upload-adapter.html
@@ -220,9 +224,9 @@ class FormioUploadAdapter {
           null
         ];
 &nbsp;
-        const uploadPromise = <span class="cstat-no" title="statement not covered" >this.fileService.uploadFile(</span>
+<span class="cstat-no" title="statement not covered" >        this.fileService.uploadFile(</span>
           ...uploadParams,
-<span class="fstat-no" title="function not covered" >          () =</span>&gt; <span class="cstat-no" title="statement not covered" >this.component.emit('fileUploadingStart', uploadPromise)</span>
+<span class="fstat-no" title="function not covered" >          () =</span>&gt; <span class="cstat-no" title="statement not covered" >this.component.emit('fileUploadingStart')</span>
         ).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {
 <span class="cstat-no" title="statement not covered" >          return this.fileService.downloadFile(result);</span>
         }).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {
@@ -233,7 +237,7 @@ class FormioUploadAdapter {
 <span class="cstat-no" title="statement not covered" >          console.warn('An Error occured while uploading file', err);</span>
 <span class="cstat-no" title="statement not covered" >          reject(err);</span>
         }).finally(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          this.component.emit('fileUploadingEnd', uploadPromise);</span>
+<span class="cstat-no" title="statement not covered" >          this.component.emit('fileUploadingEnd');</span>
         });
       }));
   }
@@ -248,9 +252,11 @@ class FormioUploadAdapter {
   }
 }
 &nbsp;
-const getFormioUploadAdapterPlugin = <span class="fstat-no" title="function not covered" >(f</span>ileService, component) =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>ditor) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  editor.plugins.get('FileRepository').createUploadAdapter = <span class="fstat-no" title="function not covered" >(l</span>oader) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return new FormioUploadAdapter(loader, fileService, component);</span>
+const getFormioUploadAdapterPlugin = <span class="fstat-no" title="function not covered" >(f</span>ileService, component) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >function (e</span>ditor) {</span>
+<span class="cstat-no" title="statement not covered" >    editor.plugins.get('FileRepository').createUploadAdapter = <span class="fstat-no" title="function not covered" >(l</span>oader) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      return new FormioUploadAdapter(loader, fileService, component);</span>
+    };
   };
 };
 &nbsp;
@@ -262,7 +268,7 @@ export { getFormioUploadAdapterPlugin };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

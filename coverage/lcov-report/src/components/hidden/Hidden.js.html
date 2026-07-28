@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>2/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>2/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -131,7 +131,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">94x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,7 +139,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,15 +151,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">163x</span>
-<span class="cline-any cline-yes">163x</span>
-<span class="cline-any cline-yes">163x</span>
-<span class="cline-any cline-yes">163x</span>
-<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,34 +176,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">325x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1040x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Input from '../_classes/input/Input';
 &nbsp;
 export default class HiddenComponent extends Input {
-  static schema(...extend) {
-    return Input.schema({
+<span class="fstat-no" title="function not covered" >  static </span>schema(...extend) {
+<span class="cstat-no" title="statement not covered" >    return Input.schema({</span>
       type: 'hidden',
       tableView: false,
       inputType: 'hidden'
     }, ...extend);
   }
 &nbsp;
-  static get builderInfo() {
-    return {
+<span class="fstat-no" title="function not covered" >  static </span>get builderInfo() {
+<span class="cstat-no" title="statement not covered" >    return {</span>
       title: 'Hidden',
       group: 'data',
       icon: 'user-secret',
@@ -214,16 +214,16 @@ export default class HiddenComponent extends Input {
     };
   }
 &nbsp;
-  get defaultSchema() {
-    return HiddenComponent.schema();
+<span class="fstat-no" title="function not covered" >  get d</span>efaultSchema() {
+<span class="cstat-no" title="statement not covered" >    return HiddenComponent.schema();</span>
   }
 &nbsp;
-  get inputInfo() {
-    const info = super.elementInfo();
-    info.type = 'input';
-    info.attr.type = 'hidden';
-    info.changeEvent = 'change';
-    return info;
+<span class="fstat-no" title="function not covered" >  get i</span>nputInfo() {
+    const info = <span class="cstat-no" title="statement not covered" >super.elementInfo();</span>
+<span class="cstat-no" title="statement not covered" >    info.type = 'input';</span>
+<span class="cstat-no" title="statement not covered" >    info.attr.type = 'hidden';</span>
+<span class="cstat-no" title="statement not covered" >    info.changeEvent = 'change';</span>
+<span class="cstat-no" title="statement not covered" >    return info;</span>
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  get s</span>kipInEmail() {
@@ -239,20 +239,20 @@ export default class HiddenComponent extends Input {
 <span class="cstat-no" title="statement not covered" >    return false;</span>
   }
 &nbsp;
-  labelIsHidden() {
-    return true;
+<span class="fstat-no" title="function not covered" >  labelIsHidden(</span>) {
+<span class="cstat-no" title="statement not covered" >    return true;</span>
   }
 &nbsp;
-  get emptyValue() {
-    return '';
+<span class="fstat-no" title="function not covered" >  get e</span>mptyValue() {
+<span class="cstat-no" title="statement not covered" >    return null;</span>
   }
 &nbsp;
-  setValue(value, flags = {}) {
-    return this.updateValue(value, flags);
+<span class="fstat-no" title="function not covered" >  setValue(</span>value, flags = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
+<span class="cstat-no" title="statement not covered" >    return this.updateValue(value, flags);</span>
   }
 &nbsp;
-  getValue() {
-    return this.dataValue;
+<span class="fstat-no" title="function not covered" >  getValue(</span>) {
+<span class="cstat-no" title="statement not covered" >    return this.dataValue;</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -262,7 +262,7 @@ export default class HiddenComponent extends Input {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

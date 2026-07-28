@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>3/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>3/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -118,7 +118,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">96x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,7 +130,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,34 +141,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">69x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import TextFieldComponent from '../textfield/TextField';
 import _ from 'lodash';
 &nbsp;
 export default class PhoneNumberComponent extends TextFieldComponent {
-  static schema(...extend) {
-    return TextFieldComponent.schema({
+<span class="fstat-no" title="function not covered" >  static </span>schema(...extend) {
+<span class="cstat-no" title="statement not covered" >    return TextFieldComponent.schema({</span>
       type: 'phoneNumber',
       label: 'Phone Number',
       key: 'phoneNumber',
@@ -179,8 +179,8 @@ export default class PhoneNumberComponent extends TextFieldComponent {
     }, ...extend);
   }
 &nbsp;
-  static get builderInfo() {
-    return {
+<span class="fstat-no" title="function not covered" >  static </span>get builderInfo() {
+<span class="cstat-no" title="statement not covered" >    return {</span>
       title: 'Phone Number',
       group: 'advanced',
       icon: 'phone-square',
@@ -190,13 +190,13 @@ export default class PhoneNumberComponent extends TextFieldComponent {
     };
   }
 &nbsp;
-  get defaultSchema() {
-    return PhoneNumberComponent.schema();
+<span class="fstat-no" title="function not covered" >  get d</span>efaultSchema() {
+<span class="cstat-no" title="statement not covered" >    return PhoneNumberComponent.schema();</span>
   }
 &nbsp;
-  getValueAsString(value, options) {
-    if (options?.email &amp;&amp; this.visible &amp;&amp; !this.skipInEmail &amp;&amp; _.isObject(value)) {
-      const result = (`
+<span class="fstat-no" title="function not covered" >  getValueAsString(</span>value, options) {
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (options?.email &amp;&amp; this.visible &amp;&amp; !this.skipInEmail &amp;&amp; _.isObject(value)) {</span>
+      const result = (<span class="cstat-no" title="statement not covered" >`</span>
         &lt;table border="1" style="width:100%"&gt;
           &lt;tbody&gt;
           &lt;tr&gt;
@@ -207,10 +207,10 @@ export default class PhoneNumberComponent extends TextFieldComponent {
         &lt;/table&gt;
       `);
 &nbsp;
-      return result;
+<span class="cstat-no" title="statement not covered" >      return result;</span>
     }
 &nbsp;
-    return super.getValueAsString(value, options);
+<span class="cstat-no" title="statement not covered" >    return super.getValueAsString(value, options);</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -220,7 +220,7 @@ export default class PhoneNumberComponent extends TextFieldComponent {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-19T16:05:59.853Z
+                at 2026-07-28T14:14:01.369Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
