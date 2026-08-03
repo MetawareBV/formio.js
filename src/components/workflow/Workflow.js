@@ -15,6 +15,12 @@ import {
  * value of its own: the registration's status is the server's, not this component's, so it
  * never participates in form data (input: false), unlike the old Domino-era version which
  * stored the whole workflow state as a JSON blob in its own field.
+ *
+ * `component.workflowId` (set via the builder property, see Workflow.edit.display.js) is
+ * design-time only -- this class never reads it. The backend resolves which workflow a
+ * registration runs against from `Form.workflowId`, not from anything sent by the browser, so
+ * the host app syncs the two by calling `PUT .../forms/{formId}/workflow/{workflowId}` whenever
+ * a design containing this component is published.
  */
 export default class WorkflowComponent extends Component {
   static schema(...extend) {
@@ -25,6 +31,7 @@ export default class WorkflowComponent extends Component {
       input: false,
       persistent: false,
       tableView: false,
+      workflowId: '',
       alignment: 'right',
       showSaveButton: false,
       showValidations: false,

@@ -1,4 +1,25 @@
+// The form-design page always renders at /{tenant}/infoware/{database}/forms/{key} -- parsed
+// here (module-eval time, once per page load) the same way Title/Location's editForm fields
+// derive their own admin-API URLs from `location.href`.
+const pathSegments = location.pathname.split('/');
+const workflowListUrl = `/api/${pathSegments[1]}/isoware/${pathSegments[3]}/workflow/definitions?resourceType=REGISTRATION&t=${Date.now()}`;
+
 export default [
+  {
+    type: 'select',
+    input: true,
+    key: 'workflowId',
+    weight: 1,
+    label: 'Workflow',
+    tooltip: 'Kies de workflow die gebruikt moet worden voor registraties van dit formulier.',
+    dataSrc: 'url',
+    data: {
+      url: workflowListUrl,
+    },
+    valueProperty: 'id',
+    template: '<span>{{ item.name }}</span>',
+    lazyLoad: false,
+  },
   {
     key: 'labelPosition',
     ignore: true,
