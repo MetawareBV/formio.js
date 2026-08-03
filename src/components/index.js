@@ -48,6 +48,9 @@ import WellComponent from './well/Well';
 import ImageComponent from './image/Image';
 import TitleComponent from './title/Title';
 import LocationComponent from './location/Location';
+import WorkflowComponent from './workflow/Workflow';
+import WorkflowHistoryComponent from './workflowHistory/WorkflowHistory';
+import WorkflowStatesComponent from './workflowStates/WorkflowStates';
 
 export default {
   address: AddressComponent,
@@ -101,4 +104,7 @@ export default {
   image: ImageComponent,
   title: TitleComponent,
   location: LocationComponent,
+  workflow: WorkflowComponent,
+  workflowHistory: WorkflowHistoryComponent,
+  workflowStates: WorkflowStatesComponent,
 };

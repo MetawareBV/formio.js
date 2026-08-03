@@ -43,6 +43,9 @@ import WellForm from './well/Well.form';
 import ImageForm from './image/Image.form';
 import TitleForm from './title/Title.form';
 import LocationForm from './location/Location.form';
+import WorkflowForm from './workflow/Workflow.form';
+import WorkflowHistoryForm from './workflowHistory/WorkflowHistory.form';
+import WorkflowStatesForm from './workflowStates/WorkflowStates.form';
 
 Components.address.editForm = AddressForm;
 Components.button.editForm = ButtonForm;
@@ -88,5 +91,8 @@ Components.well.editForm = WellForm;
 Components.image.editForm = ImageForm;
 Components.title.editForm = TitleForm;
 Components.location.editForm = LocationForm;
+Components.workflow.editForm = WorkflowForm;
+Components.workflowHistory.editForm = WorkflowHistoryForm;
+Components.workflowStates.editForm = WorkflowStatesForm;
 
 export default Components;
