@@ -3,16 +3,23 @@ import { Formio } from '../../../Formio';
 /**
  * Shared REST client for the workflow/workflowHistory/workflowStates components.
  *
- * Talks to the Next.js proxy routes under `options.apiBase` (default `/api`), which attach auth
- * server-side and forward 1:1 to the Spring Boot RegistrationController/AclController endpoints
- * -- the components themselves never see a bearer token, they only do same-origin fetches
- * against `/api/{tenant}/{application}/{database}/...`, mirroring the app's existing
- * `app/api/[tenant]/infoware/[database]/registrations/**` route layout.
+ * Talks to the Next.js proxy routes under `options.apiBase` (default: this page's own origin +
+ * `/api`), which attach auth server-side and forward 1:1 to the Spring Boot
+ * RegistrationController/AclController endpoints -- the components themselves never see a bearer
+ * token, they only do same-origin fetches against `/api/{tenant}/{application}/{database}/...`,
+ * mirroring the app's existing `app/api/[tenant]/infoware/[database]/registrations/**` route
+ * layout.
+ *
+ * `apiBase` MUST be an absolute URL (not a bare `/api` path): `Formio.request` (the fetch
+ * wrapper behind `Formio.makeRequest`) rewrites any URL starting with `/` to
+ * `Formio.baseUrl + url` -- and `Formio.baseUrl` defaults to `https://api.form.io`, since this
+ * app never calls `Formio.setBaseUrl`. Without `location.origin` here, every call silently goes
+ * to Form.io's own cloud API instead of this app's proxy routes.
  */
 function getContext(component) {
   const options = component.options || {};
   return {
-    apiBase: options.apiBase || '/api',
+    apiBase: options.apiBase || `${window.location.origin}/api`,
     tenant: options.tenant,
     application: options.application || 'infoware',
     database: options.database,

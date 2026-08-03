@@ -1,8 +1,11 @@
 // The form-design page always renders at /{tenant}/infoware/{database}/forms/{key} -- parsed
 // here (module-eval time, once per page load) the same way Title/Location's editForm fields
-// derive their own admin-API URLs from `location.href`.
+// derive their own admin-API URLs from `location.href`. Must be an absolute URL (location.origin
+// + path, not a bare `/api/...` path): `Formio.request` rewrites any URL starting with `/` to
+// `Formio.baseUrl + url`, and `Formio.baseUrl` defaults to `https://api.form.io` since this app
+// never calls `Formio.setBaseUrl` -- a bare path silently ends up calling Form.io's own cloud API.
 const pathSegments = location.pathname.split('/');
-const workflowListUrl = `/api/${pathSegments[1]}/isoware/${pathSegments[3]}/workflow/definitions?resourceType=REGISTRATION&t=${Date.now()}`;
+const workflowListUrl = `${location.origin}/api/${pathSegments[1]}/isoware/${pathSegments[3]}/workflow/definitions?resourceType=REGISTRATION&t=${Date.now()}`;
 
 export default [
   {
