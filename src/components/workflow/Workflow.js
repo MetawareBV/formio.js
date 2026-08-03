@@ -95,6 +95,7 @@ export default class WorkflowComponent extends Component {
   selectAction(actionId) {
     const action = _.find(this.actions, (candidate) => String(candidate.id) === String(actionId));
     if (!action) {
+      console.warn(`workflow: no loaded action matches clicked id "${actionId}" (loaded ids: ${this.actions.map((a) => a.id).join(', ') || 'none'})`);
       return;
     }
     this.errorMessage = null;
@@ -193,13 +194,16 @@ export default class WorkflowComponent extends Component {
    */
   runEntryAction(action, payload) {
     if (!this.root || typeof this.root.submit !== 'function') {
+      console.warn('workflow: cannot run entry action, this.root.submit is not available', this.root);
       return;
     }
     this.busy = true;
     this.redraw();
     this.root.workflowPendingAction = { transitionId: action.id, ...payload };
+    console.debug('workflow: triggering root.submit() for entry action', this.root.workflowPendingAction);
     this.root.submit()
       .then(() => {
+        console.debug('workflow: root.submit() resolved for entry action');
         this.busy = false;
         this.pendingAction = null;
         this.selectedActorId = '';
@@ -207,6 +211,7 @@ export default class WorkflowComponent extends Component {
         this.errorMessage = null;
       })
       .catch((err) => {
+        console.warn('workflow: root.submit() rejected for entry action', err);
         delete this.root.workflowPendingAction;
         this.busy = false;
         this.errorMessage = extractErrorMessage(err);
@@ -258,7 +263,9 @@ export default class WorkflowComponent extends Component {
     });
     const superAttach = super.attach(element);
     this.addEventListener(this.refs.actionButton, 'click', (event) => {
-      this.selectAction(event.currentTarget.getAttribute('data-action-id'));
+      const actionId = event.currentTarget.getAttribute('data-action-id');
+      console.debug('workflow: action button clicked', actionId);
+      this.selectAction(actionId);
     });
     if (this.refs.confirmAction) {
       this.addEventListener(this.refs.confirmAction, 'click', () => this.confirmPendingAction());
