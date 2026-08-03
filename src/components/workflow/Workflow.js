@@ -2,9 +2,11 @@ import _ from 'lodash';
 import Component from '../_classes/component/Component';
 import {
   getAvailableActions,
+  getEntryActions,
   executeAction,
   getParties,
   getRegistrationId,
+  getWorkflowId,
   extractErrorMessage,
 } from './utils/workflowClient';
 
@@ -17,10 +19,13 @@ import {
  * stored the whole workflow state as a JSON blob in its own field.
  *
  * `component.workflowId` (set via the builder property, see Workflow.edit.display.js) is
- * design-time only -- this class never reads it. The backend resolves which workflow a
- * registration runs against from `Form.workflowId`, not from anything sent by the browser, so
- * the host app syncs the two by calling `PUT .../forms/{formId}/workflow/{workflowId}` whenever
- * a design containing this component is published.
+ * design-time only in the sense that this class never sends it to the backend to resolve a
+ * registration's workflow -- the host app syncs it to `Form.workflowId` on publish (`PUT
+ * .../forms/{formId}/workflow/{workflowId}`), which is what the server actually uses. This class
+ * DOES read `options.workflowId` (wired from the host app to the same value) for one thing: when
+ * there is no `options.registrationId` yet -- i.e. a brand new, not-yet-created registration --
+ * it uses it to preview the workflow's entry-status actions and let the user act on them
+ * immediately, without saving first. See `runEntryAction`.
  */
 export default class WorkflowComponent extends Component {
   static schema(...extend) {
@@ -68,11 +73,13 @@ export default class WorkflowComponent extends Component {
   }
 
   loadActions() {
-    if (!getRegistrationId(this)) {
+    const registrationId = getRegistrationId(this);
+    if (!registrationId && !getWorkflowId(this)) {
       return Promise.resolve();
     }
     this.busy = true;
-    return getAvailableActions(this)
+    const load = registrationId ? getAvailableActions(this) : getEntryActions(this);
+    return load
       .then((actions) => {
         this.busy = false;
         this.actions = actions || [];
@@ -109,7 +116,7 @@ export default class WorkflowComponent extends Component {
       this.redraw();
     }
     else {
-      this.runAction(action, {});
+      this.dispatchAction(action, {});
     }
   }
 
@@ -122,10 +129,21 @@ export default class WorkflowComponent extends Component {
       this.redraw();
       return;
     }
-    this.runAction(this.pendingAction, {
+    this.dispatchAction(this.pendingAction, {
       actorPartyId: this.selectedActorId || undefined,
       comment: this.comment || undefined,
     });
+  }
+
+  /** Routes to the instance flow (registration already exists) or the entry-action flow
+   *  (brand new registration -- see runEntryAction) depending on what the host app wired in. */
+  dispatchAction(action, payload) {
+    if (getRegistrationId(this)) {
+      this.runAction(action, payload);
+    }
+    else {
+      this.runEntryAction(action, payload);
+    }
   }
 
   cancelPendingAction() {
@@ -158,6 +176,38 @@ export default class WorkflowComponent extends Component {
         }
       })
       .catch((err) => {
+        this.busy = false;
+        this.errorMessage = extractErrorMessage(err);
+        this.redraw();
+      });
+  }
+
+  /**
+   * Entry-action flow for a not-yet-created registration: there is no id to POST a transition
+   * against, so instead this stashes the chosen transition on `this.root.workflowPendingAction`
+   * and triggers the form's own submit -- the host app's `saveSubmission` bridge (see
+   * formio-renderer.tsx) reads that stashed value, creates the registration, and executes the
+   * transition against the newly created id as one combined step, before resolving the normal
+   * submit promise. This reuses the form's existing submit validation/success/error UX rather
+   * than duplicating it here.
+   */
+  runEntryAction(action, payload) {
+    if (!this.root || typeof this.root.submit !== 'function') {
+      return;
+    }
+    this.busy = true;
+    this.redraw();
+    this.root.workflowPendingAction = { transitionId: action.id, ...payload };
+    this.root.submit()
+      .then(() => {
+        this.busy = false;
+        this.pendingAction = null;
+        this.selectedActorId = '';
+        this.comment = '';
+        this.errorMessage = null;
+      })
+      .catch((err) => {
+        delete this.root.workflowPendingAction;
         this.busy = false;
         this.errorMessage = extractErrorMessage(err);
         this.redraw();

@@ -24,6 +24,7 @@ function getContext(component) {
     application: options.application || 'infoware',
     database: options.database,
     registrationId: options.registrationId,
+    workflowId: options.workflowId,
   };
 }
 
@@ -44,8 +45,21 @@ function request(component, method, url, data) {
   });
 }
 
+/** A transition with no trigger rows is always manually callable; one with only TIME/EVENT
+ *  triggers is automation-only. Mirrors `WorkflowEngineService.isManuallyCallable` server-side --
+ *  duplicated here only for the entry-action preview (see getEntryActions), since that path has
+ *  no registration yet for the server to run its own check against. */
+function isManuallyCallable(transition) {
+  const triggers = transition.triggers || [];
+  return !triggers.length || triggers.some((t) => t.active && t.triggerType === 'MANUAL');
+}
+
 export function getRegistrationId(component) {
   return getContext(component).registrationId;
+}
+
+export function getWorkflowId(component) {
+  return getContext(component).workflowId;
 }
 
 export function getAvailableActions(component) {
@@ -54,6 +68,34 @@ export function getAvailableActions(component) {
     return Promise.resolve([]);
   }
   return request(component, 'GET', `${baseUrl(component)}/registrations/${registrationId}/actions`);
+}
+
+export function getWorkflowDefinition(component, workflowId) {
+  // Workflow definitions are proxied under the "isoware" application segment -- same reasoning
+  // as getParties: this is design-time configuration, not infoware-specific data.
+  const { apiBase, tenant, database } = getContext(component);
+  return request(component, 'GET', `${apiBase}/${tenant}/isoware/${database}/workflow/definitions/${workflowId}`);
+}
+
+/**
+ * Preview of the actions that would become available the instant a not-yet-created registration
+ * is submitted -- i.e. the transitions out of the workflow's entry (NEW-category) status. Used
+ * so the `workflow` component can show (and act on) buttons before the registration exists; see
+ * Workflow.js's `runEntryAction` for how clicking one actually creates the registration.
+ */
+export function getEntryActions(component) {
+  const { workflowId } = getContext(component);
+  if (!workflowId) {
+    return Promise.resolve([]);
+  }
+  return getWorkflowDefinition(component, workflowId).then((workflow) => {
+    const entryStatus = (workflow.statuses || []).find((s) => s.category === 'NEW');
+    if (!entryStatus) {
+      return [];
+    }
+    return (workflow.transitions || [])
+      .filter((t) => t.fromStatusId === entryStatus.id && t.active && isManuallyCallable(t));
+  });
 }
 
 export function executeAction(component, transitionId, { actorPartyId, comment } = {}) {
