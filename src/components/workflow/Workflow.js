@@ -200,10 +200,8 @@ export default class WorkflowComponent extends Component {
     this.busy = true;
     this.redraw();
     this.root.workflowPendingAction = { transitionId: action.id, ...payload };
-    console.log('workflow: triggering root.submit() for entry action', this.root.workflowPendingAction);
     this.root.submit()
       .then(() => {
-        console.log('workflow: root.submit() resolved for entry action');
         this.busy = false;
         this.pendingAction = null;
         this.selectedActorId = '';
@@ -261,12 +259,14 @@ export default class WorkflowComponent extends Component {
       actorSelect: 'single',
       commentInput: 'single',
     });
-    console.log('workflow: attach() called, actionButton refs found:', this.refs.actionButton ? this.refs.actionButton.length : this.refs.actionButton);
     const superAttach = super.attach(element);
-    this.addEventListener(this.refs.actionButton, 'click', (event) => {
-      const actionId = event.currentTarget.getAttribute('data-action-id');
-      console.log('workflow: action button clicked', actionId);
-      this.selectAction(actionId);
+    // `this.refs.actionButton` is a NodeList (loadRefs 'multiple') -- Element#addEventListener
+    // only supports a single DOM node (it checks `'addEventListener' in obj`, which a NodeList
+    // never satisfies), so each button needs its own call rather than passing the NodeList itself.
+    (this.refs.actionButton || []).forEach((buttonEl) => {
+      this.addEventListener(buttonEl, 'click', (event) => {
+        this.selectAction(event.currentTarget.getAttribute('data-action-id'));
+      });
     });
     if (this.refs.confirmAction) {
       this.addEventListener(this.refs.confirmAction, 'click', () => this.confirmPendingAction());
