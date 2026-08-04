@@ -17,7 +17,7 @@ function formatDate(value) {
 }
 
 export default function(ctx) {
-  let html = `<div class="formio-workflow-history-component">`;
+  let html = `<div class="formio-workflow-history-component" style="padding:0.75rem 0;">`;
 
   if (ctx.errorMessage) {
     html += `<div class="alert alert-danger" role="alert">${escapeHtml(ctx.errorMessage)}</div>`;

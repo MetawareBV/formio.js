@@ -9,7 +9,7 @@ function escapeHtml(value) {
 }
 
 export default function(ctx) {
-  let html = `<div class="formio-workflow-states-component">`;
+  let html = `<div class="formio-workflow-states-component" style="padding:0.75rem 0;">`;
 
   if (ctx.errorMessage) {
     html += `<div class="alert alert-danger" role="alert">${escapeHtml(ctx.errorMessage)}</div>`;
