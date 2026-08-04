@@ -21,7 +21,13 @@ export default function(ctx) {
   else {
     html += `<div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;">`;
     (ctx.states || []).forEach((state, index) => {
-      const badgeClass = state.current ? 'badge bg-primary' : 'badge bg-secondary';
+      let badgeClass = 'badge bg-light text-dark border';
+      if (state.current) {
+        badgeClass = 'badge bg-primary';
+      }
+      else if (state.reached) {
+        badgeClass = 'badge bg-secondary';
+      }
       html += `<span class="${badgeClass}">${escapeHtml(state.name)}</span>`;
       if (index < ctx.states.length - 1) {
         html += `<i class="fa fa-arrow-right text-muted"></i>`;

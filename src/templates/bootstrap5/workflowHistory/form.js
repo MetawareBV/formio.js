@@ -37,8 +37,9 @@ export default function(ctx) {
     html += `</tr></thead><tbody>`;
     (ctx.history || []).forEach((entry) => {
       const isCurrent = !entry.completedAt;
+      const statusName = ctx.statusNames?.[entry.status] || entry.status;
       html += `<tr${isCurrent ? ' class="table-active"' : ''}>`;
-      html += `<td>${escapeHtml(entry.status)}</td>`;
+      html += `<td>${escapeHtml(statusName)}</td>`;
       html += `<td>${escapeHtml(entry.assignee ? entry.assignee.name : '')}</td>`;
       html += `<td>${escapeHtml(entry.action)}</td>`;
       html += `<td>${formatDate(entry.startedAt)}</td>`;
