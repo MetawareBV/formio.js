@@ -200,10 +200,10 @@ export default class WorkflowComponent extends Component {
     this.busy = true;
     this.redraw();
     this.root.workflowPendingAction = { transitionId: action.id, ...payload };
-    console.debug('workflow: triggering root.submit() for entry action', this.root.workflowPendingAction);
+    console.log('workflow: triggering root.submit() for entry action', this.root.workflowPendingAction);
     this.root.submit()
       .then(() => {
-        console.debug('workflow: root.submit() resolved for entry action');
+        console.log('workflow: root.submit() resolved for entry action');
         this.busy = false;
         this.pendingAction = null;
         this.selectedActorId = '';
@@ -261,10 +261,11 @@ export default class WorkflowComponent extends Component {
       actorSelect: 'single',
       commentInput: 'single',
     });
+    console.log('workflow: attach() called, actionButton refs found:', this.refs.actionButton ? this.refs.actionButton.length : this.refs.actionButton);
     const superAttach = super.attach(element);
     this.addEventListener(this.refs.actionButton, 'click', (event) => {
       const actionId = event.currentTarget.getAttribute('data-action-id');
-      console.debug('workflow: action button clicked', actionId);
+      console.log('workflow: action button clicked', actionId);
       this.selectAction(actionId);
     });
     if (this.refs.confirmAction) {
