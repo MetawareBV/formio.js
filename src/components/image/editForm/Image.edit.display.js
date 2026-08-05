@@ -1,13 +1,14 @@
 import Formio from "../../../Formio";
 
-// The form-design page always renders at /{tenant}/infoware/{database}/forms/{key} -- parsed
-// here (module-eval time, once per page load) the same way Workflow's editForm field derives
-// its own admin-API URL from `location.href`. Must be an absolute URL (location.origin + path,
-// not a bare `/api/...` path): `Formio.request` rewrites any URL starting with `/` to
-// `Formio.baseUrl + url`, and `Formio.baseUrl` defaults to `https://api.form.io` since this app
-// never calls `Formio.setBaseUrl` -- a bare path silently ends up calling Form.io's own cloud API.
-const pathSegments = location.pathname.split('/');
-const imageListUrl = `${location.origin}/api/${pathSegments[1]}/infoware/${pathSegments[3]}/attachments/image`;
+// `{{ options.tenant }}` / `{{ options.database }}` are resolved per-instance from this
+// editForm field's own `this.options` -- WebformBuilder spreads the builder's `options` down
+// into `this.editForm` (see WebformBuilder.js's showEditComponent), so whatever the host app
+// passed to `Formio.builder(el, schema, { tenant, database, application })` ends up here. Same
+// mechanism DateTime's editForm uses for `{{options.cdnUrl}}` -- see DateTime.edit.display.js.
+// Must still be prefixed with an absolute origin (not a bare `/api/...` path): `Formio.request`
+// rewrites any URL starting with `/` to `Formio.baseUrl + url`, and `Formio.baseUrl` defaults to
+// `https://api.form.io` since this app never calls `Formio.setBaseUrl`.
+const imageListUrl = `${location.origin}/api/{{ options.tenant }}/{{ options.application || 'infoware' }}/{{ options.database }}/attachments/image`;
 
 export default [
   {
