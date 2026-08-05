@@ -1,34 +1,13 @@
 import Formio from "../../../Formio";
-/*
-function getDatabaseName() {  
-  let params = new URLSearchParams(document.location.search);
-  let name = params.get("database");
-  if (name === undefined || name === "") return "";
-  return name.substring(name.lastIndexOf('/')+1, name.indexOf('.nsf')) ;
-}
-*/
-function getDatabaseName() {  
-  const params = new URLSearchParams(document.location.search);
-  const name = params.get("database") || ""; // Gebruik een standaardwaarde als er geen parameter is.
-  
-  if (!name) return ""; // Controleer meteen op een lege string.
-  
-  // Vervang backslashes door gewone slashes voor consistente verwerking
-  const normalizedName = name.replace(/\\/g, '/');
 
-  // Zoek naar de laatste '/' en '.nsf' in de string
-  const lastSlashIndex = normalizedName.lastIndexOf('/');
-  const nsfIndex = normalizedName.indexOf('.nsf');
-  
-  // Controleer of de indices geldig zijn
-  if (lastSlashIndex === -1 || nsfIndex === -1 || nsfIndex <= lastSlashIndex) {
-    return "";
-  }
-  
-  // Haal de database-naam op
-  return normalizedName.substring(lastSlashIndex + 1, nsfIndex);
-}
-
+// The form-design page always renders at /{tenant}/infoware/{database}/forms/{key} -- parsed
+// here (module-eval time, once per page load) the same way Workflow's editForm field derives
+// its own admin-API URL from `location.href`. Must be an absolute URL (location.origin + path,
+// not a bare `/api/...` path): `Formio.request` rewrites any URL starting with `/` to
+// `Formio.baseUrl + url`, and `Formio.baseUrl` defaults to `https://api.form.io` since this app
+// never calls `Formio.setBaseUrl` -- a bare path silently ends up calling Form.io's own cloud API.
+const pathSegments = location.pathname.split('/');
+const imageListUrl = `${location.origin}/api/${pathSegments[1]}/infoware/${pathSegments[3]}/attachments/image`;
 
 export default [
   {
@@ -79,11 +58,13 @@ export default [
     weight: 1,
     dataSrc: 'url',
     data: {
-      url:   '/infoware/app002/images?id=*'
+      url: imageListUrl
     },
-    searchField: 'title__regex',
-    template: '<span>{{ item.title }}</span>',
-    valueProperty: '_id',
+    // Matches GET /api/{tenant}/infoware/{database}/attachments/image?search= (partial
+    // filename, case-insensitive) -- see attachments/image/route.ts.
+    searchField: 'search',
+    template: '<span>{{ item.filename }}</span>',
+    valueProperty: 'id',
     lazyLoad: false
 },
 {
