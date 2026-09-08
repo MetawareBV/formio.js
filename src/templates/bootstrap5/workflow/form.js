@@ -43,9 +43,11 @@ const SPINNER = '<span class="spinner-border spinner-border-sm me-2" role="statu
  * should not read as the first one.
  */
 export default function(ctx) {
-  const justify = ctx.component.alignment === 'left' ? 'flex-start' : 'flex-end';
+  const align = ctx.component.alignment === 'left' ? 'flex-start' : 'flex-end';
   const actions = ctx.actions || [];
-  let html = '<div class="formio-workflow-component" style="display:flex;flex-direction:column;gap:0.5rem;">';
+  // Room above and below (the app's `py-6`): the accent line needs air under it, and the zone
+  // should not sit tight against the fields around it.
+  let html = '<div class="formio-workflow-component" style="display:flex;flex-direction:column;gap:0.5rem;padding:1.5rem 0;">';
 
   if (ctx.errorMessage) {
     html += `<div class="alert alert-danger" role="alert">${escapeHtml(ctx.errorMessage)}</div>`;
@@ -53,9 +55,14 @@ export default function(ctx) {
 
   // The zone itself stays put while an action is being confirmed below it: the status and the
   // accent line are what the form always shows for its workflow, not part of one action's flow.
-  // `margin-bottom` leaves room for the accent line, which hangs below the row rather than being
-  // a `border-bottom` -- padding above a border would make the row taller than its own buttons.
-  html += `<div class="formio-workflow-actions" style="position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;justify-content:${justify};margin-bottom:0.625rem;">`;
+  //
+  // `align-self` rather than `justify-content`: the row is only as wide as the status, the gap and
+  // the buttons themselves, and that whole block is what gets pushed to one side. It has to be
+  // that way round, because the accent line spans the row -- stretched to the form's full width it
+  // would run on past the last button and stop marking the zone off. The line hangs below the row
+  // (`bottom:-0.5rem`) instead of being a `border-bottom`: padding above a border would make the
+  // row taller than its own buttons.
+  html += `<div class="formio-workflow-actions" style="position:relative;align-self:${align};display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;">`;
   html += '<div class="formio-workflow-status" style="display:flex;align-items:center;align-self:flex-end;gap:0.375rem;min-width:0;padding-right:1.5rem;">';
   html += WORKFLOW_ICON;
   html += `<span style="${KICKER_STYLE}">${escapeHtml(ctx.statusName || ctx.t('Workflow'))}</span>`;
