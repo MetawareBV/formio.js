@@ -45,6 +45,7 @@ import UnknownComponent from './unknown/Unknown';
 import UrlComponent from './url/Url';
 import WellComponent from './well/Well';
 // Metaware Components
+import ColorPickerComponent from './colorpicker/ColorPicker';
 import ImageComponent from './image/Image';
 import TitleComponent from './title/Title';
 import LocationComponent from './location/Location';
@@ -101,6 +102,7 @@ export default {
   url: UrlComponent,
   well: WellComponent,
   // Metaware Components
+  colorpicker: ColorPickerComponent,
   image: ImageComponent,
   title: TitleComponent,
   location: LocationComponent,

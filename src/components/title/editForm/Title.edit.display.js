@@ -92,36 +92,26 @@ export default [
       ]
     }
   },
+  // Both colors used to be selects fed by the Domino `CustomApi.xsp/admin/settings/colors`
+  // endpoint. They are pickers now: the value is a CSS color that the title template drops straight
+  // into its style attribute, and the default palette is the host application's theme tokens, so a
+  // title follows the tenant's theme and light/dark mode instead of a hex frozen at design time.
   {
-    type: 'select',
+    type: 'colorpicker',
     input: true,
     key: 'backgroundcolor',
     weight: 51,
     label: 'Backgroundcolor',
-    tooltip: 'Backgroundcolor',
-    defaultValue: '#fff',
-    dataSrc: 'url',
-    data: {
-      url: location.href.substring(0, location.href.lastIndexOf("/application.nsf")) + '/application.nsf/CustomApi.xsp/admin/settings/colors' 
-    },
-    searchField: 'title__regex',
-    valueProperty: '_id',
-    template: '<span>{{ item.title }}</span>',
+    tooltip: 'Background color of the title.',
+    defaultValue: 'var(--card, #ffffff)',
   },
   {
-    type: 'select',
+    type: 'colorpicker',
     input: true,
     key: 'color',
-    weight: 51,
+    weight: 52,
     label: 'Text color',
-    tooltip: 'Text color',
-    defaultValue: '#000',
-    dataSrc: 'url',
-    data: {
-      url: location.href.substring(0, location.href.lastIndexOf("/application.nsf")) + '/application.nsf/CustomApi.xsp/admin/settings/colors'  //'/form?limit=4294967295&select=_id,title,display'
-    },
-    searchField: 'title__regex',
-    valueProperty: '_id',
-    template: '<span>{{ item.title }}</span>',
+    tooltip: 'Color of the title text.',
+    defaultValue: 'var(--card-foreground, #0b0b0b)',
   },
 ];

@@ -47,7 +47,7 @@ function request(component, method, url, data) {
 
 /** A transition with no trigger rows is always manually callable; one with only TIME/EVENT
  *  triggers is automation-only. Mirrors `WorkflowEngineService.isManuallyCallable` server-side --
- *  duplicated here only for the entry-action preview (see getEntryActions), since that path has
+ *  duplicated here only for the entry-action preview (see getEntryState), since that path has
  *  no registration yet for the server to run its own check against. */
 function isManuallyCallable(transition) {
   const triggers = transition.triggers || [];
@@ -78,23 +78,63 @@ export function getWorkflowDefinition(component, workflowId) {
 }
 
 /**
- * Preview of the actions that would become available the instant a not-yet-created registration
- * is submitted -- i.e. the transitions out of the workflow's entry (NEW-category) status. Used
- * so the `workflow` component can show (and act on) buttons before the registration exists; see
- * Workflow.js's `runEntryAction` for how clicking one actually creates the registration.
+ * Everything the action bar shows, in one call: the name of the status the registration is in
+ * right now, plus the actions available from it. The app's `WorkflowActionButtons` gets both from
+ * the page it sits in; a form has no such page, so the component resolves them itself.
+ *
+ * Resolving the status name costs two extra requests (the status history for the still-open entry,
+ * the workflow definition to turn its `WorkflowStatus` id into a name -- the same resolution
+ * WorkflowHistory.js does for its table) and is deliberately non-fatal: a failure there leaves the
+ * label empty and the buttons working, rather than taking the whole bar down.
  */
-export function getEntryActions(component) {
+export function getWorkflowState(component) {
+  const { registrationId } = getContext(component);
+  if (!registrationId) {
+    return getEntryState(component);
+  }
+  return Promise.all([
+    getAvailableActions(component),
+    getCurrentStatusName(component).catch(() => ''),
+  ]).then(([actions, statusName]) => ({ actions: actions || [], statusName }));
+}
+
+/** The name of the status the registration sits in: the one history entry with no `completedAt`. */
+function getCurrentStatusName(component) {
+  const workflowId = getWorkflowId(component);
+  if (!workflowId) {
+    // Without the definition there is nothing to resolve `entry.status` (a uuid) against, and a
+    // raw uuid on the bar is worse than no label at all -- the template then says "Workflow".
+    return Promise.resolve('');
+  }
+  return Promise.all([getStatusHistory(component), getWorkflowDefinition(component, workflowId)])
+    .then(([history, workflow]) => {
+      const current = (history || []).find((entry) => !entry.completedAt);
+      const status = current && (workflow.statuses || []).find((s) => s.id === current.status);
+      return status ? status.name : '';
+    });
+}
+
+/**
+ * Preview of the state a not-yet-created registration would be in the instant it is submitted:
+ * the workflow's entry (NEW-category) status and the transitions out of it. Used so the `workflow`
+ * component can show (and act on) buttons before the registration exists; see Workflow.js's
+ * `runEntryAction` for how clicking one actually creates the registration.
+ */
+export function getEntryState(component) {
   const { workflowId } = getContext(component);
   if (!workflowId) {
-    return Promise.resolve([]);
+    return Promise.resolve({ actions: [], statusName: '' });
   }
   return getWorkflowDefinition(component, workflowId).then((workflow) => {
     const entryStatus = (workflow.statuses || []).find((s) => s.category === 'NEW');
     if (!entryStatus) {
-      return [];
+      return { actions: [], statusName: '' };
     }
-    return (workflow.transitions || [])
-      .filter((t) => t.fromStatusId === entryStatus.id && t.active && isManuallyCallable(t));
+    return {
+      statusName: entryStatus.name,
+      actions: (workflow.transitions || [])
+        .filter((t) => t.fromStatusId === entryStatus.id && t.active && isManuallyCallable(t)),
+    };
   });
 }
 

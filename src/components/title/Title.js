@@ -8,8 +8,11 @@ export default class TitleComponent extends Component {
       type: 'title',
       tag: 'H1',
       alignment: 'center',
-      color: '#000',
-      backgroundcolor: '#fff',
+      // Theme tokens rather than fixed hexes, so a new title follows the tenant's theme and
+      // light/dark mode; the hex inside each var() is the fallback for renders without the tokens
+      // (PDF, e-mail, the plain formio preview). Must stay in sync with Title.edit.display.js.
+      color: 'var(--card-foreground, #0b0b0b)',
+      backgroundcolor: 'var(--card, #ffffff)',
       attrs: [],
       content: 'Title',
       input: false,

@@ -11,21 +11,16 @@ export default [
     key: 'description',
     ignore: true
   },
+  // Was a select fed by the Domino `CustomApi.xsp/admin/settings/colors` endpoint; see the same
+  // change in Title.edit.display.js for why this is a picker over theme tokens now.
   {
-    type: 'select',
+    type: 'colorpicker',
     input: true,
     key: 'backgroundcolor',
     weight: 51,
     label: 'Backgroundcolor',
-    tooltip: 'Backgroundcolor',
-    defaultValue: '#fff',
-    dataSrc: 'url',
-    data: {
-      url: location.href.substring(0, location.href.lastIndexOf("/application.nsf")) + '/application.nsf/CustomApi.xsp/admin/settings/colors?pc=' + new Date()  
-    },
-    searchField: 'title__regex',
-    valueProperty: '_id',
-    template: '<span>{{ item.title }}</span>',
+    tooltip: 'Background color of the well.',
+    defaultValue: 'var(--card, #ffffff)',
   },
   {
     key: 'autofocus',

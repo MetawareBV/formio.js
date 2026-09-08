@@ -60,7 +60,8 @@ export default [
     data: {
       values: [
         { label: 'Values', value: 'values' },
-        { label: 'Form', value: 'resource' },
+        { label: 'Form', value: 'form' },
+        { label: 'Resource', value: 'resource' },
         { label: 'URL', value: 'url' },
         { label: 'Resource', value: 'resource' },
         { label: 'Custom', value: 'custom' },
@@ -228,6 +229,31 @@ export default [
         '===': [
           { var: 'data.dataSrc' },
           'resource',
+        ],
+      },
+    },
+  },
+  {
+    type: 'select',
+    input: true,
+    dataSrc: 'url',
+    data: {
+      url: '/form?type=resource&limit=1000000&select=_id,title',
+    },
+    authenticate: true,
+    template: '<span>{{ item.title }}</span>',
+    valueProperty: '_id',
+    clearOnHide: false,
+    label: 'Form',
+    key: 'data.form',
+    lazyLoad: false,
+    weight: 10,
+    tooltip: 'The form to be used with this field.',
+    conditional: {
+      json: {
+        '===': [
+          { var: 'data.dataSrc' },
+          'form',
         ],
       },
     },

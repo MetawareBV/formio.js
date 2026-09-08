@@ -40,6 +40,7 @@ import UnknownForm from './unknown/Unknown.form';
 import UrlForm from './url/Url.form';
 import WellForm from './well/Well.form';
 // Metaware Components
+import ColorPickerForm from './colorpicker/ColorPicker.form';
 import ImageForm from './image/Image.form';
 import TitleForm from './title/Title.form';
 import LocationForm from './location/Location.form';
@@ -88,6 +89,7 @@ Components.unknown.editForm = UnknownForm;
 Components.url.editForm = UrlForm;
 Components.well.editForm = WellForm;
 // Metaware Components
+Components.colorpicker.editForm = ColorPickerForm;
 Components.image.editForm = ImageForm;
 Components.title.editForm = TitleForm;
 Components.location.editForm = LocationForm;

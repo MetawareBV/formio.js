@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import Component from '../_classes/component/Component';
 import {
-  getAvailableActions,
-  getEntryActions,
+  getWorkflowState,
   executeAction,
   getParties,
   getRegistrationId,
@@ -62,10 +61,14 @@ export default class WorkflowComponent extends Component {
     super.init();
     this.actions = [];
     this.parties = [];
+    this.statusName = '';
     this.pendingAction = null;
     this.selectedActorId = '';
     this.comment = '';
     this.busy = false;
+    // Which action is running right now, so its own button gets the spinner instead of the whole
+    // bar going quiet -- as the app does with `executingTransitionId`.
+    this.executingActionId = null;
     this.errorMessage = null;
     if (!this.builderMode) {
       this.loadActions();
@@ -78,11 +81,11 @@ export default class WorkflowComponent extends Component {
       return Promise.resolve();
     }
     this.busy = true;
-    const load = registrationId ? getAvailableActions(this) : getEntryActions(this);
-    return load
-      .then((actions) => {
+    return getWorkflowState(this)
+      .then(({ actions, statusName }) => {
         this.busy = false;
         this.actions = actions || [];
+        this.statusName = statusName || '';
         this.redraw();
       })
       .catch((err) => {
@@ -162,10 +165,12 @@ export default class WorkflowComponent extends Component {
       return;
     }
     this.busy = true;
+    this.executingActionId = action.id;
     this.redraw();
     executeAction(this, action.id, payload)
       .then(() => {
         this.busy = false;
+        this.executingActionId = null;
         this.pendingAction = null;
         this.selectedActorId = '';
         this.comment = '';
@@ -178,6 +183,7 @@ export default class WorkflowComponent extends Component {
       })
       .catch((err) => {
         this.busy = false;
+        this.executingActionId = null;
         this.errorMessage = extractErrorMessage(err);
         this.redraw();
       });
@@ -198,11 +204,13 @@ export default class WorkflowComponent extends Component {
       return;
     }
     this.busy = true;
+    this.executingActionId = action.id;
     this.redraw();
     this.root.workflowPendingAction = { transitionId: action.id, ...payload };
     this.root.submit()
       .then(() => {
         this.busy = false;
+        this.executingActionId = null;
         this.pendingAction = null;
         this.selectedActorId = '';
         this.comment = '';
@@ -212,6 +220,7 @@ export default class WorkflowComponent extends Component {
         console.warn('workflow: root.submit() rejected for entry action', err);
         delete this.root.workflowPendingAction;
         this.busy = false;
+        this.executingActionId = null;
         this.errorMessage = extractErrorMessage(err);
         this.redraw();
       });
@@ -242,9 +251,11 @@ export default class WorkflowComponent extends Component {
     return super.render(this.renderTemplate('workflow', {
       component: this.component,
       actions: this.actions,
+      statusName: this.statusName,
       pendingAction: this.pendingAction,
       parties: this.parties,
       busy: this.busy,
+      executingActionId: this.executingActionId,
       errorMessage: this.errorMessage,
       selectedActorId: this.selectedActorId,
       comment: this.comment,
