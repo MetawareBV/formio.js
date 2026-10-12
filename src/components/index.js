@@ -52,6 +52,14 @@ import LocationComponent from './location/Location';
 import WorkflowComponent from './workflow/Workflow';
 import WorkflowHistoryComponent from './workflowHistory/WorkflowHistory';
 import WorkflowStatesComponent from './workflowStates/WorkflowStates';
+// Improware Components -- de verplichte velden van een melding, zie IMPROWARE_BOUWPLAN.md 3.1.
+// Alleen zichtbaar in de bouwer als de aanroeper de groep 'improware' meegeeft in options.builder;
+// zonder die groep slaat WebformBuilder.addBuilderComponentInfo ze over.
+import TicketSubjectComponent from './ticketSubject/TicketSubject';
+import TicketDescriptionComponent from './ticketDescription/TicketDescription';
+import TicketUrgencyComponent from './ticketUrgency/TicketUrgency';
+import TicketSeverityComponent from './ticketSeverity/TicketSeverity';
+import TicketThroughputTimeComponent from './ticketThroughputTime/TicketThroughputTime';
 
 export default {
   address: AddressComponent,
@@ -109,4 +117,10 @@ export default {
   workflow: WorkflowComponent,
   workflowHistory: WorkflowHistoryComponent,
   workflowStates: WorkflowStatesComponent,
+  // Improware Components
+  ticketSubject: TicketSubjectComponent,
+  ticketDescription: TicketDescriptionComponent,
+  ticketUrgency: TicketUrgencyComponent,
+  ticketSeverity: TicketSeverityComponent,
+  ticketThroughputTime: TicketThroughputTimeComponent,
 };

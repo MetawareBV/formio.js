@@ -47,6 +47,12 @@ import LocationForm from './location/Location.form';
 import WorkflowForm from './workflow/Workflow.form';
 import WorkflowHistoryForm from './workflowHistory/WorkflowHistory.form';
 import WorkflowStatesForm from './workflowStates/WorkflowStates.form';
+// Improware Components
+import TicketSubjectForm from './ticketSubject/TicketSubject.form';
+import TicketDescriptionForm from './ticketDescription/TicketDescription.form';
+import TicketUrgencyForm from './ticketUrgency/TicketUrgency.form';
+import TicketSeverityForm from './ticketSeverity/TicketSeverity.form';
+import TicketThroughputTimeForm from './ticketThroughputTime/TicketThroughputTime.form';
 
 Components.address.editForm = AddressForm;
 Components.button.editForm = ButtonForm;
@@ -96,5 +102,11 @@ Components.location.editForm = LocationForm;
 Components.workflow.editForm = WorkflowForm;
 Components.workflowHistory.editForm = WorkflowHistoryForm;
 Components.workflowStates.editForm = WorkflowStatesForm;
+// Improware Components
+Components.ticketSubject.editForm = TicketSubjectForm;
+Components.ticketDescription.editForm = TicketDescriptionForm;
+Components.ticketUrgency.editForm = TicketUrgencyForm;
+Components.ticketSeverity.editForm = TicketSeverityForm;
+Components.ticketThroughputTime.editForm = TicketThroughputTimeForm;
 
 export default Components;
