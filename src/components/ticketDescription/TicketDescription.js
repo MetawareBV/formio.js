@@ -28,7 +28,11 @@ export default class TicketDescriptionComponent extends TextAreaComponent {
   static get builderInfo() {
     return {
       title: 'Omschrijving',
-      icon: 'align-left',
+      // 'align-left' bestaat niet in Bootstrap Icons: de iconenafbeelding in @formio/bootstrap
+      // laat een onbekende naam ongewijzigd door als bi-<naam>, en dan verschijnt er stil geen
+      // icoon. Namen die hier werken zijn de bi-namen zelf, of de handvol fa-namen uit die
+      // afbeelding (font, hashtag, clock-o, th-list, ...).
+      icon: 'text-paragraph',
       group: 'improware',
       weight: 10,
       schema: TicketDescriptionComponent.schema(),
