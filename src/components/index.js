@@ -60,6 +60,7 @@ import TicketDescriptionComponent from './ticketDescription/TicketDescription';
 import TicketUrgencyComponent from './ticketUrgency/TicketUrgency';
 import TicketSeverityComponent from './ticketSeverity/TicketSeverity';
 import TicketThroughputTimeComponent from './ticketThroughputTime/TicketThroughputTime';
+import TicketAttachmentComponent from './ticketAttachment/TicketAttachment';
 
 export default {
   address: AddressComponent,
@@ -123,4 +124,5 @@ export default {
   ticketUrgency: TicketUrgencyComponent,
   ticketSeverity: TicketSeverityComponent,
   ticketThroughputTime: TicketThroughputTimeComponent,
+  ticketAttachment: TicketAttachmentComponent,
 };
