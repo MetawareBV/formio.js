@@ -63,4 +63,27 @@ export default class TicketAttachmentComponent extends FileComponent {
   get defaultSchema() {
     return TicketAttachmentComponent.schema();
   }
+
+  /**
+   * De opmaak van een bestandsveld hangt aan de class {@code formio-component-file}, en die komt
+   * uit het componenttype ({@link Component#className} zet {@code formio-component-${type}}). Een
+   * eigen type betekent dus een eigen class, en tien regels bestandsveld-opmaak die niet meer
+   * aanslaan — waaronder de enige die de verwerkingsspinner verbergt:
+   *
+   * <pre>.formio-component-file .fileSelector .loader-wrapper { display: none }</pre>
+   *
+   * <p>Zonder die regel blijft de spinner draaien. Erger nog: {@code .loader-wrapper} staat op
+   * {@code position:absolute} met {@code top/left/bottom/right:0} en {@code z-index:1000}, dus hij
+   * ligt als onzichtbare laag over het hele veld en vangt elke klik — de knop “bladeren” doet dan
+   * niets. Slepen werkt wél, want dat luistert op een ander element; daardoor lijkt het veld half
+   * te werken en zoek je het in de verkeerde hoek.
+   *
+   * <p>Daarom draagt dit component beide classes: zijn eigen, voor wie er apart op wil richten, en
+   * die van het bestandsveld, voor de opmaak die het van {@link FileComponent} erft. Elk ander
+   * component dat van File erft heeft dit ook nodig.
+   * @returns {string} - De CSS-classes van dit component.
+   */
+  get className() {
+    return `${super.className} formio-component-file`;
+  }
 }
