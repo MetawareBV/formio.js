@@ -53,6 +53,7 @@ import TicketDescriptionForm from './ticketDescription/TicketDescription.form';
 import TicketUrgencyForm from './ticketUrgency/TicketUrgency.form';
 import TicketSeverityForm from './ticketSeverity/TicketSeverity.form';
 import TicketThroughputTimeForm from './ticketThroughputTime/TicketThroughputTime.form';
+import TicketAttachmentForm from './ticketAttachment/TicketAttachment.form';
 
 Components.address.editForm = AddressForm;
 Components.button.editForm = ButtonForm;
@@ -108,5 +109,6 @@ Components.ticketDescription.editForm = TicketDescriptionForm;
 Components.ticketUrgency.editForm = TicketUrgencyForm;
 Components.ticketSeverity.editForm = TicketSeverityForm;
 Components.ticketThroughputTime.editForm = TicketThroughputTimeForm;
+Components.ticketAttachment.editForm = TicketAttachmentForm;
 
 export default Components;
