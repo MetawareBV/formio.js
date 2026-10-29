@@ -28,12 +28,20 @@ const RELATION_TYPE = 'relationPicker';
  * zoekt dit veld in alle personen en vult de backend de klant aan uit de contactpersoon zelf — ook
  * dat is een geldige inrichting.
  *
- * <h4>Wisselt de klant, dan vervalt de keuze</h4>
+ * <h4>Wisselt de klant, dan vervalt de keuze — maar alleen bij een échte wissel</h4>
  *
  * Een contactpersoon hoort bij één klant. Blijft hij staan terwijl de klant wijzigt, dan weigert de
  * backend bij het opslaan (regel 2 van `resolveRelation`) — een omweg om te zeggen wat hier meteen
  * duidelijk kan zijn. Daarom luistert dit component op wijzigingen en maakt het zijn eigen waarde
  * leeg zodra de relatie een andere wordt. Dezelfde keuze als op het detailscherm van een melding.
+ *
+ * <p>🔴 <b>"Van geen klant naar een klant" is géén wissel.</b> De eerste versie maakte dat
+ * onderscheid niet, en daardoor wiste dit veld zichzelf bij het <b>openen van een opgeslagen
+ * melding</b>: het formulier vult bij het laden eerst de relatie in, deze luisteraar zag een
+ * wijziging, en de contactpersoon die er netjes in stond verdween uit beeld (gezien door Rene,
+ * 2026-10-29 — de melding zelf had hem wél, het formulier toonde een leeg veld). Dezelfde fout trof
+ * de melder die zijn contactpersoon vóór zijn klant invult; de backend vult daar juist de klant aan.
+ * Leegmaken hoort dus alleen als er al een andere klant stond.
  */
 export default class ContactPickerComponent extends SelectComponent {
   static schema(...extend) {
@@ -93,8 +101,14 @@ export default class ContactPickerComponent extends SelectComponent {
         if (current === this.lastRelationId) {
           return;
         }
+        const previous = this.lastRelationId;
         this.lastRelationId = current;
-        if (this.dataValue) {
+
+        // Alleen bij een échte wissel (van klant A naar klant B) vervalt de keuze. Van "nog geen
+        // klant" naar een klant is het laden van een bestaande inzending of een melder die de
+        // volgorde omdraait — in allebei die gevallen is er niets ongeldigs om weg te gooien, en
+        // weggooien kost de gebruiker juist wat hij al had ingevuld.
+        if (previous && this.dataValue) {
           // Eerst de waarde weg, dan pas de lijst verversen: andersom zou de oude naam nog even
           // naast de nieuwe lijst staan.
           this.setValue('', { modified: true });
