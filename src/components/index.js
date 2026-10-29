@@ -61,6 +61,7 @@ import TicketUrgencyComponent from './ticketUrgency/TicketUrgency';
 import TicketSeverityComponent from './ticketSeverity/TicketSeverity';
 import TicketThroughputTimeComponent from './ticketThroughputTime/TicketThroughputTime';
 import TicketAttachmentComponent from './ticketAttachment/TicketAttachment';
+import RelationPickerComponent from './relationPicker/RelationPicker';
 
 export default {
   address: AddressComponent,
@@ -125,4 +126,5 @@ export default {
   ticketSeverity: TicketSeverityComponent,
   ticketThroughputTime: TicketThroughputTimeComponent,
   ticketAttachment: TicketAttachmentComponent,
+  relationPicker: RelationPickerComponent,
 };
