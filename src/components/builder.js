@@ -55,6 +55,7 @@ import TicketSeverityForm from './ticketSeverity/TicketSeverity.form';
 import TicketThroughputTimeForm from './ticketThroughputTime/TicketThroughputTime.form';
 import TicketAttachmentForm from './ticketAttachment/TicketAttachment.form';
 import RelationPickerForm from './relationPicker/RelationPicker.form';
+import ContactPickerForm from './contactPicker/ContactPicker.form';
 
 Components.address.editForm = AddressForm;
 Components.button.editForm = ButtonForm;
@@ -112,5 +113,6 @@ Components.ticketSeverity.editForm = TicketSeverityForm;
 Components.ticketThroughputTime.editForm = TicketThroughputTimeForm;
 Components.ticketAttachment.editForm = TicketAttachmentForm;
 Components.relationPicker.editForm = RelationPickerForm;
+Components.contactPicker.editForm = ContactPickerForm;
 
 export default Components;

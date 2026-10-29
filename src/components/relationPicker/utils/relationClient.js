@@ -67,6 +67,34 @@ export function searchRelations(component, search) {
 }
 
 /**
+ * De contactpersonen die bij een zoekterm horen, eventueel beperkt tot één relatie.
+ *
+ * `personOnly` is hier wél het juiste filter: een contactpersoon ís een mens, en dat is precies de
+ * vraag. Staat er een relatie, dan komt `parentId` erbij en blijft de lijst tot díé klant beperkt.
+ * Zonder relatie zoekt hij in alle personen — de backend vult de klant dan aan uit de
+ * contactpersoon zelf (regel 3 van `resolveRelation`).
+ * @param {object} component - Het component dat de vraag stelt.
+ * @param {string} search - De zoekterm, of leeg voor de eerste lading.
+ * @param {string|null} parentId - De gekozen relatie, of null.
+ * @returns {Promise<object[]>} - De gevonden contactpersonen.
+ */
+export function searchContacts(component, search, parentId) {
+  const { tenant } = getContext(component);
+  if (!tenant) {
+    return Promise.resolve([]);
+  }
+  const params = new URLSearchParams();
+  params.set('personOnly', 'true');
+  if (parentId) {
+    params.set('parentId', parentId);
+  }
+  if (search) {
+    params.set('search', search);
+  }
+  return request(component, url(component, params));
+}
+
+/**
  * Eén relatie, opgehaald op id.
  *
  * Nodig voor een formulier dat met een opgeslagen waarde wordt geopend: de zoeklijst is afgetopt op
